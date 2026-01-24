@@ -92,8 +92,8 @@ namespace Data.Repositories
 
                 data.SetQuery(@"
                 UPDATE Clientes SET
-                    Nombre = @Nombre
-                    Apellido = @Apellido
+                    Nombre = @Nombre,
+                    Apellido = @Apellido,
                     Celular = @Celular
                 WHERE Id = @Id
 
@@ -102,7 +102,7 @@ namespace Data.Repositories
                 data.SetParameter("@Nombre", Modified.Nombre);
                 data.SetParameter("@Apellido", Modified.Apellido);
                 data.SetParameter("@Celular", Modified.Celular);
-                data.SetParameter("Id", Modified.Id);
+                data.SetParameter("@Id", Modified.Id);
 
                 data.ExecuteNonQuery();
 
