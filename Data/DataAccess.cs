@@ -28,6 +28,7 @@ namespace Data
             using (var Pragma = _Connection.CreateCommand()) 
             {
                 Pragma.CommandText = "PRAGMA foreign_keys = ON;";
+                Pragma.Connection.Open();   
                 Pragma.ExecuteNonQuery();
             }
         }
@@ -38,7 +39,7 @@ namespace Data
             _Cmd.CommandText = Query;
         }
 
-        public void ExecuteQuery()
+        public void ExecuteReader()
         {
             _Cmd.Connection = _Connection;
 
@@ -57,7 +58,20 @@ namespace Data
 
         public void ExecuteNonQuery()
         {
-            _Cmd.ExecuteNonQuery();
+            _Cmd.Connection = _Connection;
+
+            try
+            {
+
+                _Connection.Open();
+                _Cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public void SetParameter(string Parameter, object value)
