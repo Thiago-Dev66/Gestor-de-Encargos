@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="../Data/Data.csproj" Id="6209ef1e-31cd-4fcb-90d2-616e91475566" />
+  <Project Path="Dominio/Dominio.csproj" Id="f6401089-5770-4b0c-a60b-21e72a53c48d" />
+  <Project Path="Gestor de Encargos.csproj" Id="466d381f-f57d-4829-8e37-d73ae77d02f2" />
+  <Project Path="Negocio/Negocio.csproj" Id="e92fef5a-e558-4c0e-a602-d4c5d8e67ac1" />
+</Solution>
