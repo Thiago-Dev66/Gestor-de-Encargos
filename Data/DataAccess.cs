@@ -14,6 +14,7 @@ namespace Data
         private SqliteConnection _Connection;
         private SqliteCommand _Cmd;
         private SqliteDataReader _Reader = null;
+        private SqliteTransaction _Transaction;
 
         public SqliteDataReader Reader
         {
@@ -31,6 +32,53 @@ namespace Data
                 Pragma.Connection.Open();   
                 Pragma.ExecuteNonQuery();
             }
+        }
+
+        public object ExecuteScalar()
+        {
+            _Cmd.Connection = _Connection;
+
+            try
+            {
+                _Connection.Open();
+                return _Cmd.ExecuteScalar();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public void BeginTransaction()
+        {
+
+            _Cmd.Connection = _Connection;
+
+            try
+            {
+
+                _Connection.Open();
+
+                _Transaction = _Connection.BeginTransaction();
+                _Cmd.Transaction = _Transaction;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public void Commit()
+        {
+            _Transaction?.Commit();
+        }
+
+        public void Rollback()
+        {
+            _Transaction?.Rollback();
         }
 
         public void SetQuery(string Query)
@@ -76,6 +124,9 @@ namespace Data
 
         public void SetParameter(string Parameter, object value)
         {
+            if (value != null && value.GetType().IsEnum)
+                value = (int)value;
+
             _Cmd.Parameters.AddWithValue(Parameter, value);
         }
 
