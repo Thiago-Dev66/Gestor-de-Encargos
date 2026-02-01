@@ -10,11 +10,13 @@ using System.Windows.Forms;
 
 namespace Gestor_de_Encargos
 {
-    public partial class Form1 : Form
+    public partial class AgregarEncargo : Form
     {
-        public Form1()
+        public AgregarEncargo()
         {
             InitializeComponent();
         }
+
+        
     }
 }

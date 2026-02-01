@@ -93,7 +93,7 @@ namespace Data
                 CREATE TABLE IF NOT EXISTS Articulos (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     Codigo INTEGER NOT NULL UNIQUE,
-                    Nombre TEXT,
+                    Nombre TEXT NOT NULL,
                     Precio REAL
                     
                 );"
