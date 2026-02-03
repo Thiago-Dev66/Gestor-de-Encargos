@@ -63,8 +63,8 @@ namespace Data.Repositories
                     aux = new Articulo()
                     {
                         Id = Convert.ToInt32(data.Reader["Id"]),
-                        Codigo = Convert.ToInt32(data.Reader["Codigo"]),
-                        Nombre = (String)data.Reader["Nombre"]
+                        Codigo = (string)data.Reader["Codigo"],
+                        Nombre = (string)data.Reader["Nombre"]
                     };
                         if (!(data.Reader["Precio"] is DBNull))
                             aux.Precio = Convert.ToDouble(data.Reader["Precio"]);

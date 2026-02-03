@@ -169,6 +169,10 @@
       <Project>{f6401089-5770-4b0c-a60b-21e72a53c48d}</Project>
       <Name>Dominio</Name>
     </ProjectReference>
+    <ProjectReference Include="Negocio\Negocio.csproj">
+      <Project>{e92fef5a-e558-4c0e-a602-d4c5d8e67ac1}</Project>
+      <Name>Negocio</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

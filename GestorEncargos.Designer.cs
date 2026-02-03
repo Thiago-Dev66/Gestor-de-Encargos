@@ -30,6 +30,8 @@
         {
             this.dgvEncargos = new System.Windows.Forms.DataGridView();
             this.BtnAgregar = new System.Windows.Forms.Button();
+            this.txtNumeroVendedor = new System.Windows.Forms.TextBox();
+            this.lblNumeroVendedor = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEncargos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,11 +55,29 @@
             this.BtnAgregar.UseVisualStyleBackColor = true;
             this.BtnAgregar.Click += new System.EventHandler(this.BtnAgregar_Click);
             // 
+            // txtNumeroVendedor
+            // 
+            this.txtNumeroVendedor.Location = new System.Drawing.Point(928, 125);
+            this.txtNumeroVendedor.Name = "txtNumeroVendedor";
+            this.txtNumeroVendedor.Size = new System.Drawing.Size(184, 26);
+            this.txtNumeroVendedor.TabIndex = 2;
+            // 
+            // lblNumeroVendedor
+            // 
+            this.lblNumeroVendedor.AutoSize = true;
+            this.lblNumeroVendedor.Location = new System.Drawing.Point(834, 131);
+            this.lblNumeroVendedor.Name = "lblNumeroVendedor";
+            this.lblNumeroVendedor.Size = new System.Drawing.Size(79, 20);
+            this.lblNumeroVendedor.TabIndex = 3;
+            this.lblNumeroVendedor.Text = "Vendedor";
+            // 
             // GestorEncargos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1359, 681);
+            this.Controls.Add(this.lblNumeroVendedor);
+            this.Controls.Add(this.txtNumeroVendedor);
             this.Controls.Add(this.BtnAgregar);
             this.Controls.Add(this.dgvEncargos);
             this.Name = "GestorEncargos";
@@ -66,6 +86,7 @@
             this.Load += new System.EventHandler(this.GestorEncargos_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEncargos)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -73,6 +94,8 @@
 
         private System.Windows.Forms.DataGridView dgvEncargos;
         private System.Windows.Forms.Button BtnAgregar;
+        private System.Windows.Forms.TextBox txtNumeroVendedor;
+        private System.Windows.Forms.Label lblNumeroVendedor;
     }
 }
 

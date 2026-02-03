@@ -100,7 +100,10 @@ namespace Data.Repositories
 
                     encargo.Fecha = DateTime.Parse(data.Reader["Fecha"].ToString());
                     encargo.Estado = (EstadoEncargo)data.Reader["Estado"];
-                    encargo.Descripcion = (string)data.Reader["Descripcion"];
+
+                    if (!(data.Reader["Descripcion"] is DBNull))
+                        encargo.Descripcion = (string)data.Reader["Descripcion"];
+
                     encargo.SucursalOrigen = (string)data.Reader["SucursalOrigen"];
                     encargo.Cliente.Id = (int)data.Reader["ClienteID"];
                     encargo.Vendedor.Id = (int)data.Reader["VendedorId"];

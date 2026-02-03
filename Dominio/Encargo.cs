@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace Dominio
         public string SucursalOrigen { get; set; }
         public Cliente Cliente { get; set; }
         public Vendedor Vendedor { get; set; }
-        public List<ArticuloEncargo> ArticuloEncargo { get; set; }
+        public BindingList<ArticuloEncargo> ArticuloEncargo { get; set; }
     }
     public enum EstadoEncargo
     {
