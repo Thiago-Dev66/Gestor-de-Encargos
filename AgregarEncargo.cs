@@ -9,12 +9,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dominio;
 using Negocio;
+using Data;
+using Data.Repositories;
 
 namespace Gestor_de_Encargos
 {
     public partial class AgregarEncargo : Form
     {
         readonly private BindingList<ArticuloEncargo> articulos;
+        private ClienteRepository repository;
 
         public AgregarEncargo()
         {
@@ -22,12 +25,21 @@ namespace Gestor_de_Encargos
 
             articulos = new BindingList<ArticuloEncargo>();
             dgwListaArticulos.DataSource = articulos;
+            
+        }
+        private void AgregarEncargo_Load(object sender, EventArgs e)
+        {
+            repository = new ClienteRepository();
 
             dgwListaArticulos.Columns["Articulo"].Visible = false;
             dgwListaArticulos.Columns["ArticuloID"].Visible = false;
             dgwListaArticulos.Columns["EncargoID"].Visible = false;
 
             cboEstado.DataSource = Enum.GetValues(typeof(EstadoEncargo));
+
+            cboBuscarCliente.DataSource = repository.GetAll();
+            cboBuscarCliente.ValueMember = "Id";
+            cboBuscarCliente.DisplayMember = "NombreCompleto";
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -37,12 +49,23 @@ namespace Gestor_de_Encargos
                 Cliente = new Cliente()
             };
             EncargosNegocio encargosNegocio = new EncargosNegocio();
+            Cliente seleccionado;
 
             try
             {
-                //encargo.Cliente.Nombre = txtNombre.Text;
-                //encargo.Cliente.Apellido = txtApellido.Text;
-                //encargo.Cliente.Celular = txtContacto.Text;
+                seleccionado = cboBuscarCliente.SelectedItem as Cliente;
+
+                if (seleccionado == null)
+                {
+                    MessageBox.Show("Debe haber un cliente seleccionado",
+                                    "Cliente Inválido",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+
+                    cboBuscarCliente.Focus();
+                    return;
+                }
+                encargo.Cliente = seleccionado;
 
                 if (string.IsNullOrEmpty(txtSucursalOrigen.Text))
                 {
@@ -151,5 +174,12 @@ namespace Gestor_de_Encargos
             if (result == DialogResult.Yes) 
                 Close();
         }
+
+        private void btnAgregarNuevoCliente_Click(object sender, EventArgs e)
+        {
+            AgregarCliente agregarCliente = new AgregarCliente();
+            agregarCliente.ShowDialog();
+        }
+
     }
 }

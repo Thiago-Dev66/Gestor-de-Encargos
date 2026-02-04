@@ -31,5 +31,11 @@ namespace Gestor_de_Encargos
             AgregarEncargo agregarEncargo = new AgregarEncargo();
             agregarEncargo.ShowDialog();    
         }
+
+        private void btnAgregarCliente_Click(object sender, EventArgs e)
+        {
+            AgregarCliente agregarCliente = new AgregarCliente();
+            agregarCliente.ShowDialog();
+        }
     }
 }

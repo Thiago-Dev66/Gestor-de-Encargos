@@ -12,5 +12,7 @@ namespace Dominio
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Celular { get; set; }
+        public string NombreCompleto => $"{Nombre} {Apellido}";
+
     }
 }

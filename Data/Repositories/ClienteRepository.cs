@@ -26,7 +26,7 @@ namespace Data.Repositories
 
                     Cliente Aux = new Cliente();
 
-                    Aux.Id = (int)Data.Reader["Id"];
+                    Aux.Id = Convert.ToInt32(Data.Reader["Id"]);
                     Aux.Nombre = (string)Data.Reader["Nombre"];
                     Aux.Apellido = (string)Data.Reader["Apellido"];
                     Aux.Celular = (string)Data.Reader["Celular"];

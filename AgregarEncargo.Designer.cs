@@ -30,9 +30,9 @@
         {
             this.lblBuscar = new System.Windows.Forms.Label();
             this.gpbCliente = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblContacto = new System.Windows.Forms.Label();
+            this.lblApellido = new System.Windows.Forms.Label();
+            this.lblNombre = new System.Windows.Forms.Label();
             this.btnAgregarNuevoCliente = new System.Windows.Forms.Button();
             this.cboBuscarCliente = new System.Windows.Forms.ComboBox();
             this.grbEncargo = new System.Windows.Forms.GroupBox();
@@ -77,9 +77,9 @@
             // gpbCliente
             // 
             this.gpbCliente.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.gpbCliente.Controls.Add(this.label4);
-            this.gpbCliente.Controls.Add(this.label3);
-            this.gpbCliente.Controls.Add(this.label1);
+            this.gpbCliente.Controls.Add(this.lblContacto);
+            this.gpbCliente.Controls.Add(this.lblApellido);
+            this.gpbCliente.Controls.Add(this.lblNombre);
             this.gpbCliente.Controls.Add(this.btnAgregarNuevoCliente);
             this.gpbCliente.Controls.Add(this.cboBuscarCliente);
             this.gpbCliente.Controls.Add(this.lblBuscar);
@@ -90,32 +90,32 @@
             this.gpbCliente.TabStop = false;
             this.gpbCliente.Text = "Seleccionar Cliente";
             // 
-            // label4
+            // lblContacto
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(563, 109);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(51, 20);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "label4";
+            this.lblContacto.AutoSize = true;
+            this.lblContacto.Location = new System.Drawing.Point(563, 109);
+            this.lblContacto.Name = "lblContacto";
+            this.lblContacto.Size = new System.Drawing.Size(51, 20);
+            this.lblContacto.TabIndex = 6;
+            this.lblContacto.Text = "label4";
             // 
-            // label3
+            // lblApellido
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(563, 69);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(51, 20);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "label3";
+            this.lblApellido.AutoSize = true;
+            this.lblApellido.Location = new System.Drawing.Point(563, 69);
+            this.lblApellido.Name = "lblApellido";
+            this.lblApellido.Size = new System.Drawing.Size(51, 20);
+            this.lblApellido.TabIndex = 5;
+            this.lblApellido.Text = "label3";
             // 
-            // label1
+            // lblNombre
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(563, 29);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 20);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "label1";
+            this.lblNombre.AutoSize = true;
+            this.lblNombre.Location = new System.Drawing.Point(563, 29);
+            this.lblNombre.Name = "lblNombre";
+            this.lblNombre.Size = new System.Drawing.Size(51, 20);
+            this.lblNombre.TabIndex = 4;
+            this.lblNombre.Text = "label1";
             // 
             // btnAgregarNuevoCliente
             // 
@@ -125,6 +125,7 @@
             this.btnAgregarNuevoCliente.TabIndex = 2;
             this.btnAgregarNuevoCliente.Text = "Agregar Nuevo";
             this.btnAgregarNuevoCliente.UseVisualStyleBackColor = true;
+            this.btnAgregarNuevoCliente.Click += new System.EventHandler(this.btnAgregarNuevoCliente_Click);
             // 
             // cboBuscarCliente
             // 
@@ -390,6 +391,7 @@
             this.MinimumSize = new System.Drawing.Size(1002, 1078);
             this.Name = "AgregarEncargo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.AgregarEncargo_Load);
             this.gpbCliente.ResumeLayout(false);
             this.gpbCliente.PerformLayout();
             this.grbEncargo.ResumeLayout(false);
@@ -428,9 +430,9 @@
         private System.Windows.Forms.GroupBox grbArticulos;
         private System.Windows.Forms.Button btnEliminarArticulo;
         private System.Windows.Forms.Button btnAgregarArticulo;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblContacto;
+        private System.Windows.Forms.Label lblApellido;
+        private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Button btnAgregarNuevoCliente;
         private System.Windows.Forms.ComboBox cboBuscarCliente;
     }
