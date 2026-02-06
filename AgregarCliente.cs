@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Globalization;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -14,10 +15,15 @@ namespace Gestor_de_Encargos
 {
     public partial class AgregarCliente : Form
     {
+        public Cliente clienteAgregado { get; private set; }
+        public DialogResult Result { get; set; }
+
+
         public AgregarCliente()
         {
             InitializeComponent();
         }
+
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
@@ -26,32 +32,24 @@ namespace Gestor_de_Encargos
 
             try
             {
-                if (string.IsNullOrEmpty(txtNombre.Text))
-                {
-                    MessageBox.Show("El cliente debe tener un nombre",
-                                    "Campo Inválido",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-                    txtNombre.Focus();
-                    return;
-                }
+                
+                ValidarCliente(txtNombre, "El cliente debe tener un nombre");
                 cliente.Nombre = txtNombre.Text;
                 cliente.Apellido = txtApellido.Text;
 
-                if (string.IsNullOrEmpty(txtContacto.Text))
-                {
-                    MessageBox.Show("El cliente debe tener un contacto",
-                                    "Campo Inválido",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-                    txtContacto.Focus();
-                    return;
-                }
+                ValidarCliente(txtContacto, "El cliente debe tener un contacto");
                 cliente.Celular = txtContacto.Text;
 
                 clienteNegocio.AddCliente(cliente);
+                clienteAgregado = cliente;
 
-                MessageBox.Show("Se agregó con éxito!");
+                
+                DialogResult = MessageBox.Show("Se agregó con éxito!",
+                                        "Cliente Nuevo",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Information);
+
+                Result = DialogResult.OK;
                 Close();
             }
             catch (Exception ex)
@@ -72,6 +70,19 @@ namespace Gestor_de_Encargos
 
             if (result == DialogResult.Yes)
                 Close();
+        }
+        public void ValidarCliente(TextBox txtCampo, string mensaje)
+        {
+
+            if (string.IsNullOrEmpty(txtCampo.Text))
+            {
+                MessageBox.Show(mensaje,
+                                "Campo Inválido",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                txtCampo.Focus();
+                return;
+            }
         }
     }
 }

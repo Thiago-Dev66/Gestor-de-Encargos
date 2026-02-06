@@ -95,27 +95,24 @@
             this.lblContacto.AutoSize = true;
             this.lblContacto.Location = new System.Drawing.Point(563, 109);
             this.lblContacto.Name = "lblContacto";
-            this.lblContacto.Size = new System.Drawing.Size(51, 20);
+            this.lblContacto.Size = new System.Drawing.Size(0, 20);
             this.lblContacto.TabIndex = 6;
-            this.lblContacto.Text = "label4";
             // 
             // lblApellido
             // 
             this.lblApellido.AutoSize = true;
             this.lblApellido.Location = new System.Drawing.Point(563, 69);
             this.lblApellido.Name = "lblApellido";
-            this.lblApellido.Size = new System.Drawing.Size(51, 20);
+            this.lblApellido.Size = new System.Drawing.Size(0, 20);
             this.lblApellido.TabIndex = 5;
-            this.lblApellido.Text = "label3";
             // 
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
             this.lblNombre.Location = new System.Drawing.Point(563, 29);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(51, 20);
+            this.lblNombre.Size = new System.Drawing.Size(0, 20);
             this.lblNombre.TabIndex = 4;
-            this.lblNombre.Text = "label1";
             // 
             // btnAgregarNuevoCliente
             // 
@@ -134,6 +131,7 @@
             this.cboBuscarCliente.Name = "cboBuscarCliente";
             this.cboBuscarCliente.Size = new System.Drawing.Size(225, 28);
             this.cboBuscarCliente.TabIndex = 1;
+            this.cboBuscarCliente.SelectionChangeCommitted += new System.EventHandler(this.cboBuscarCliente_SelectionChangeCommitted);
             // 
             // grbEncargo
             // 

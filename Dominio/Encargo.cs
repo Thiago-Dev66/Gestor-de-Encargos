@@ -22,7 +22,8 @@ namespace Dominio
     {
         Pendiente = 0,
         Remitido = 1,
-        Notificado = 2,
-        Cancelado = 3
+        Vendido = 2,
+        Notificado = 3,
+        Cancelado = 4
     }
 }

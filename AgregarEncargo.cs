@@ -18,6 +18,7 @@ namespace Gestor_de_Encargos
     {
         readonly private BindingList<ArticuloEncargo> articulos;
         private ClienteRepository repository;
+        private Cliente seleccionado;
 
         public AgregarEncargo()
         {
@@ -35,13 +36,21 @@ namespace Gestor_de_Encargos
             dgwListaArticulos.Columns["ArticuloID"].Visible = false;
             dgwListaArticulos.Columns["EncargoID"].Visible = false;
 
-            cboEstado.DataSource = Enum.GetValues(typeof(EstadoEncargo));
+            dgwListaArticulos.Columns["Articulo"].DisplayIndex = 0;
+            //dgwListaArticulos.Columns["Codigo"].DisplayIndex = 1;
+            dgwListaArticulos.Columns["Cantidad"].DisplayIndex = 2;
 
-            cboBuscarCliente.DataSource = repository.GetAll();
+            cboEstado.DataSource = Enum.GetValues(typeof(EstadoEncargo));
+            CargarCbo();
+        }
+        private void CargarCbo()
+        {
+            cboBuscarCliente.DataSource = repository.GetAll()
+                                                    .OrderByDescending(c => c.Id)
+                                                    .ToList();
             cboBuscarCliente.ValueMember = "Id";
             cboBuscarCliente.DisplayMember = "NombreCompleto";
         }
-
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             Encargo encargo = new Encargo()
@@ -49,7 +58,6 @@ namespace Gestor_de_Encargos
                 Cliente = new Cliente()
             };
             EncargosNegocio encargosNegocio = new EncargosNegocio();
-            Cliente seleccionado;
 
             try
             {
@@ -138,9 +146,6 @@ namespace Gestor_de_Encargos
 
                 articulos.Add(articuloEncargo);
 
-                //dgwListaArticulos.Columns["Articulo"].DisplayIndex = 0;
-                //dgwListaArticulos.Columns["Código"].DisplayIndex = 1;
-                //dgwListaArticulos.Columns["Cantidad"].DisplayIndex = 2;
 
             }
             catch (Exception)
@@ -175,11 +180,41 @@ namespace Gestor_de_Encargos
                 Close();
         }
 
+        private void CargarClienteEnLabels(Cliente agregado = null) 
+        {
+            seleccionado = cboBuscarCliente.SelectedItem as Cliente;
+
+            if(agregado != null)
+            {
+                lblNombre.Text = agregado.Nombre;
+                lblApellido.Text = agregado.Apellido;
+                lblContacto.Text = agregado.Celular;
+            }
+            else
+            {
+                lblNombre.Text = seleccionado.Nombre;
+                lblApellido.Text = seleccionado.Apellido;
+                lblContacto.Text = seleccionado.Celular;
+            }
+        }
+
         private void btnAgregarNuevoCliente_Click(object sender, EventArgs e)
         {
             AgregarCliente agregarCliente = new AgregarCliente();
             agregarCliente.ShowDialog();
+
+            if (agregarCliente.Result == DialogResult.OK)
+            {
+                CargarCbo();
+                CargarClienteEnLabels(agregarCliente.clienteAgregado);
+            }
+
+
         }
 
+        private void cboBuscarCliente_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            CargarClienteEnLabels();
+        }
     }
 }
