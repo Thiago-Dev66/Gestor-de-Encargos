@@ -1,6 +1,6 @@
 ﻿namespace Gestor_de_Encargos
 {
-    partial class AgregarCliente
+    partial class AgregarPersona
     {
         /// <summary>
         /// Required designer variable.
@@ -106,7 +106,7 @@
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
-            // AgregarCliente
+            // AgregarPersona
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -122,9 +122,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximumSize = new System.Drawing.Size(518, 445);
             this.MinimumSize = new System.Drawing.Size(518, 445);
-            this.Name = "AgregarCliente";
+            this.Name = "AgregarPersona";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agregar Cliente";
+            this.Load += new System.EventHandler(this.AgregarPersona_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

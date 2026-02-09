@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dominio;
 using Negocio;
-using Data;
 using Data.Repositories;
 
 namespace Gestor_de_Encargos
@@ -58,6 +57,7 @@ namespace Gestor_de_Encargos
                 Cliente = new Cliente()
             };
             EncargosNegocio encargosNegocio = new EncargosNegocio();
+            GestorEncargos gestor = new GestorEncargos();
 
             try
             {
@@ -96,7 +96,7 @@ namespace Gestor_de_Encargos
                     return;
                 }
                 encargo.ArticuloEncargo = articulos;
-                //encargo.Vendedor.Numero = ?
+                encargo.Vendedor.Numero = gestor._NumeroVendedor;
                 //articuloEncargo.PrecioUnitario = Convert.ToDouble(txtPrecioTotal);
 
                 encargosNegocio.Save(encargo);
@@ -200,13 +200,13 @@ namespace Gestor_de_Encargos
 
         private void btnAgregarNuevoCliente_Click(object sender, EventArgs e)
         {
-            AgregarCliente agregarCliente = new AgregarCliente();
+            AgregarPersona agregarCliente = new AgregarPersona(TipoPersona.Cliente);
             agregarCliente.ShowDialog();
 
             if (agregarCliente.Result == DialogResult.OK)
             {
                 CargarCbo();
-                CargarClienteEnLabels(agregarCliente.clienteAgregado);
+                CargarClienteEnLabels((Cliente)agregarCliente.PersonaAgregada);
             }
 
 

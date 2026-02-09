@@ -33,14 +33,18 @@
             this.BtnAgregar = new System.Windows.Forms.Button();
             this.txtNumeroVendedor = new System.Windows.Forms.TextBox();
             this.lblNumeroVendedor = new System.Windows.Forms.Label();
-            this.btnAgregarCliente = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnAgregarVendedor = new System.Windows.Forms.Button();
+            this.btnModificarVendedor = new System.Windows.Forms.Button();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.gpbPanelClientes = new System.Windows.Forms.GroupBox();
+            this.gpbPanelVendedores = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnAgregarCliente = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEncargos)).BeginInit();
             this.toolStrip1.SuspendLayout();
-            this.gpbPanelClientes.SuspendLayout();
+            this.gpbPanelVendedores.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvEncargos
@@ -69,34 +73,35 @@
             this.txtNumeroVendedor.Name = "txtNumeroVendedor";
             this.txtNumeroVendedor.Size = new System.Drawing.Size(184, 26);
             this.txtNumeroVendedor.TabIndex = 2;
+            this.txtNumeroVendedor.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNumeroVendedor_KeyDown);
             // 
             // lblNumeroVendedor
             // 
             this.lblNumeroVendedor.AutoSize = true;
-            this.lblNumeroVendedor.Location = new System.Drawing.Point(919, 131);
+            this.lblNumeroVendedor.Location = new System.Drawing.Point(919, 130);
             this.lblNumeroVendedor.Name = "lblNumeroVendedor";
             this.lblNumeroVendedor.Size = new System.Drawing.Size(79, 20);
             this.lblNumeroVendedor.TabIndex = 3;
             this.lblNumeroVendedor.Text = "Vendedor";
             // 
-            // btnAgregarCliente
+            // btnAgregarVendedor
             // 
-            this.btnAgregarCliente.Location = new System.Drawing.Point(23, 50);
-            this.btnAgregarCliente.Name = "btnAgregarCliente";
-            this.btnAgregarCliente.Size = new System.Drawing.Size(197, 50);
-            this.btnAgregarCliente.TabIndex = 4;
-            this.btnAgregarCliente.Text = "Agregar Cliente";
-            this.btnAgregarCliente.UseVisualStyleBackColor = true;
-            this.btnAgregarCliente.Click += new System.EventHandler(this.btnAgregarCliente_Click);
+            this.btnAgregarVendedor.Location = new System.Drawing.Point(23, 50);
+            this.btnAgregarVendedor.Name = "btnAgregarVendedor";
+            this.btnAgregarVendedor.Size = new System.Drawing.Size(197, 50);
+            this.btnAgregarVendedor.TabIndex = 4;
+            this.btnAgregarVendedor.Text = "Agregar Vendedor";
+            this.btnAgregarVendedor.UseVisualStyleBackColor = true;
+            this.btnAgregarVendedor.Click += new System.EventHandler(this.btnAgregarVendedor_Click);
             // 
-            // button1
+            // btnModificarVendedor
             // 
-            this.button1.Location = new System.Drawing.Point(23, 117);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(195, 50);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Ver Clientes";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnModificarVendedor.Location = new System.Drawing.Point(23, 117);
+            this.btnModificarVendedor.Name = "btnModificarVendedor";
+            this.btnModificarVendedor.Size = new System.Drawing.Size(195, 50);
+            this.btnModificarVendedor.TabIndex = 5;
+            this.btnModificarVendedor.Text = "Modificar ";
+            this.btnModificarVendedor.UseVisualStyleBackColor = true;
             // 
             // toolStrip1
             // 
@@ -118,23 +123,54 @@
             this.toolStripButton1.Size = new System.Drawing.Size(34, 28);
             this.toolStripButton1.Text = "toolStripButton1";
             // 
-            // gpbPanelClientes
+            // gpbPanelVendedores
             // 
-            this.gpbPanelClientes.Controls.Add(this.btnAgregarCliente);
-            this.gpbPanelClientes.Controls.Add(this.button1);
-            this.gpbPanelClientes.Location = new System.Drawing.Point(21, 165);
-            this.gpbPanelClientes.Name = "gpbPanelClientes";
-            this.gpbPanelClientes.Size = new System.Drawing.Size(257, 331);
-            this.gpbPanelClientes.TabIndex = 7;
-            this.gpbPanelClientes.TabStop = false;
-            this.gpbPanelClientes.Text = "Panel Clientes";
+            this.gpbPanelVendedores.Controls.Add(this.btnAgregarVendedor);
+            this.gpbPanelVendedores.Controls.Add(this.btnModificarVendedor);
+            this.gpbPanelVendedores.Location = new System.Drawing.Point(21, 377);
+            this.gpbPanelVendedores.Name = "gpbPanelVendedores";
+            this.gpbPanelVendedores.Size = new System.Drawing.Size(257, 221);
+            this.gpbPanelVendedores.TabIndex = 7;
+            this.gpbPanelVendedores.TabStop = false;
+            this.gpbPanelVendedores.Text = "Panel Vendedores";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnAgregarCliente);
+            this.groupBox1.Controls.Add(this.button4);
+            this.groupBox1.Location = new System.Drawing.Point(21, 65);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(257, 208);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Panel Clientes";
+            // 
+            // btnAgregarCliente
+            // 
+            this.btnAgregarCliente.Location = new System.Drawing.Point(23, 50);
+            this.btnAgregarCliente.Name = "btnAgregarCliente";
+            this.btnAgregarCliente.Size = new System.Drawing.Size(197, 50);
+            this.btnAgregarCliente.TabIndex = 4;
+            this.btnAgregarCliente.Text = "Agregar Cliente";
+            this.btnAgregarCliente.UseVisualStyleBackColor = true;
+            this.btnAgregarCliente.Click += new System.EventHandler(this.btnAgregarCliente_Click_1);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(23, 117);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(195, 50);
+            this.button4.TabIndex = 5;
+            this.button4.Text = "Ver Clientes";
+            this.button4.UseVisualStyleBackColor = true;
             // 
             // GestorEncargos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1359, 681);
-            this.Controls.Add(this.gpbPanelClientes);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.gpbPanelVendedores);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.lblNumeroVendedor);
             this.Controls.Add(this.txtNumeroVendedor);
@@ -147,7 +183,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvEncargos)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.gpbPanelClientes.ResumeLayout(false);
+            this.gpbPanelVendedores.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -159,11 +196,14 @@
         private System.Windows.Forms.Button BtnAgregar;
         private System.Windows.Forms.TextBox txtNumeroVendedor;
         private System.Windows.Forms.Label lblNumeroVendedor;
-        private System.Windows.Forms.Button btnAgregarCliente;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnAgregarVendedor;
+        private System.Windows.Forms.Button btnModificarVendedor;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.GroupBox gpbPanelClientes;
+        private System.Windows.Forms.GroupBox gpbPanelVendedores;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnAgregarCliente;
+        private System.Windows.Forms.Button button4;
     }
 }
 

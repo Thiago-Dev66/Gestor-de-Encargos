@@ -146,5 +146,31 @@ namespace Data.Repositories
 
             }
         }
+
+        public bool ValidarVendedor(int val)
+        {
+            DataAccess data = new DataAccess();
+            List<int> listNumeros = new List<int>();
+
+            data.SetQuery("SELECT NUMERO FROM VENDEDORES");
+            data.ExecuteReader();
+
+            int num;
+
+            while (data.Reader.Read())
+            {
+                num = Convert.ToInt32(data.Reader["Numero"]);
+
+                listNumeros.Add(num);
+            }
+
+            foreach (var item in listNumeros)
+            {
+                if (item == val)
+                    return true;
+            }
+
+            return false;
+        }
     }
 }
