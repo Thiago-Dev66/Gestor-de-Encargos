@@ -18,15 +18,17 @@ namespace Gestor_de_Encargos
         readonly private BindingList<ArticuloEncargo> articulos;
         private ClienteRepository repository;
         private Cliente seleccionado;
+        private Vendedor _Vendedor { get; set; }
 
-        public AgregarEncargo()
+        public AgregarEncargo(Vendedor vendedor)
         {
             InitializeComponent();
 
             articulos = new BindingList<ArticuloEncargo>();
             dgwListaArticulos.DataSource = articulos;
-            
+            _Vendedor = vendedor;
         }
+
         private void AgregarEncargo_Load(object sender, EventArgs e)
         {
             repository = new ClienteRepository();
@@ -35,8 +37,8 @@ namespace Gestor_de_Encargos
             dgwListaArticulos.Columns["ArticuloID"].Visible = false;
             dgwListaArticulos.Columns["EncargoID"].Visible = false;
 
-            dgwListaArticulos.Columns["Articulo"].DisplayIndex = 0;
-            //dgwListaArticulos.Columns["Codigo"].DisplayIndex = 1;
+            dgwListaArticulos.Columns["ArticuloNombre"].DisplayIndex = 0;
+            dgwListaArticulos.Columns["ArticuloCodigo"].DisplayIndex = 1;
             dgwListaArticulos.Columns["Cantidad"].DisplayIndex = 2;
 
             cboEstado.DataSource = Enum.GetValues(typeof(EstadoEncargo));
@@ -54,7 +56,8 @@ namespace Gestor_de_Encargos
         {
             Encargo encargo = new Encargo()
             {
-                Cliente = new Cliente()
+                Cliente = new Cliente(),
+                Vendedor = new Vendedor()
             };
             EncargosNegocio encargosNegocio = new EncargosNegocio();
             GestorEncargos gestor = new GestorEncargos();
@@ -96,8 +99,7 @@ namespace Gestor_de_Encargos
                     return;
                 }
                 encargo.ArticuloEncargo = articulos;
-                encargo.Vendedor.Numero = gestor._NumeroVendedor;
-                //articuloEncargo.PrecioUnitario = Convert.ToDouble(txtPrecioTotal);
+                encargo.Vendedor = _Vendedor;
 
                 encargosNegocio.Save(encargo);
 
@@ -142,11 +144,15 @@ namespace Gestor_de_Encargos
                     return;
                 }
                 articuloEncargo.Articulo.Codigo = txtCodigo.Text;
+
+                if (nudCantidad.Value <= 0)
+                {
+                    MessageBox.Show("La cantidad no puede ser cero");
+                    return;
+                }
                 articuloEncargo.Cantidad = (int)nudCantidad.Value;
 
                 articulos.Add(articuloEncargo);
-
-
             }
             catch (Exception)
             {

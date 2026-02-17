@@ -1,5 +1,6 @@
 ﻿using Dominio;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -47,38 +48,39 @@ namespace Data.Repositories
             List<Vendedor> lista = new List<Vendedor>();
             Vendedor aux;
 
-            DataAccess data = new DataAccess();
-
-            data.SetQuery("SELECT * FROM Vendedores");
-            data.ExecuteReader();
-
-            try
+            using (var data = new DataAccess())
             {
+                data.SetQuery("SELECT Id, Numero, Nombre, Apellido from Vendedores");
+                data.ExecuteReader();
 
-                while (data.Reader.Read())
+                try
                 {
-                    aux = new Vendedor();
 
-                    aux.Id = (int)data.Reader["Id"];
-                    aux.Numero = (int)data.Reader["Numero"];
-                    aux.Nombre = (string)data.Reader["Nombre"];
-                    aux.Apellido = (string)data.Reader["Apellido"];
+                    while (data.Reader.Read())
+                    {
+                        aux = new Vendedor();
 
-                    lista.Add(aux);
-                    
+                        aux.Id = (int)data.Reader["Id"];
+                        aux.Numero = (int)data.Reader["Numero"];
+                        aux.Nombre = (string)data.Reader["Nombre"];
+                        aux.Apellido = (string)data.Reader["Apellido"];
+
+                        lista.Add(aux);
+
+                    }
+
+                    return lista;
+
                 }
+                catch (Exception)
+                {
 
-                return lista;
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            finally
-            {
-                data.ConnectionClose();
+                    throw;
+                }
+                finally
+                {
+                    data.ConnectionClose();
+                }
             }
 
         }
@@ -147,30 +149,44 @@ namespace Data.Repositories
             }
         }
 
-        public bool ValidarVendedor(int val)
+        public Vendedor ValidarVendedor(int val)
         {
-            DataAccess data = new DataAccess();
-            List<int> listNumeros = new List<int>();
-
-            data.SetQuery("SELECT NUMERO FROM VENDEDORES");
-            data.ExecuteReader();
-
+            Vendedor vendedor;
             int num;
 
-            while (data.Reader.Read())
+            using (var data = new DataAccess())
             {
-                num = Convert.ToInt32(data.Reader["Numero"]);
+                try
+                {
+                    data.SetQuery("SELECT Id, Numero, Nombre, Apellido FROM Vendedores");
+                    data.ExecuteReader();
 
-                listNumeros.Add(num);
+                    while (data.Reader.Read())
+                    {
+                        num = Convert.ToInt32(data.Reader["Numero"]);
+
+                        if (val == num)
+                        {
+                            vendedor = new Vendedor()
+                            {
+                                Id = Convert.ToInt32(data.Reader["Id"]),
+                                Nombre = (string)data.Reader["Nombre"],
+                                Apellido = (string)data.Reader["Apellido"]
+                            };
+                            return vendedor;
+                        }
+                    }
+                    throw new NullReferenceException();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally
+                {
+                    data.ConnectionClose();
+                }
             }
-
-            foreach (var item in listNumeros)
-            {
-                if (item == val)
-                    return true;
-            }
-
-            return false;
         }
     }
 }

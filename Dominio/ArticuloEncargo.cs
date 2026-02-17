@@ -16,8 +16,8 @@ namespace Dominio
         public double PrecioUnitario { get; set; }
 
         [DisplayName("Código")]
-        public string articuloCodigo => Articulo?.Codigo;
+        public string ArticuloCodigo => Articulo?.Codigo;
         [DisplayName("Articulo")]
-        public string articuloNombre => Articulo?.Nombre;
+        public string ArticuloNombre => Articulo?.Nombre;
     }
 }

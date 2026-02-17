@@ -12,74 +12,79 @@ namespace Data.Repositories
     {
         public List<Cliente> GetAll() 
         {
-            DataAccess Data = new DataAccess();
             List<Cliente> clientes = new List<Cliente>();
 
-            try
+            using (var Data = new DataAccess())
             {
 
-                Data.SetQuery("SELECT Id, Nombre, Apellido, Celular FROM CLIENTES");
-                Data.ExecuteReader();
-
-                while (Data.Reader.Read())
+                try
                 {
 
-                    Cliente Aux = new Cliente();
+                    Data.SetQuery("SELECT Id, Nombre, Apellido, Celular FROM CLIENTES");
+                    Data.ExecuteReader();
 
-                    Aux.Id = Convert.ToInt32(Data.Reader["Id"]);
-                    Aux.Nombre = (string)Data.Reader["Nombre"];
-                    Aux.Apellido = (string)Data.Reader["Apellido"];
-                    Aux.Celular = (string)Data.Reader["Celular"];
+                    while (Data.Reader.Read())
+                    {
 
-                    clientes.Add(Aux);
+                        Cliente Aux = new Cliente();
+
+                        Aux.Id = Convert.ToInt32(Data.Reader["Id"]);
+                        Aux.Nombre = (string)Data.Reader["Nombre"];
+                        Aux.Apellido = (string)Data.Reader["Apellido"];
+                        Aux.Celular = (string)Data.Reader["Celular"];
+
+                        clientes.Add(Aux);
+
+                    }
+
+                    return clientes;
 
                 }
+                catch (Exception ex)
+                {
 
-                return clientes;
-
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            finally
-            {
-                Data.ConnectionClose();
+                    throw ex;
+                }
+                finally
+                {
+                    Data.ConnectionClose();
+                }
             }
         }
 
         public void Add(Cliente NewClient)
         {
 
-            DataAccess data = new DataAccess();
-
-            try
+            using (var data = new DataAccess())
             {
-               
-                data.SetQuery(@"
+
+                try
+                {
+
+                    data.SetQuery(@"
                     INSERT INTO Clientes (Nombre, Apellido, Celular)
                     VALUES (@Nombre, @Apellido, @Celular)
-                ");
+                    ");
 
-                data.SetParameter("@Nombre", NewClient.Nombre);
-                data.SetParameter("@Apellido", NewClient.Apellido);
-                data.SetParameter("@Celular", NewClient.Celular);
+                    data.SetParameter("@Nombre", NewClient.Nombre);
+                    data.SetParameter("@Apellido", NewClient.Apellido);
+                    data.SetParameter("@Celular", NewClient.Celular);
 
-                data.ExecuteNonQuery();
+                    data.ExecuteNonQuery();
 
-            }
-            catch (Exception)
-            {
+                }
+                catch (Exception)
+                {
 
-                throw;
+                    throw;
 
-            }
-            finally 
-            { 
-            
-                data.ConnectionClose();
-            
+                }
+                finally
+                {
+
+                    data.ConnectionClose();
+
+                }
             }
         }
 

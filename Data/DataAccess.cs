@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,13 +8,13 @@ using Microsoft.Data.Sqlite;
 
 namespace Data
 {
-    public class DataAccess
+    public class DataAccess : IDisposable
     {
         private readonly string _ConnectionString = "Data Source = .\\Gestor_Encargos.db";
 
         private SqliteConnection _Connection;
         private SqliteCommand _Cmd;
-        private SqliteDataReader _Reader = null;
+        private SqliteDataReader _Reader;
         private SqliteTransaction _Transaction;
 
         public SqliteDataReader Reader
@@ -29,25 +30,39 @@ namespace Data
             using (var Pragma = _Connection.CreateCommand()) 
             {
                 Pragma.CommandText = "PRAGMA foreign_keys = ON;";
-                Pragma.Connection.Open();   
+
+                if ((Pragma.Connection.State != ConnectionState.Open))
+                    Pragma.Connection.Open();   
+
                 Pragma.ExecuteNonQuery();
+
+                if(Pragma.Connection.State == ConnectionState.Open)
+                    Pragma.Connection.Close();
             }
+        }
+        public void Dispose()
+        {
+            try
+            {
+                if (_Connection.State == ConnectionState.Open)
+                    _Connection.Close();
+
+                _Connection?.Dispose();
+                _Transaction?.Dispose();
+                _Reader?.Dispose();
+                _Cmd?.Dispose();
+            }
+            catch { }
         }
 
         public object ExecuteScalar()
         {
             _Cmd.Connection = _Connection;
 
-            try
-            {
+            if (_Connection.State != ConnectionState.Open)
                 _Connection.Open();
-                return _Cmd.ExecuteScalar();
-            }
-            catch (Exception)
-            {
 
-                throw;
-            }
+            return _Cmd.ExecuteScalar();
         }
 
         public void BeginTransaction()
@@ -57,12 +72,14 @@ namespace Data
 
             try
             {
+                if (_Connection.State != ConnectionState.Open)
+                    _Connection.Open();
 
-                _Connection.Open();
-
-                _Transaction = _Connection.BeginTransaction();
-                _Cmd.Transaction = _Transaction;
-
+                if (_Transaction == null)
+                {
+                    _Transaction = _Connection.BeginTransaction();
+                    _Cmd.Transaction = _Transaction;
+                }
             }
             catch (Exception)
             {
@@ -74,15 +91,20 @@ namespace Data
         public void Commit()
         {
             _Transaction?.Commit();
+            _Transaction?.Dispose();
+            _Transaction = null;    
         }
 
         public void Rollback()
         {
             _Transaction?.Rollback();
+            _Transaction?.Dispose();
+            _Transaction = null;
         }
 
         public void SetQuery(string Query)
         {
+            _Cmd.Parameters.Clear();
             _Cmd.CommandType = System.Data.CommandType.Text;
             _Cmd.CommandText = Query;
         }
@@ -93,9 +115,16 @@ namespace Data
 
             try
             {
-                _Connection.Open();
-                _Reader = _Cmd.ExecuteReader();
+                if (_Connection.State != ConnectionState.Open)
+                    _Connection.Open();
 
+                if (_Reader != null && !_Reader.IsClosed)
+                {
+                    _Reader.Close();
+                    _Reader.Dispose();
+                }
+                    
+                _Reader = _Cmd.ExecuteReader();
             }
             catch (Exception ex)
             {
@@ -110,8 +139,9 @@ namespace Data
 
             try
             {
+                if (_Connection.State != ConnectionState.Open)
+                    _Connection.Open();
 
-                _Connection.Open();
                 _Cmd.ExecuteNonQuery();
 
             }
@@ -133,11 +163,19 @@ namespace Data
         public void ConnectionClose()
         {
 
-            if (_Reader != null) 
-                _Reader.Close();
+            try
+            {
+                if (_Reader != null && !_Reader.IsClosed)
+                {
+                    _Reader.Close();
+                    _Reader.Dispose();
+                }
 
-            _Connection.Close();
-
+                _Connection.Close();
+                _Transaction = null;
+                _Reader = null;
+            }
+            catch { }
         }
     }
 }

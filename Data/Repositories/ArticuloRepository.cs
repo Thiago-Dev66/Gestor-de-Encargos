@@ -11,36 +11,38 @@ namespace Data.Repositories
     {
         public void Add(Articulo articulo)
         {
-            DataAccess data = new DataAccess();
-
-            try
+            using (var data = new DataAccess())
             {
-                data.BeginTransaction();
 
-                data.SetQuery(@"
+                try
+                {
+                    data.BeginTransaction();
+
+                    data.SetQuery(@"
                         INSERT INTO Articulos (Codigo, Nombre, Precio) 
                         VALUES (@Codigo, @Nombre, @Precio) 
                 ");
 
-                data.SetParameter("@Codigo", articulo.Codigo);
-                data.SetParameter("@Nombre", articulo.Nombre);
-                data.SetParameter("@Precio", articulo.Precio);
+                    data.SetParameter("@Codigo", articulo.Codigo);
+                    data.SetParameter("@Nombre", articulo.Nombre);
+                    data.SetParameter("@Precio", articulo.Precio);
 
-                data.ExecuteNonQuery();
+                    data.ExecuteNonQuery();
 
-                data.Commit();
+                    data.Commit();
+
+                }
+                catch (Exception)
+                {
+                    data.Rollback();
+                    throw;
+                }
+                finally
+                {
+                    data.ConnectionClose();
+                }
 
             }
-            catch (Exception)
-            {
-                data.Rollback();
-                throw;
-            }
-            finally
-            {
-                data.ConnectionClose();
-            }
-
         }
         public List<Articulo> GetAll()
         {

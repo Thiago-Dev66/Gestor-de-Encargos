@@ -16,10 +16,12 @@ namespace Gestor_de_Encargos
 {
     public partial class GestorEncargos : Form
     {
-        public int _NumeroVendedor { get; private set; }
+        private Vendedor _Vendedor { get; set; }
         public GestorEncargos()
         {
             InitializeComponent();
+            BtnAgregar.Enabled = false;
+            txtNumeroVendedor.Focus();
         }
 
         private void GestorEncargos_Load(object sender, EventArgs e)
@@ -30,7 +32,7 @@ namespace Gestor_de_Encargos
 
         private void BtnAgregar_Click(object sender, EventArgs e)
         {
-            AgregarEncargo agregarEncargo = new AgregarEncargo();
+            AgregarEncargo agregarEncargo = new AgregarEncargo(_Vendedor);
             agregarEncargo.ShowDialog();    
         }
 
@@ -46,25 +48,18 @@ namespace Gestor_de_Encargos
             agregarCliente.ShowDialog();
         }
 
-        public int ValidarNumero(string numero)
-        {
-            if (!(int.TryParse(numero, out int val)))
-            {
-                MessageBox.Show("El número de vendedor no es correcto");
-                return 0;
-            }
-            return val;
-        }
-        public void ValidarVendedor(int val)
+        public void ValidarVendedor(int numeroVendedor)
         {
             VendedorNegocio negocio;
             negocio = new VendedorNegocio();
+            object obj;
 
+            obj = negocio.ValidarVendedor(numeroVendedor);
 
-            if (negocio.ValidarVendedor(val))
+            if (obj != null)
             {
-                MessageBox.Show("!");
-                _NumeroVendedor = val;
+                _Vendedor = (Vendedor)obj;
+                BtnAgregar.Enabled = true;
                 BtnAgregar.Focus();
             }
             else
@@ -75,9 +70,10 @@ namespace Gestor_de_Encargos
 
             if (e.KeyCode == Keys.Enter) 
             {
-                int val = ValidarNumero(txtNumeroVendedor.Text);
-
-                ValidarVendedor(val);
+                if ((int.TryParse(txtNumeroVendedor.Text, out int val)))
+                    ValidarVendedor(val);
+                else
+                    MessageBox.Show("Debe ser un número");
             }
         }
     }

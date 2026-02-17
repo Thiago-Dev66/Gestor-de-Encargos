@@ -27,14 +27,27 @@ namespace Negocio
             }
         }
 
-        public bool ValidarVendedor(int val)
+        public Vendedor ValidarVendedor(int val)
         {
             VendedorRepository repository = new VendedorRepository();
+            Vendedor vendedor;
 
-            if(repository.ValidarVendedor(val))
-                return true;
+            try
+            {
+                vendedor = (Vendedor)repository.ValidarVendedor(val);
 
-            return false;
+                if (vendedor != null) 
+                    return vendedor;
+                else
+                    throw new NullReferenceException("Número inválido");
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+                return null;
+                
+            }
         }
     }
 }

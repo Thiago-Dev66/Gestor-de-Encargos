@@ -13,127 +13,139 @@ namespace Data.Repositories
         public int Add(Encargo encargo)
         {
 
-            DataAccess data = new DataAccess();
-
-            try
+            using (var data = new DataAccess())
             {
 
-                data.BeginTransaction();
+                try
+                {
 
-                data.SetQuery(@"
+                    data.BeginTransaction();
+
+                    data.SetQuery(@"
                         INSERT INTO Encargos 
                         (Fecha, Estado, Descripcion, SucursalOrigen, ClienteId, VendedorId)
                         VALUES 
                         (@Fecha, @Estado, @Descripcion, @SucursalOrigen, @ClienteId, @VendedorId)
-                        SELECT last_insert_rowid();
-                ");
+                        
+                        ");
 
-                data.SetParameter("@Fecha", encargo.Fecha);
-                data.SetParameter("@Estado", (int)encargo.Estado);
-                data.SetParameter("@Descripcion", encargo.Descripcion);
-                data.SetParameter("@SucursalOrigen", encargo.SucursalOrigen);
-                data.SetParameter("@ClienteId", encargo.Cliente.Id);
-                data.SetParameter("@VendedorId", encargo.Vendedor.Id);
+                    data.SetParameter("@Fecha", encargo.Fecha);
+                    data.SetParameter("@Estado", (int)encargo.Estado);
+                    data.SetParameter("@Descripcion", encargo.Descripcion);
+                    data.SetParameter("@SucursalOrigen", encargo.SucursalOrigen);
+                    data.SetParameter("@ClienteId", encargo.Cliente.Id);
+                    data.SetParameter("@VendedorId", encargo.Vendedor.Id);
 
-                int encargoId = (int)data.ExecuteScalar();
+                    data.ExecuteNonQuery();
 
-                foreach (var item in encargo.ArticuloEncargo)
-                {
-                    data.SetQuery(@"
+                    data.SetQuery("SELECT last_insert_rowid()");
+                    object scalar = data.ExecuteScalar();
+
+                    if (scalar == null || scalar == DBNull.Value)
+                        throw new InvalidOperationException("Ningún ID fue retornado");
+
+                    int encargoId = Convert.ToInt32(scalar);
+
+                    foreach (var item in encargo.ArticuloEncargo)
+                    {
+                        data.SetQuery(@"
                             INSERT INTO ArticulosEncargos 
                                 (ArticuloId, EncargoId, Cantidad, PrecioUnitario)
                             VALUES
                                 (@ArticuloId, @EncargoId, @Cantidad, @PrecioUnitario)
-                    ");
+                            ");
 
-                    data.SetParameter("@ArticuloId", item.ArticuloID);
-                    data.SetParameter("@EncargoId", encargoId);
-                    data.SetParameter("@Cantidad", item.Cantidad);
-                    data.SetParameter("@PrecioUnitario", item.PrecioUnitario);
+                        data.SetParameter("@ArticuloId", item.ArticuloID);
+                        data.SetParameter("@EncargoId", encargoId);
+                        data.SetParameter("@Cantidad", item.Cantidad);
+                        data.SetParameter("@PrecioUnitario", item.PrecioUnitario);
 
-                    data.ExecuteNonQuery();
+                        data.ExecuteNonQuery();
+                    }
+
+                    data.Commit();
+
+                    return encargoId;
+
+                }
+                catch (Exception)
+                {
+
+                    data.Rollback();
+                    throw;
+                }
+                finally
+                {
+                    data.ConnectionClose();
                 }
 
-                data.Commit();
-                
-                return encargoId;
-
             }
-            catch (Exception)
-            {
-
-                data.Rollback();
-                throw;
-            }
-            finally
-            {
-                data.ConnectionClose();
-            }
-
         }
 
         public List<Encargo> GetAll()
         {
             Encargo encargo;
             List<Encargo> encargos = new List<Encargo>();
-            DataAccess data = new DataAccess();
 
-            try
+            using (var data = new DataAccess())
             {
+                try
+                {
 
-                data.SetQuery(@"
+                    data.SetQuery(@"
                     SELECT E.Fecha, E.Estado, E.Descripcion, E.SucursalOrigen, E.ClienteID, E.VendedorID
                     FROM Encargos AS E
                     JOIN Clientes AS C ON E.ClienteId = C.Id
                     JOIN Vendedores AS V ON E.VendedorId = V.Id 
-                ");
+                    ");
 
-                data.ExecuteReader();
+                    data.ExecuteReader();
 
-                while (data.Reader.Read())
-                {
-                    encargo = new Encargo()
+                    while (data.Reader.Read())
                     {
-                        Cliente = new Cliente(),
-                        Vendedor = new Vendedor()
-                    };
+                        encargo = new Encargo()
+                        {
+                            Cliente = new Cliente(),
+                            Vendedor = new Vendedor()
+                        };
 
-                    encargo.Fecha = DateTime.Parse(data.Reader["Fecha"].ToString());
-                    encargo.Estado = (EstadoEncargo)data.Reader["Estado"];
+                        encargo.Fecha = DateTime.Parse(data.Reader["Fecha"].ToString());
+                        encargo.Estado = (EstadoEncargo)data.Reader["Estado"];
 
-                    if (!(data.Reader["Descripcion"] is DBNull))
-                        encargo.Descripcion = (string)data.Reader["Descripcion"];
+                        if (!(data.Reader["Descripcion"] is DBNull))
+                            encargo.Descripcion = (string)data.Reader["Descripcion"];
 
-                    encargo.SucursalOrigen = (string)data.Reader["SucursalOrigen"];
-                    encargo.Cliente.Id = (int)data.Reader["ClienteID"];
-                    encargo.Vendedor.Id = (int)data.Reader["VendedorId"];
+                        encargo.SucursalOrigen = (string)data.Reader["SucursalOrigen"];
+                        encargo.Cliente.Id = (int)data.Reader["ClienteID"];
+                        encargo.Vendedor.Id = (int)data.Reader["VendedorId"];
 
-                    encargos.Add(encargo);
+                        encargos.Add(encargo);
+                    }
+
+                    return encargos;
                 }
-
-                return encargos;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                data.ConnectionClose();
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally
+                {
+                    data.ConnectionClose();
+                }
             }
 
         }
 
         public void Update(Encargo encargo)
         {
-            DataAccess data = new DataAccess();
-
-            try
+            using (var data = new DataAccess())
             {
+                try
+                {
 
-                data.BeginTransaction();
+                    data.BeginTransaction();
 
-                data.SetQuery(@" 
+                    data.SetQuery(@" 
                         UPDATE Encargos SET 
                             Fecha = @Fecha, 
                             Estado = @Estado,  
@@ -142,74 +154,76 @@ namespace Data.Repositories
                             ClienteID = @ClienteID,
                             VendedorID = @VendedorID
                         WHERE Id = @Id
-                ");
+                    ");
 
-                data.SetParameter(@"Id", encargo.Id);
-                data.SetParameter("@Fecha", encargo.Fecha);
-                data.SetParameter("@Estado", (int)encargo.Estado);
-                data.SetParameter("@Descripcion", encargo.Descripcion);
-                data.SetParameter("@SucursalOrigen", encargo.SucursalOrigen);
-                data.SetParameter("@ClienteID", encargo.Cliente.Id);
-                data.SetParameter("@VendedorID", encargo.Vendedor.Id);
+                    data.SetParameter(@"Id", encargo.Id);
+                    data.SetParameter("@Fecha", encargo.Fecha);
+                    data.SetParameter("@Estado", (int)encargo.Estado);
+                    data.SetParameter("@Descripcion", encargo.Descripcion);
+                    data.SetParameter("@SucursalOrigen", encargo.SucursalOrigen);
+                    data.SetParameter("@ClienteID", encargo.Cliente.Id);
+                    data.SetParameter("@VendedorID", encargo.Vendedor.Id);
 
-                data.ExecuteNonQuery();
+                    data.ExecuteNonQuery();
 
-                data.SetQuery(@"DELETE FROM ArticulosEncargos WHERE EncargoId = @Id");
-                data.SetParameter("@Id", encargo.Id);
-                data.ExecuteNonQuery();
+                    data.SetQuery(@"DELETE FROM ArticulosEncargos WHERE EncargoId = @Id");
+                    data.SetParameter("@Id", encargo.Id);
+                    data.ExecuteNonQuery();
 
-                foreach (var item in encargo.ArticuloEncargo)
-                {
-                    data.SetQuery(@"INSERT INTO ArticulosEncargos 
+                    foreach (var item in encargo.ArticuloEncargo)
+                    {
+                        data.SetQuery(@"INSERT INTO ArticulosEncargos 
                                         (ArticuloId, EncargoId, Cantidad, PrecioUnitario)
                                     VALUES
                                         (@ArticuloId, @EncargoId, @Cantidad, @PrecioUnitario)
                     ");
 
-                    data.SetParameter("@ArticuloId", item.ArticuloID);
-                    data.SetParameter("@EncargoId", encargo.Id);
-                    data.SetParameter("@Cantidad", item.Cantidad);
-                    data.SetParameter("@PrecioUnitario", item.PrecioUnitario);
+                        data.SetParameter("@ArticuloId", item.ArticuloID);
+                        data.SetParameter("@EncargoId", encargo.Id);
+                        data.SetParameter("@Cantidad", item.Cantidad);
+                        data.SetParameter("@PrecioUnitario", item.PrecioUnitario);
 
-                    data.ExecuteNonQuery();
+                        data.ExecuteNonQuery();
+                    }
+
+                    data.Commit();
+
                 }
-
-                data.Commit();
-
-            }
-            catch (Exception)
-            {
-                data.Rollback();
-                throw;
-            }
-            finally 
-            { 
-                data.ConnectionClose(); 
+                catch (Exception)
+                {
+                    data.Rollback();
+                    throw;
+                }
+                finally
+                {
+                    data.ConnectionClose();
+                }
             }
         }
 
         public void Delete(int id)
         {
-            DataAccess data = new DataAccess();
-
-            try
+            using (var data = new DataAccess())
             {
-                data.BeginTransaction();
+                try
+                {
+                    data.BeginTransaction();
 
-                data.SetQuery(@"DELETE FROM Encargos WHERE Id = @Id");
-                data.SetParameter("@Id", id);
-                data.ExecuteNonQuery();
+                    data.SetQuery(@"DELETE FROM Encargos WHERE Id = @Id");
+                    data.SetParameter("@Id", id);
+                    data.ExecuteNonQuery();
 
-                data.Commit();
-            }
-            catch (Exception)
-            {
-                data.Rollback();
-                throw;
-            }
-            finally
-            {
-                data.ConnectionClose();
+                    data.Commit();
+                }
+                catch (Exception)
+                {
+                    data.Rollback();
+                    throw;
+                }
+                finally
+                {
+                    data.ConnectionClose();
+                }
             }
         }
     }
