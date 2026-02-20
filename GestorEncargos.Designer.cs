@@ -50,10 +50,13 @@
             // dgvEncargos
             // 
             this.dgvEncargos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvEncargos.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvEncargos.Location = new System.Drawing.Point(385, 194);
+            this.dgvEncargos.MultiSelect = false;
             this.dgvEncargos.Name = "dgvEncargos";
             this.dgvEncargos.RowHeadersWidth = 62;
             this.dgvEncargos.RowTemplate.Height = 28;
+            this.dgvEncargos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvEncargos.Size = new System.Drawing.Size(843, 267);
             this.dgvEncargos.TabIndex = 0;
             // 

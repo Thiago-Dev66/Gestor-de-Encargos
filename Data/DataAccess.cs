@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Data.Sqlite;
 
 namespace Data
 {
@@ -27,16 +28,19 @@ namespace Data
             _Connection = new SqliteConnection(_ConnectionString);
             _Cmd = new SqliteCommand();
 
-            using (var Pragma = _Connection.CreateCommand()) 
+            using (var Pragma = _Connection.CreateCommand())
             {
                 Pragma.CommandText = "PRAGMA foreign_keys = ON;";
 
                 if ((Pragma.Connection.State != ConnectionState.Open))
-                    Pragma.Connection.Open();   
+                    Pragma.Connection.Open();
 
                 Pragma.ExecuteNonQuery();
 
-                if(Pragma.Connection.State == ConnectionState.Open)
+                Pragma.CommandText = "PRAGMA journal_mode=WAL;";
+                Pragma.ExecuteNonQuery();
+
+                if (Pragma.Connection.State == ConnectionState.Open)
                     Pragma.Connection.Close();
             }
         }
@@ -57,7 +61,14 @@ namespace Data
 
         public object ExecuteScalar()
         {
-            _Cmd.Connection = _Connection;
+            if (_Cmd.Connection == null)
+                _Cmd.Connection = _Connection;
+
+            if (_Reader != null && !_Reader.IsClosed)
+            {
+                _Reader.Close();
+                _Reader.Dispose();
+            }
 
             if (_Connection.State != ConnectionState.Open)
                 _Connection.Open();
@@ -104,6 +115,12 @@ namespace Data
 
         public void SetQuery(string Query)
         {
+            if (_Reader != null && !_Reader.IsClosed)
+            {
+                _Reader.Close();
+                _Reader.Dispose();
+            }
+
             _Cmd.Parameters.Clear();
             _Cmd.CommandType = System.Data.CommandType.Text;
             _Cmd.CommandText = Query;
@@ -142,6 +159,12 @@ namespace Data
                 if (_Connection.State != ConnectionState.Open)
                     _Connection.Open();
 
+                if (_Reader != null && !_Reader.IsClosed)
+                {
+                    _Reader.Close();
+                    _Reader.Dispose();
+                }
+
                 _Cmd.ExecuteNonQuery();
 
             }
@@ -162,7 +185,6 @@ namespace Data
 
         public void ConnectionClose()
         {
-
             try
             {
                 if (_Reader != null && !_Reader.IsClosed)
@@ -173,7 +195,6 @@ namespace Data
 
                 _Connection.Close();
                 _Transaction = null;
-                _Reader = null;
             }
             catch { }
         }

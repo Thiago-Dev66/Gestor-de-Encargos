@@ -101,10 +101,11 @@ namespace Gestor_de_Encargos
                 encargo.ArticuloEncargo = articulos;
                 encargo.Vendedor = _Vendedor;
 
-                encargosNegocio.Save(encargo);
+                //encargosNegocio.Save(encargo);
 
-                MessageBox.Show("Se ha genereado el encargo con éxito!");
-
+                MessageBox.Show("Se ha genereado el encargo con éxito!",
+                                "Encargo",
+                                MessageBoxButtons.OK);
             }
             catch (Exception ex)
             {
@@ -115,7 +116,6 @@ namespace Gestor_de_Encargos
 
         private void btnAgregarArticulo_Click(object sender, EventArgs e)
         {
-            
             ArticuloEncargo articuloEncargo = new ArticuloEncargo()
             {
                 Articulo = new Articulo()

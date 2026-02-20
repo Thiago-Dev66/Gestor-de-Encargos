@@ -17,6 +17,8 @@ namespace Gestor_de_Encargos
     public partial class GestorEncargos : Form
     {
         private Vendedor _Vendedor { get; set; }
+        private EncargosRepository encargos = new EncargosRepository();
+
         public GestorEncargos()
         {
             InitializeComponent();
@@ -26,14 +28,27 @@ namespace Gestor_de_Encargos
 
         private void GestorEncargos_Load(object sender, EventArgs e)
         {
-            EncargosRepository encargos = new EncargosRepository();
             dgvEncargos.DataSource = encargos.GetAll();
+
+            dgvEncargos.Columns["Id"].Visible = false;
+            dgvEncargos.Columns["Vendedor"].Visible = false;
+            dgvEncargos.Columns["Cliente"].Visible = false;
+
+            //dgvEncargos.Columns["Articulo"].DisplayIndex = 0;
+            //dgvEncargos.Columns["Codigo"].DisplayIndex = 1;
+
         }
 
         private void BtnAgregar_Click(object sender, EventArgs e)
         {
             AgregarEncargo agregarEncargo = new AgregarEncargo(_Vendedor);
-            agregarEncargo.ShowDialog();    
+            DialogResult result = agregarEncargo.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                dgvEncargos.DataSource = null;
+                dgvEncargos.DataSource = encargos.GetAll();
+            }
         }
 
         private void btnAgregarCliente_Click_1(object sender, EventArgs e)

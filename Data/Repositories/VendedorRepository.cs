@@ -170,6 +170,7 @@ namespace Data.Repositories
                             vendedor = new Vendedor()
                             {
                                 Id = Convert.ToInt32(data.Reader["Id"]),
+                                Numero = Convert.ToInt32(data.Reader["Numero"]),
                                 Nombre = (string)data.Reader["Nombre"],
                                 Apellido = (string)data.Reader["Apellido"]
                             };

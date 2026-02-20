@@ -9,16 +9,16 @@ namespace Data.Repositories
 {
     public class EncargosRepository
     {
-        
+
         public int Add(Encargo encargo)
         {
+            ArticuloRepository articuloRepository = new ArticuloRepository();
+            Articulo articulo;
 
             using (var data = new DataAccess())
             {
-
                 try
                 {
-
                     data.BeginTransaction();
 
                     data.SetQuery(@"
@@ -26,7 +26,6 @@ namespace Data.Repositories
                         (Fecha, Estado, Descripcion, SucursalOrigen, ClienteId, VendedorId)
                         VALUES 
                         (@Fecha, @Estado, @Descripcion, @SucursalOrigen, @ClienteId, @VendedorId)
-                        
                         ");
 
                     data.SetParameter("@Fecha", encargo.Fecha);
@@ -48,6 +47,19 @@ namespace Data.Repositories
 
                     foreach (var item in encargo.ArticuloEncargo)
                     {
+                        articulo = new Articulo();
+
+                        articulo.Codigo = item.ArticuloCodigo;
+                        articulo.Nombre = item.ArticuloNombre;
+
+                        long IdArticulo = articuloRepository.GetOrCreate(articulo, data);
+
+                        if (IdArticulo == 0)
+                        {
+                            data.SetQuery("SELECT last_insert_rowid()");
+                            IdArticulo = (long)data.ExecuteScalar();
+                        }
+
                         data.SetQuery(@"
                             INSERT INTO ArticulosEncargos 
                                 (ArticuloId, EncargoId, Cantidad, PrecioUnitario)
@@ -55,7 +67,7 @@ namespace Data.Repositories
                                 (@ArticuloId, @EncargoId, @Cantidad, @PrecioUnitario)
                             ");
 
-                        data.SetParameter("@ArticuloId", item.ArticuloID);
+                        data.SetParameter("@ArticuloId", IdArticulo);
                         data.SetParameter("@EncargoId", encargoId);
                         data.SetParameter("@Cantidad", item.Cantidad);
                         data.SetParameter("@PrecioUnitario", item.PrecioUnitario);
@@ -78,7 +90,6 @@ namespace Data.Repositories
                 {
                     data.ConnectionClose();
                 }
-
             }
         }
 
@@ -86,6 +97,7 @@ namespace Data.Repositories
         {
             Encargo encargo;
             List<Encargo> encargos = new List<Encargo>();
+            int estado;
 
             using (var data = new DataAccess())
             {
@@ -93,10 +105,12 @@ namespace Data.Repositories
                 {
 
                     data.SetQuery(@"
-                    SELECT E.Fecha, E.Estado, E.Descripcion, E.SucursalOrigen, E.ClienteID, E.VendedorID
+                    SELECT C.Nombre as Cliente, C.Celular, date(E.Fecha) as Fecha, E.Estado, 
+                    V.Numero AS Vendedor, E.SucursalOrigen as Sucursal, E.Descripcion, 
+                    E.ClienteID, E.VendedorID
                     FROM Encargos AS E
                     JOIN Clientes AS C ON E.ClienteId = C.Id
-                    JOIN Vendedores AS V ON E.VendedorId = V.Id 
+                    JOIN Vendedores AS V ON E.VendedorId = V.Id
                     ");
 
                     data.ExecuteReader();
@@ -109,15 +123,19 @@ namespace Data.Repositories
                             Vendedor = new Vendedor()
                         };
 
+                        encargo.Cliente.Nombre = (string)data.Reader["Cliente"];
+                        encargo.Cliente.Celular = (string)data.Reader["Celular"];
                         encargo.Fecha = DateTime.Parse(data.Reader["Fecha"].ToString());
-                        encargo.Estado = (EstadoEncargo)data.Reader["Estado"];
+                        estado = Convert.ToInt32(data.Reader["Estado"]);
+                        encargo.Estado = (EstadoEncargo)estado;
+                        encargo.Vendedor.Numero = Convert.ToInt32(data.Reader["Vendedor"]);
+                        encargo.SucursalOrigen = (string)data.Reader["Sucursal"];
 
                         if (!(data.Reader["Descripcion"] is DBNull))
                             encargo.Descripcion = (string)data.Reader["Descripcion"];
 
-                        encargo.SucursalOrigen = (string)data.Reader["SucursalOrigen"];
-                        encargo.Cliente.Id = (int)data.Reader["ClienteID"];
-                        encargo.Vendedor.Id = (int)data.Reader["VendedorId"];
+                        encargo.Cliente.Id = Convert.ToInt32(data.Reader["ClienteID"]);
+                        encargo.Vendedor.Id = Convert.ToInt32(data.Reader["VendedorID"]);
 
                         encargos.Add(encargo);
                     }

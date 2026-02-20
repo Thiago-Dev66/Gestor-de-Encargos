@@ -71,7 +71,7 @@
             this.lblBuscar.Location = new System.Drawing.Point(25, 46);
             this.lblBuscar.Name = "lblBuscar";
             this.lblBuscar.Size = new System.Drawing.Size(59, 20);
-            this.lblBuscar.TabIndex = 5;
+            this.lblBuscar.TabIndex = 0;
             this.lblBuscar.Text = "Buscar";
             // 
             // gpbCliente
@@ -148,7 +148,7 @@
             this.grbEncargo.Location = new System.Drawing.Point(38, 580);
             this.grbEncargo.Name = "grbEncargo";
             this.grbEncargo.Size = new System.Drawing.Size(899, 351);
-            this.grbEncargo.TabIndex = 6;
+            this.grbEncargo.TabIndex = 2;
             this.grbEncargo.TabStop = false;
             this.grbEncargo.Text = "Datos del Encargo";
             // 
@@ -167,7 +167,7 @@
             this.cboEstado.Location = new System.Drawing.Point(175, 132);
             this.cboEstado.Name = "cboEstado";
             this.cboEstado.Size = new System.Drawing.Size(209, 28);
-            this.cboEstado.TabIndex = 1;
+            this.cboEstado.TabIndex = 2;
             // 
             // lblPrecioTotal
             // 
@@ -225,7 +225,7 @@
             this.dtpFecha.Location = new System.Drawing.Point(653, 69);
             this.dtpFecha.Name = "dtpFecha";
             this.dtpFecha.Size = new System.Drawing.Size(209, 26);
-            this.dtpFecha.TabIndex = 2;
+            this.dtpFecha.TabIndex = 1;
             // 
             // txtSucursalOrigen
             // 
@@ -286,10 +286,11 @@
             this.btnGuardar.Location = new System.Drawing.Point(683, 960);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(111, 42);
-            this.btnGuardar.TabIndex = 0;
+            this.btnGuardar.TabIndex = 3;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            this.btnGuardar.DialogResult = System.Windows.Forms.DialogResult.OK;
             // 
             // btnCancelar
             // 
@@ -297,7 +298,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(848, 960);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(111, 42);
-            this.btnCancelar.TabIndex = 1;
+            this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -317,7 +318,7 @@
             this.dgwListaArticulos.RowTemplate.Height = 28;
             this.dgwListaArticulos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgwListaArticulos.Size = new System.Drawing.Size(493, 248);
-            this.dgwListaArticulos.TabIndex = 9;
+            this.dgwListaArticulos.TabIndex = 0;
             // 
             // txtCodigo
             // 
@@ -350,7 +351,7 @@
             this.grbArticulos.Location = new System.Drawing.Point(38, 228);
             this.grbArticulos.Name = "grbArticulos";
             this.grbArticulos.Size = new System.Drawing.Size(921, 317);
-            this.grbArticulos.TabIndex = 12;
+            this.grbArticulos.TabIndex = 1;
             this.grbArticulos.TabStop = false;
             this.grbArticulos.Text = "Agregar Articulo(s)";
             // 

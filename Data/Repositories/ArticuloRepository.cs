@@ -1,62 +1,93 @@
-﻿using System;
+﻿using Dominio;
+using Microsoft.Data.Sqlite;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dominio;
 
 namespace Data.Repositories
 {
     public class ArticuloRepository
     {
-        public void Add(Articulo articulo)
+        public void Add(Articulo articulo, DataAccess data = null)
         {
-            using (var data = new DataAccess())
+            bool shouldDispose = data == null;
+            data = data ?? new DataAccess();
+
+            try
             {
-
-                try
-                {
-                    data.BeginTransaction();
-
-                    data.SetQuery(@"
+                data.SetQuery(@"
                         INSERT INTO Articulos (Codigo, Nombre, Precio) 
                         VALUES (@Codigo, @Nombre, @Precio) 
-                ");
+                        ");
 
-                    data.SetParameter("@Codigo", articulo.Codigo);
-                    data.SetParameter("@Nombre", articulo.Nombre);
-                    data.SetParameter("@Precio", articulo.Precio);
+                data.SetParameter("@Codigo", articulo.Codigo);
+                data.SetParameter("@Nombre", articulo.Nombre);
+                data.SetParameter("@Precio", articulo.Precio);
 
-                    data.ExecuteNonQuery();
-
-                    data.Commit();
-
-                }
-                catch (Exception)
-                {
-                    data.Rollback();
-                    throw;
-                }
-                finally
-                {
-                    data.ConnectionClose();
-                }
-
+                data.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally 
+            {
+                if (shouldDispose)
+                    data?.Dispose();
             }
         }
-        public List<Articulo> GetAll()
+        public int GetOrCreate(Articulo articulo, DataAccess data = null)
         {
+            bool shouldDispose = data == null;
+            data = data ?? new DataAccess();
+
+            List<Articulo> articulos;
+            int articuloId = 0;
+
+            try
+            {
+                articulos = GetAll(data);
+
+                foreach (var item in articulos)
+                {
+                    if (articulo.Codigo == item.Codigo)
+                    {
+                        articuloId = item.Id;
+                        return articuloId;
+                    }
+                }
+                Add(articulo, data);
+
+                return articuloId;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally 
+            { 
+                if (shouldDispose)
+                    data?.Dispose(); 
+            }
+        }
+        public List<Articulo> GetAll(DataAccess data = null)
+        {
+            bool shouldDispose = data == null;
+            data = data ?? new DataAccess();
+
             List<Articulo> articulos = new List<Articulo>();
-            DataAccess data = new DataAccess();
             Articulo aux;
 
             try
             {
-
                 data.SetQuery(@"
-                    SELECT Id, Codigo, Nombre, Precio
-                    FROM Articulos
-                ");
+                        SELECT Id, Codigo, Nombre, Precio
+                        FROM Articulos
+                        ");
 
                 data.ExecuteReader();
 
@@ -68,23 +99,21 @@ namespace Data.Repositories
                         Codigo = (string)data.Reader["Codigo"],
                         Nombre = (string)data.Reader["Nombre"]
                     };
-                        if (!(data.Reader["Precio"] is DBNull))
-                            aux.Precio = Convert.ToDouble(data.Reader["Precio"]);
-
+                    if (!(data.Reader["Precio"] is DBNull))
+                        aux.Precio = Convert.ToDouble(data.Reader["Precio"]);
 
                     articulos.Add(aux);
                 }
-
                 return articulos;
-
             }
             catch (Exception)
             {
                 throw;
             }
-            finally
-            { 
-                data.ConnectionClose();
+            finally 
+            {
+                if (shouldDispose)
+                    data?.Dispose();
             }
 
         }
@@ -121,7 +150,7 @@ namespace Data.Repositories
             }
             finally
             {
-                data.ConnectionClose(); 
+                data.ConnectionClose();
             }
 
         }
@@ -145,7 +174,7 @@ namespace Data.Repositories
                 data.Rollback();
                 throw;
             }
-            finally 
+            finally
             {
                 data.ConnectionClose();
             }

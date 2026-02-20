@@ -17,6 +17,11 @@ namespace Dominio
         public Cliente Cliente { get; set; }
         public Vendedor Vendedor { get; set; }
         public BindingList<ArticuloEncargo> ArticuloEncargo { get; set; }
+
+        [DisplayName("Cliente")]
+        public string ClienteNombre => Cliente?.Nombre;
+        [DisplayName("Vendedor")]
+        public int Numero => Vendedor.Numero;
     }
     public enum EstadoEncargo
     {
