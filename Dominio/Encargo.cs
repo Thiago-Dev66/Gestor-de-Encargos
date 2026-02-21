@@ -13,6 +13,7 @@ namespace Dominio
         public DateTime Fecha { get; set; }
         public string Descripcion { get; set; }
         public EstadoEncargo Estado { get; set; }
+        [DisplayName("Sucursal")]
         public string SucursalOrigen { get; set; }
         public Cliente Cliente { get; set; }
         public Vendedor Vendedor { get; set; }
@@ -20,8 +21,10 @@ namespace Dominio
 
         [DisplayName("Cliente")]
         public string ClienteNombre => Cliente?.Nombre;
+        [DisplayName("Celular")]
+        public string ClienteCelular => Cliente?.Celular;
         [DisplayName("Vendedor")]
-        public int Numero => Vendedor.Numero;
+        public int VendedorNumero => Vendedor.Numero;
     }
     public enum EstadoEncargo
     {

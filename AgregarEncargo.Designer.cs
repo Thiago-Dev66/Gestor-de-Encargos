@@ -119,7 +119,7 @@
             this.btnAgregarNuevoCliente.Location = new System.Drawing.Point(29, 90);
             this.btnAgregarNuevoCliente.Name = "btnAgregarNuevoCliente";
             this.btnAgregarNuevoCliente.Size = new System.Drawing.Size(306, 41);
-            this.btnAgregarNuevoCliente.TabIndex = 2;
+            this.btnAgregarNuevoCliente.TabIndex = 1;
             this.btnAgregarNuevoCliente.Text = "Agregar Nuevo";
             this.btnAgregarNuevoCliente.UseVisualStyleBackColor = true;
             this.btnAgregarNuevoCliente.Click += new System.EventHandler(this.btnAgregarNuevoCliente_Click);
@@ -130,7 +130,7 @@
             this.cboBuscarCliente.Location = new System.Drawing.Point(110, 43);
             this.cboBuscarCliente.Name = "cboBuscarCliente";
             this.cboBuscarCliente.Size = new System.Drawing.Size(225, 28);
-            this.cboBuscarCliente.TabIndex = 1;
+            this.cboBuscarCliente.TabIndex = 0;
             this.cboBuscarCliente.SelectionChangeCommitted += new System.EventHandler(this.cboBuscarCliente_SelectionChangeCommitted);
             // 
             // grbEncargo
@@ -283,6 +283,7 @@
             // btnGuardar
             // 
             this.btnGuardar.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnGuardar.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnGuardar.Location = new System.Drawing.Point(683, 960);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(111, 42);
@@ -290,7 +291,6 @@
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
-            this.btnGuardar.DialogResult = System.Windows.Forms.DialogResult.OK;
             // 
             // btnCancelar
             // 
@@ -318,7 +318,7 @@
             this.dgwListaArticulos.RowTemplate.Height = 28;
             this.dgwListaArticulos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgwListaArticulos.Size = new System.Drawing.Size(493, 248);
-            this.dgwListaArticulos.TabIndex = 0;
+            this.dgwListaArticulos.TabIndex = 4;
             // 
             // txtCodigo
             // 

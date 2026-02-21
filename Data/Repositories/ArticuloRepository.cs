@@ -3,6 +3,7 @@ using Microsoft.Data.Sqlite;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -34,7 +35,7 @@ namespace Data.Repositories
             {
                 throw;
             }
-            finally 
+            finally
             {
                 if (shouldDispose)
                     data?.Dispose();
@@ -68,10 +69,10 @@ namespace Data.Repositories
             {
                 throw;
             }
-            finally 
-            { 
+            finally
+            {
                 if (shouldDispose)
-                    data?.Dispose(); 
+                    data?.Dispose();
             }
         }
         public List<Articulo> GetAll(DataAccess data = null)
@@ -110,12 +111,56 @@ namespace Data.Repositories
             {
                 throw;
             }
-            finally 
+            finally
             {
                 if (shouldDispose)
                     data?.Dispose();
             }
 
+        }
+
+        public BindingList<ArticuloEncargo> GetArticulosByEncargoId(int id)
+        {
+            BindingList<ArticuloEncargo> articulosEncargos = new BindingList<ArticuloEncargo>();
+            ArticuloEncargo articuloEncargo;
+
+            using (var data = new DataAccess())
+            {
+                try
+                {
+                    data.SetQuery(@"
+                            SELECT A.Nombre, A.Codigo, AE.Cantidad FROM ArticulosEncargos AS AE
+                            JOIN ARTICULOS AS A ON AE.ArticuloID = A.ID
+                            WHERE EncargoID = @EncargoId
+                            ");
+
+                    data.SetParameter("@EncargoId", id);
+                    data.ExecuteReader();
+
+                    while (data.Reader.Read())
+                    {
+                        articuloEncargo = new ArticuloEncargo()
+                        {
+                            Articulo = new Articulo()
+                            {
+                                Nombre = (string)data.Reader["Nombre"],
+                                Codigo = (string)data.Reader["Codigo"]
+                            },
+
+                            Cantidad = Convert.ToInt32(data.Reader["Cantidad"]),
+                        };
+
+                        articulosEncargos.Add(articuloEncargo);
+                    }
+
+                    return articulosEncargos;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
         }
         public void Update(Articulo articulo)
         {

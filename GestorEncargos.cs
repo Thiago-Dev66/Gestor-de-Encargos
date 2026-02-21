@@ -18,25 +18,39 @@ namespace Gestor_de_Encargos
     {
         private Vendedor _Vendedor { get; set; }
         private EncargosRepository encargos = new EncargosRepository();
+        private ArticuloRepository articulos = new ArticuloRepository();
 
         public GestorEncargos()
         {
             InitializeComponent();
             BtnAgregar.Enabled = false;
-            txtNumeroVendedor.Focus();
         }
 
         private void GestorEncargos_Load(object sender, EventArgs e)
         {
             dgvEncargos.DataSource = encargos.GetAll();
+            txtNumeroVendedor.Focus();
 
+            OcultarColumnas();
+
+        }
+
+        private void OcultarColumnas()
+        {
             dgvEncargos.Columns["Id"].Visible = false;
             dgvEncargos.Columns["Vendedor"].Visible = false;
             dgvEncargos.Columns["Cliente"].Visible = false;
 
-            //dgvEncargos.Columns["Articulo"].DisplayIndex = 0;
-            //dgvEncargos.Columns["Codigo"].DisplayIndex = 1;
+            dgvEncargos.Columns["ClienteNombre"].DisplayIndex = 0;
+            dgvEncargos.Columns["ClienteCelular"].DisplayIndex = 1;
+            dgvEncargos.Columns["SucursalOrigen"].DisplayIndex = 3;
 
+            dgvArticulos.Columns["ArticuloID"].Visible = false;
+            dgvArticulos.Columns["Articulo"].Visible = false;
+            dgvArticulos.Columns["EncargoID"].Visible = false;
+
+            dgvArticulos.Columns["ArticuloNombre"].DisplayIndex = 0;
+            dgvArticulos.Columns["ArticuloCodigo"].DisplayIndex = 1;
         }
 
         private void BtnAgregar_Click(object sender, EventArgs e)
@@ -48,6 +62,7 @@ namespace Gestor_de_Encargos
             {
                 dgvEncargos.DataSource = null;
                 dgvEncargos.DataSource = encargos.GetAll();
+                OcultarColumnas();
             }
         }
 
@@ -91,5 +106,14 @@ namespace Gestor_de_Encargos
                     MessageBox.Show("Debe ser un número");
             }
         }
+        private void dgvEncargos_SelectionChanged(object sender, EventArgs e)
+        {
+            Encargo encargo = (Encargo)dgvEncargos.CurrentRow.DataBoundItem;
+            dgvArticulos.DataSource = articulos.GetArticulosByEncargoId(encargo.Id);
+
+            OcultarColumnas();
+        }
+
+
     }
 }

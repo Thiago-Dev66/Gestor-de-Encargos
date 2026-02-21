@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -96,6 +97,7 @@ namespace Data.Repositories
         public List<Encargo> GetAll()
         {
             Encargo encargo;
+            ArticuloRepository repository;
             List<Encargo> encargos = new List<Encargo>();
             int estado;
 
@@ -105,24 +107,26 @@ namespace Data.Repositories
                 {
 
                     data.SetQuery(@"
-                    SELECT C.Nombre as Cliente, C.Celular, date(E.Fecha) as Fecha, E.Estado, 
-                    V.Numero AS Vendedor, E.SucursalOrigen as Sucursal, E.Descripcion, 
-                    E.ClienteID, E.VendedorID
-                    FROM Encargos AS E
-                    JOIN Clientes AS C ON E.ClienteId = C.Id
-                    JOIN Vendedores AS V ON E.VendedorId = V.Id
-                    ");
+                            SELECT E.Id, C.Nombre as Cliente, C.Celular, V.Numero AS Vendedor, 
+                            date(E.Fecha) as Fecha, E.Estado, E.SucursalOrigen as Sucursal, E.Descripcion, 
+                            E.ClienteID, E.VendedorID   
+                            FROM Encargos AS E
+                            JOIN Clientes AS C ON E.ClienteId = C.Id
+                            JOIN Vendedores AS V ON E.VendedorId = V.Id
+                            ");
 
                     data.ExecuteReader();
 
                     while (data.Reader.Read())
                     {
+                        repository = new ArticuloRepository();
                         encargo = new Encargo()
                         {
                             Cliente = new Cliente(),
                             Vendedor = new Vendedor()
                         };
 
+                        encargo.Id = Convert.ToInt32(data.Reader["Id"]);
                         encargo.Cliente.Nombre = (string)data.Reader["Cliente"];
                         encargo.Cliente.Celular = (string)data.Reader["Celular"];
                         encargo.Fecha = DateTime.Parse(data.Reader["Fecha"].ToString());

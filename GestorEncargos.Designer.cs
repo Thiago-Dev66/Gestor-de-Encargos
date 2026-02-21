@@ -41,28 +41,37 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnAgregarCliente = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.gpbEncargos = new System.Windows.Forms.GroupBox();
+            this.gpbArticulos = new System.Windows.Forms.GroupBox();
+            this.dgvArticulos = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEncargos)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.gpbPanelVendedores.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.gpbEncargos.SuspendLayout();
+            this.gpbArticulos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvEncargos
             // 
+            this.dgvEncargos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvEncargos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEncargos.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvEncargos.Location = new System.Drawing.Point(385, 194);
+            this.dgvEncargos.Location = new System.Drawing.Point(26, 67);
             this.dgvEncargos.MultiSelect = false;
             this.dgvEncargos.Name = "dgvEncargos";
+            this.dgvEncargos.RowHeadersVisible = false;
             this.dgvEncargos.RowHeadersWidth = 62;
             this.dgvEncargos.RowTemplate.Height = 28;
             this.dgvEncargos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvEncargos.Size = new System.Drawing.Size(843, 267);
+            this.dgvEncargos.Size = new System.Drawing.Size(1053, 267);
             this.dgvEncargos.TabIndex = 0;
+            this.dgvEncargos.SelectionChanged += new System.EventHandler(this.dgvEncargos_SelectionChanged);
             // 
             // BtnAgregar
             // 
-            this.BtnAgregar.Location = new System.Drawing.Point(385, 480);
+            this.BtnAgregar.Location = new System.Drawing.Point(26, 356);
             this.BtnAgregar.Name = "BtnAgregar";
             this.BtnAgregar.Size = new System.Drawing.Size(120, 50);
             this.BtnAgregar.TabIndex = 1;
@@ -72,7 +81,7 @@
             // 
             // txtNumeroVendedor
             // 
-            this.txtNumeroVendedor.Location = new System.Drawing.Point(1013, 125);
+            this.txtNumeroVendedor.Location = new System.Drawing.Point(1246, 57);
             this.txtNumeroVendedor.Name = "txtNumeroVendedor";
             this.txtNumeroVendedor.Size = new System.Drawing.Size(184, 26);
             this.txtNumeroVendedor.TabIndex = 2;
@@ -81,7 +90,7 @@
             // lblNumeroVendedor
             // 
             this.lblNumeroVendedor.AutoSize = true;
-            this.lblNumeroVendedor.Location = new System.Drawing.Point(919, 130);
+            this.lblNumeroVendedor.Location = new System.Drawing.Point(1152, 62);
             this.lblNumeroVendedor.Name = "lblNumeroVendedor";
             this.lblNumeroVendedor.Size = new System.Drawing.Size(79, 20);
             this.lblNumeroVendedor.TabIndex = 3;
@@ -113,7 +122,7 @@
             this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1359, 33);
+            this.toolStrip1.Size = new System.Drawing.Size(1541, 38);
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -123,14 +132,14 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(34, 28);
+            this.toolStripButton1.Size = new System.Drawing.Size(34, 33);
             this.toolStripButton1.Text = "toolStripButton1";
             // 
             // gpbPanelVendedores
             // 
             this.gpbPanelVendedores.Controls.Add(this.btnAgregarVendedor);
             this.gpbPanelVendedores.Controls.Add(this.btnModificarVendedor);
-            this.gpbPanelVendedores.Location = new System.Drawing.Point(21, 377);
+            this.gpbPanelVendedores.Location = new System.Drawing.Point(21, 300);
             this.gpbPanelVendedores.Name = "gpbPanelVendedores";
             this.gpbPanelVendedores.Size = new System.Drawing.Size(257, 221);
             this.gpbPanelVendedores.TabIndex = 7;
@@ -167,18 +176,57 @@
             this.button4.Text = "Ver Clientes";
             this.button4.UseVisualStyleBackColor = true;
             // 
+            // gpbEncargos
+            // 
+            this.gpbEncargos.Controls.Add(this.BtnAgregar);
+            this.gpbEncargos.Controls.Add(this.dgvEncargos);
+            this.gpbEncargos.Location = new System.Drawing.Point(319, 115);
+            this.gpbEncargos.Name = "gpbEncargos";
+            this.gpbEncargos.Size = new System.Drawing.Size(1123, 441);
+            this.gpbEncargos.TabIndex = 9;
+            this.gpbEncargos.TabStop = false;
+            this.gpbEncargos.Text = "Panel Encargos";
+            // 
+            // gpbArticulos
+            // 
+            this.gpbArticulos.Controls.Add(this.dgvArticulos);
+            this.gpbArticulos.Location = new System.Drawing.Point(319, 591);
+            this.gpbArticulos.Name = "gpbArticulos";
+            this.gpbArticulos.Size = new System.Drawing.Size(766, 279);
+            this.gpbArticulos.TabIndex = 10;
+            this.gpbArticulos.TabStop = false;
+            this.gpbArticulos.Text = "Articulos";
+            // 
+            // dgvArticulos
+            // 
+            this.dgvArticulos.AllowUserToAddRows = false;
+            this.dgvArticulos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvArticulos.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvArticulos.Location = new System.Drawing.Point(30, 39);
+            this.dgvArticulos.MultiSelect = false;
+            this.dgvArticulos.Name = "dgvArticulos";
+            this.dgvArticulos.ReadOnly = true;
+            this.dgvArticulos.RowHeadersVisible = false;
+            this.dgvArticulos.RowHeadersWidth = 62;
+            this.dgvArticulos.RowTemplate.Height = 28;
+            this.dgvArticulos.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgvArticulos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvArticulos.Size = new System.Drawing.Size(706, 218);
+            this.dgvArticulos.TabIndex = 0;
+            // 
             // GestorEncargos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1359, 681);
+            this.ClientSize = new System.Drawing.Size(1541, 911);
+            this.Controls.Add(this.gpbArticulos);
+            this.Controls.Add(this.gpbEncargos);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gpbPanelVendedores);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.lblNumeroVendedor);
             this.Controls.Add(this.txtNumeroVendedor);
-            this.Controls.Add(this.BtnAgregar);
-            this.Controls.Add(this.dgvEncargos);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "GestorEncargos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gestor de Encargos";
@@ -188,6 +236,9 @@
             this.toolStrip1.PerformLayout();
             this.gpbPanelVendedores.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.gpbEncargos.ResumeLayout(false);
+            this.gpbArticulos.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -207,6 +258,9 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnAgregarCliente;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.GroupBox gpbEncargos;
+        private System.Windows.Forms.GroupBox gpbArticulos;
+        private System.Windows.Forms.DataGridView dgvArticulos;
     }
 }
 

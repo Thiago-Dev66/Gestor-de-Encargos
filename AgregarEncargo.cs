@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Dominio;
 using Negocio;
 using Data.Repositories;
+using System.Globalization;
 
 namespace Gestor_de_Encargos
 {
@@ -101,7 +102,7 @@ namespace Gestor_de_Encargos
                 encargo.ArticuloEncargo = articulos;
                 encargo.Vendedor = _Vendedor;
 
-                //encargosNegocio.Save(encargo);
+                encargosNegocio.Save(encargo);
 
                 MessageBox.Show("Se ha genereado el encargo con éxito!",
                                 "Encargo",
@@ -143,7 +144,7 @@ namespace Gestor_de_Encargos
                     txtCodigo.Focus();
                     return;
                 }
-                articuloEncargo.Articulo.Codigo = txtCodigo.Text;
+                articuloEncargo.Articulo.Codigo = txtCodigo.Text.ToUpper();
 
                 if (nudCantidad.Value <= 0)
                 {
@@ -153,6 +154,11 @@ namespace Gestor_de_Encargos
                 articuloEncargo.Cantidad = (int)nudCantidad.Value;
 
                 articulos.Add(articuloEncargo);
+
+                txtArticulo.Clear();
+                txtCodigo.Clear();
+                nudCantidad.Value = 1;
+                txtArticulo.Focus();
             }
             catch (Exception)
             {
@@ -162,7 +168,7 @@ namespace Gestor_de_Encargos
                        
         }
 
-        private void btnEliminarArticulo_Click(object sender, EventArgs e)
+    private void btnEliminarArticulo_Click(object sender, EventArgs e)
         {
             if (dgwListaArticulos.CurrentRow != null)
             {

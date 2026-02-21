@@ -119,7 +119,7 @@ namespace Data
                 Access.SetQuery(@"
                     CREATE TABLE IF NOT EXISTS Articulos (
                         Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        Codigo INTEGER NOT NULL UNIQUE,
+                        Codigo TEXT NOT NULL UNIQUE,
                         Nombre TEXT NOT NULL,
                         Precio REAL
                     
