@@ -44,6 +44,7 @@
             this.gpbEncargos = new System.Windows.Forms.GroupBox();
             this.gpbArticulos = new System.Windows.Forms.GroupBox();
             this.dgvArticulos = new System.Windows.Forms.DataGridView();
+            this.btnModificar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEncargos)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.gpbPanelVendedores.SuspendLayout();
@@ -178,6 +179,7 @@
             // 
             // gpbEncargos
             // 
+            this.gpbEncargos.Controls.Add(this.btnModificar);
             this.gpbEncargos.Controls.Add(this.BtnAgregar);
             this.gpbEncargos.Controls.Add(this.dgvEncargos);
             this.gpbEncargos.Location = new System.Drawing.Point(319, 115);
@@ -213,6 +215,18 @@
             this.dgvArticulos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvArticulos.Size = new System.Drawing.Size(706, 218);
             this.dgvArticulos.TabIndex = 0;
+            // 
+            // btnModificar
+            // 
+            this.btnModificar.Enabled = false;
+            this.btnModificar.Location = new System.Drawing.Point(184, 356);
+            this.btnModificar.Name = "btnModificar";
+            this.btnModificar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.btnModificar.Size = new System.Drawing.Size(120, 50);
+            this.btnModificar.TabIndex = 2;
+            this.btnModificar.Text = "Modificar";
+            this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // GestorEncargos
             // 
@@ -261,6 +275,7 @@
         private System.Windows.Forms.GroupBox gpbEncargos;
         private System.Windows.Forms.GroupBox gpbArticulos;
         private System.Windows.Forms.DataGridView dgvArticulos;
+        private System.Windows.Forms.Button btnModificar;
     }
 }
 

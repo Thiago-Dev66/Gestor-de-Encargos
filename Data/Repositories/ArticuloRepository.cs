@@ -129,7 +129,8 @@ namespace Data.Repositories
                 try
                 {
                     data.SetQuery(@"
-                            SELECT A.Nombre, A.Codigo, AE.Cantidad FROM ArticulosEncargos AS AE
+                            SELECT A.Id, A.Nombre, A.Codigo, AE.Cantidad 
+                            FROM ArticulosEncargos AS AE
                             JOIN ARTICULOS AS A ON AE.ArticuloID = A.ID
                             WHERE EncargoID = @EncargoId
                             ");
@@ -143,6 +144,7 @@ namespace Data.Repositories
                         {
                             Articulo = new Articulo()
                             {
+                                Id = Convert.ToInt32(data.Reader["Id"]),
                                 Nombre = (string)data.Reader["Nombre"],
                                 Codigo = (string)data.Reader["Codigo"]
                             },

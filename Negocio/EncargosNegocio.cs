@@ -33,5 +33,11 @@ namespace Negocio
             }
         }
 
+        public void Update(Encargo encargo)
+        {
+            EncargosRepository repository = new EncargosRepository();
+
+            repository.Update(encargo);
+        }
     }
 }

@@ -97,7 +97,6 @@ namespace Data.Repositories
         public List<Encargo> GetAll()
         {
             Encargo encargo;
-            ArticuloRepository repository;
             List<Encargo> encargos = new List<Encargo>();
             int estado;
 
@@ -105,7 +104,6 @@ namespace Data.Repositories
             {
                 try
                 {
-
                     data.SetQuery(@"
                             SELECT E.Id, C.Nombre as Cliente, C.Celular, V.Numero AS Vendedor, 
                             date(E.Fecha) as Fecha, E.Estado, E.SucursalOrigen as Sucursal, E.Descripcion, 
@@ -119,7 +117,6 @@ namespace Data.Repositories
 
                     while (data.Reader.Read())
                     {
-                        repository = new ArticuloRepository();
                         encargo = new Encargo()
                         {
                             Cliente = new Cliente(),
@@ -160,11 +157,13 @@ namespace Data.Repositories
 
         public void Update(Encargo encargo)
         {
+            ArticuloRepository articuloRepository = new ArticuloRepository();
+            Articulo articulo;
+
             using (var data = new DataAccess())
             {
                 try
                 {
-
                     data.BeginTransaction();
 
                     data.SetQuery(@" 
@@ -192,15 +191,31 @@ namespace Data.Repositories
                     data.SetParameter("@Id", encargo.Id);
                     data.ExecuteNonQuery();
 
+
                     foreach (var item in encargo.ArticuloEncargo)
                     {
+                        articulo = new Articulo()
+                        {
+                            Id = item.Articulo.Id,
+                            Nombre = item.Articulo.Nombre,
+                            Codigo = item.Articulo.Codigo,
+                        };
+
+                        long IdArticulo = articuloRepository.GetOrCreate(articulo, data);
+
+                        if (IdArticulo == 0)
+                        {
+                            data.SetQuery("SELECT last_insert_rowid()");
+                            IdArticulo = (long)data.ExecuteScalar();
+                        }
+
                         data.SetQuery(@"INSERT INTO ArticulosEncargos 
                                         (ArticuloId, EncargoId, Cantidad, PrecioUnitario)
-                                    VALUES
+                                        VALUES
                                         (@ArticuloId, @EncargoId, @Cantidad, @PrecioUnitario)
-                    ");
+                        ");
 
-                        data.SetParameter("@ArticuloId", item.ArticuloID);
+                        data.SetParameter("@ArticuloId", IdArticulo);
                         data.SetParameter("@EncargoId", encargo.Id);
                         data.SetParameter("@Cantidad", item.Cantidad);
                         data.SetParameter("@PrecioUnitario", item.PrecioUnitario);

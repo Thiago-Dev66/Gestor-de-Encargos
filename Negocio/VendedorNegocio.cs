@@ -36,17 +36,14 @@ namespace Negocio
             {
                 vendedor = (Vendedor)repository.ValidarVendedor(val);
 
-                if (vendedor != null) 
+                if (vendedor != null)
                     return vendedor;
                 else
-                    throw new NullReferenceException("Número inválido");
+                    return null;
             }
             catch (Exception ex)
             {
-
-                MessageBox.Show(ex.ToString());
-                return null;
-                
+                throw ex;
             }
         }
     }

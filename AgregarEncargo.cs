@@ -11,6 +11,7 @@ using Dominio;
 using Negocio;
 using Data.Repositories;
 using System.Globalization;
+using System.Diagnostics.Eventing.Reader;
 
 namespace Gestor_de_Encargos
 {
@@ -20,13 +21,27 @@ namespace Gestor_de_Encargos
         private ClienteRepository repository;
         private Cliente seleccionado;
         private Vendedor _Vendedor { get; set; }
+        private Encargo _Encargo { get; set; }
 
-        public AgregarEncargo(Vendedor vendedor)
+        public AgregarEncargo(Vendedor vendedor, Encargo encargo = null, 
+                                BindingList<ArticuloEncargo> articulosModificados = null)
         {
             InitializeComponent();
 
             articulos = new BindingList<ArticuloEncargo>();
-            dgwListaArticulos.DataSource = articulos;
+
+            bool notNull = articulosModificados != null && encargo != null;
+
+            if (notNull)
+            {
+                articulos = articulosModificados;
+                dgwListaArticulos.DataSource = articulos;
+                _Encargo = encargo;
+                btnGuardar.Text = "Modificar";
+            }
+            else
+                dgwListaArticulos.DataSource = articulos;
+
             _Vendedor = vendedor;
         }
 
@@ -44,6 +59,21 @@ namespace Gestor_de_Encargos
 
             cboEstado.DataSource = Enum.GetValues(typeof(EstadoEncargo));
             CargarCbo();
+
+            if (_Encargo != null && articulos.Any())
+            {
+                CargarModificarEncargo(_Encargo, articulos);
+            }
+        }
+        private void CargarModificarEncargo(Encargo encargo, BindingList<ArticuloEncargo> articulosModificados)
+        {
+            cboBuscarCliente.SelectedValue = encargo.Cliente.Id;
+            CargarClienteEnLabels(encargo.Cliente);
+            dgwListaArticulos.DataSource = articulosModificados;
+            txtSucursalOrigen.Text = encargo.SucursalOrigen;
+            txtDetalles.Text = encargo.Descripcion;
+            dtpFecha.Value = encargo.Fecha;
+
         }
         private void CargarCbo()
         {
@@ -102,11 +132,22 @@ namespace Gestor_de_Encargos
                 encargo.ArticuloEncargo = articulos;
                 encargo.Vendedor = _Vendedor;
 
-                encargosNegocio.Save(encargo);
-
-                MessageBox.Show("Se ha genereado el encargo con éxito!",
-                                "Encargo",
-                                MessageBoxButtons.OK);
+                if (_Encargo == null)
+                {
+                    encargosNegocio.Save(encargo);
+                    MessageBox.Show("Se ha genereado el encargo con éxito!",
+                                    "Encargo",
+                                    MessageBoxButtons.OK);
+                }
+                else
+                {
+                    encargo.Id = _Encargo.Id;
+                    
+                    encargosNegocio.Update(encargo);
+                    MessageBox.Show("Se ha modificado el encargo con éxito!",
+                                    "Encargo",
+                                    MessageBoxButtons.OK);
+                }
             }
             catch (Exception ex)
             {
@@ -168,7 +209,7 @@ namespace Gestor_de_Encargos
                        
         }
 
-    private void btnEliminarArticulo_Click(object sender, EventArgs e)
+        private void btnEliminarArticulo_Click(object sender, EventArgs e)
         {
             if (dgwListaArticulos.CurrentRow != null)
             {
@@ -220,7 +261,6 @@ namespace Gestor_de_Encargos
                 CargarCbo();
                 CargarClienteEnLabels((Cliente)agregarCliente.PersonaAgregada);
             }
-
 
         }
 

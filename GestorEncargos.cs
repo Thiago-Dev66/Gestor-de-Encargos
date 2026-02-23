@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -28,11 +29,18 @@ namespace Gestor_de_Encargos
 
         private void GestorEncargos_Load(object sender, EventArgs e)
         {
-            dgvEncargos.DataSource = encargos.GetAll();
+            CargarDGV();
             txtNumeroVendedor.Focus();
 
             OcultarColumnas();
+        }
 
+        private void CargarDGV()
+        {
+            dgvEncargos.DataSource = null;
+            dgvEncargos.DataSource = encargos.GetAll()
+                                             .OrderByDescending(en => en.Fecha)
+                                             .ToList();
         }
 
         private void OcultarColumnas()
@@ -60,8 +68,7 @@ namespace Gestor_de_Encargos
 
             if (result == DialogResult.OK)
             {
-                dgvEncargos.DataSource = null;
-                dgvEncargos.DataSource = encargos.GetAll();
+                CargarDGV();
                 OcultarColumnas();
             }
         }
@@ -90,6 +97,7 @@ namespace Gestor_de_Encargos
             {
                 _Vendedor = (Vendedor)obj;
                 BtnAgregar.Enabled = true;
+                btnModificar.Enabled = true;
                 BtnAgregar.Focus();
             }
             else
@@ -114,6 +122,23 @@ namespace Gestor_de_Encargos
             OcultarColumnas();
         }
 
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            AgregarEncargo agregarEncargo;
+            BindingList<ArticuloEncargo> articulosModificados;
 
+            if (!(dgvEncargos.CurrentRow?.DataBoundItem is Encargo encargo))
+            {
+                MessageBox.Show("Debe seleccionar un encargo a modificar");
+                return;
+            }
+
+            articulosModificados = (BindingList<ArticuloEncargo>)dgvArticulos.DataSource;
+            encargo = (Encargo)dgvEncargos.CurrentRow.DataBoundItem;
+            agregarEncargo = new AgregarEncargo(_Vendedor, encargo, articulosModificados);
+            agregarEncargo.ShowDialog();
+            CargarDGV();
+
+        }
     }
 }

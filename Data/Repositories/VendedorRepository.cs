@@ -177,7 +177,7 @@ namespace Data.Repositories
                             return vendedor;
                         }
                     }
-                    throw new NullReferenceException();
+                    return null;
                 }
                 catch (Exception)
                 {
