@@ -18,27 +18,33 @@ namespace Gestor_de_Encargos
     public partial class GestorEncargos : Form
     {
         private Vendedor _Vendedor { get; set; }
-        private EncargosRepository encargos = new EncargosRepository();
+        private EncargosRepository _encargosRepository = new EncargosRepository();
         private ArticuloRepository articulos = new ArticuloRepository();
+        private EncargosNegocio _encargoNegocio;
 
         public GestorEncargos()
         {
             InitializeComponent();
-            BtnAgregar.Enabled = false;
         }
 
         private void GestorEncargos_Load(object sender, EventArgs e)
         {
+
+            BtnAgregar.Enabled = false;
+            btnModificar.Enabled = false;
+            btnDelete.Enabled = false;
+
             CargarDGV();
+            OcultarColumnas();
+
             txtNumeroVendedor.Focus();
 
-            OcultarColumnas();
         }
 
         private void CargarDGV()
         {
             dgvEncargos.DataSource = null;
-            dgvEncargos.DataSource = encargos.GetAll()
+            dgvEncargos.DataSource = _encargosRepository.GetAll()
                                              .OrderByDescending(en => en.Fecha)
                                              .ToList();
         }
@@ -96,8 +102,11 @@ namespace Gestor_de_Encargos
             if (obj != null)
             {
                 _Vendedor = (Vendedor)obj;
+
                 BtnAgregar.Enabled = true;
                 btnModificar.Enabled = true;
+                btnDelete.Enabled = true;
+
                 BtnAgregar.Focus();
             }
             else
@@ -106,7 +115,7 @@ namespace Gestor_de_Encargos
         private void txtNumeroVendedor_KeyDown(object sender, KeyEventArgs e)
         {
 
-            if (e.KeyCode == Keys.Enter) 
+            if (e.KeyCode == Keys.Enter)
             {
                 if ((int.TryParse(txtNumeroVendedor.Text, out int val)))
                     ValidarVendedor(val);
@@ -122,22 +131,63 @@ namespace Gestor_de_Encargos
             OcultarColumnas();
         }
 
+        private Encargo ObtenerEncargoSeleccionado()
+        {
+            if (!(dgvEncargos.CurrentRow?.DataBoundItem is Encargo encargo))
+                return null;
+            else
+                return encargo;
+        }
+
         private void btnModificar_Click(object sender, EventArgs e)
         {
             AgregarEncargo agregarEncargo;
             BindingList<ArticuloEncargo> articulosModificados;
-
-            if (!(dgvEncargos.CurrentRow?.DataBoundItem is Encargo encargo))
+            var encargo = new Encargo()
             {
-                MessageBox.Show("Debe seleccionar un encargo a modificar");
-                return;
-            }
+                Cliente = new Cliente()
+            };
+
+            if (ObtenerEncargoSeleccionado() != null)
+                encargo = ObtenerEncargoSeleccionado();
+            else
+                MessageBox.Show("Debe haber un encargo seleccionado");
 
             articulosModificados = (BindingList<ArticuloEncargo>)dgvArticulos.DataSource;
-            encargo = (Encargo)dgvEncargos.CurrentRow.DataBoundItem;
             agregarEncargo = new AgregarEncargo(_Vendedor, encargo, articulosModificados);
             agregarEncargo.ShowDialog();
+
             CargarDGV();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _encargoNegocio = new EncargosNegocio(_encargosRepository);
+                var encargo = new Encargo();
+
+                if (ObtenerEncargoSeleccionado() != null)
+                    encargo = ObtenerEncargoSeleccionado();
+                else
+                    MessageBox.Show("Debe haber un encargo seleccionado");
+
+                DialogResult result = MessageBox.Show(
+                                        "¿Seguro que deseas borrar el encargo?\nNo se podrán recuperar los datos",
+                                        "Borrar encargo",
+                                        MessageBoxButtons.YesNo,
+                                        MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    _encargoNegocio.Delete(encargo.Id);
+                    CargarDGV();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
 
         }
     }

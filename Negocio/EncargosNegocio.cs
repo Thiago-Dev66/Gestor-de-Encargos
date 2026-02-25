@@ -11,10 +11,23 @@ namespace Negocio
 {
     public class EncargosNegocio
     {
+        private readonly EncargosRepository _encargosRepository;
+
+        public EncargosNegocio (EncargosRepository encargosRepository)
+        {
+            _encargosRepository = encargosRepository;
+        }
+
+        public void Delete(int id)
+        {
+            if (id <= 0)
+                throw new Exception("Un ID no puede ser menor o igual a cero");
+
+            _encargosRepository.Delete(id);
+        }
+
         public void Save(Encargo encargo) 
         {
-            EncargosRepository repository = new EncargosRepository();
-
             try
             {
                 if (string.IsNullOrEmpty(encargo.SucursalOrigen))
@@ -23,21 +36,21 @@ namespace Negocio
                 if (encargo.Fecha == null)
                     throw new Exception("Un encargo debe tener una fecha");
 
-                repository.Add(encargo);
+                _encargosRepository.Add(encargo);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                throw ex;
             }
         }
 
         public void Update(Encargo encargo)
         {
-            EncargosRepository repository = new EncargosRepository();
+            if (encargo == null)
+                throw new Exception("Un encargo no puede ser null");
 
-            repository.Update(encargo);
+            _encargosRepository.Update(encargo);
         }
     }
 }

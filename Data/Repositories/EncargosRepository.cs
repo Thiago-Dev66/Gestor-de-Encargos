@@ -246,13 +246,17 @@ namespace Data.Repositories
                 {
                     data.BeginTransaction();
 
-                    data.SetQuery(@"DELETE FROM Encargos WHERE Id = @Id");
+                    data.SetQuery("DELETE FROM ArticulosEncargos WHERE EncargoID = @EncargoID");
+                    data.SetParameter("EncargoID", id);
+                    data.ExecuteNonQuery();
+
+                    data.SetQuery("DELETE FROM Encargos WHERE Id = @Id");
                     data.SetParameter("@Id", id);
                     data.ExecuteNonQuery();
 
                     data.Commit();
                 }
-                catch (Exception)
+                    catch (Exception)
                 {
                     data.Rollback();
                     throw;

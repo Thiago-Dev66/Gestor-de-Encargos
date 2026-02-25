@@ -19,6 +19,7 @@ namespace Gestor_de_Encargos
     {
         readonly private BindingList<ArticuloEncargo> articulos;
         private ClienteRepository repository;
+        private readonly EncargosRepository _encargosRepository = new EncargosRepository();
         private Cliente seleccionado;
         private Vendedor _Vendedor { get; set; }
         private Encargo _Encargo { get; set; }
@@ -90,8 +91,8 @@ namespace Gestor_de_Encargos
                 Cliente = new Cliente(),
                 Vendedor = new Vendedor()
             };
-            EncargosNegocio encargosNegocio = new EncargosNegocio();
-            GestorEncargos gestor = new GestorEncargos();
+            var encargosNegocio = new EncargosNegocio(_encargosRepository);
+            var gestor = new GestorEncargos();
 
             try
             {

@@ -42,9 +42,10 @@
             this.btnAgregarCliente = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.gpbEncargos = new System.Windows.Forms.GroupBox();
+            this.btnModificar = new System.Windows.Forms.Button();
             this.gpbArticulos = new System.Windows.Forms.GroupBox();
             this.dgvArticulos = new System.Windows.Forms.DataGridView();
-            this.btnModificar = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEncargos)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.gpbPanelVendedores.SuspendLayout();
@@ -111,7 +112,7 @@
             // 
             this.btnModificarVendedor.Location = new System.Drawing.Point(23, 117);
             this.btnModificarVendedor.Name = "btnModificarVendedor";
-            this.btnModificarVendedor.Size = new System.Drawing.Size(195, 50);
+            this.btnModificarVendedor.Size = new System.Drawing.Size(197, 50);
             this.btnModificarVendedor.TabIndex = 5;
             this.btnModificarVendedor.Text = "Modificar ";
             this.btnModificarVendedor.UseVisualStyleBackColor = true;
@@ -123,7 +124,7 @@
             this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1541, 38);
+            this.toolStrip1.Size = new System.Drawing.Size(1541, 33);
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -133,7 +134,7 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(34, 33);
+            this.toolStripButton1.Size = new System.Drawing.Size(34, 28);
             this.toolStripButton1.Text = "toolStripButton1";
             // 
             // gpbPanelVendedores
@@ -142,7 +143,7 @@
             this.gpbPanelVendedores.Controls.Add(this.btnModificarVendedor);
             this.gpbPanelVendedores.Location = new System.Drawing.Point(21, 300);
             this.gpbPanelVendedores.Name = "gpbPanelVendedores";
-            this.gpbPanelVendedores.Size = new System.Drawing.Size(257, 221);
+            this.gpbPanelVendedores.Size = new System.Drawing.Size(257, 208);
             this.gpbPanelVendedores.TabIndex = 7;
             this.gpbPanelVendedores.TabStop = false;
             this.gpbPanelVendedores.Text = "Panel Vendedores";
@@ -179,6 +180,7 @@
             // 
             // gpbEncargos
             // 
+            this.gpbEncargos.Controls.Add(this.btnDelete);
             this.gpbEncargos.Controls.Add(this.btnModificar);
             this.gpbEncargos.Controls.Add(this.BtnAgregar);
             this.gpbEncargos.Controls.Add(this.dgvEncargos);
@@ -188,6 +190,18 @@
             this.gpbEncargos.TabIndex = 9;
             this.gpbEncargos.TabStop = false;
             this.gpbEncargos.Text = "Panel Encargos";
+            // 
+            // btnModificar
+            // 
+            this.btnModificar.Enabled = false;
+            this.btnModificar.Location = new System.Drawing.Point(182, 356);
+            this.btnModificar.Name = "btnModificar";
+            this.btnModificar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.btnModificar.Size = new System.Drawing.Size(120, 50);
+            this.btnModificar.TabIndex = 2;
+            this.btnModificar.Text = "Modificar";
+            this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // gpbArticulos
             // 
@@ -216,17 +230,17 @@
             this.dgvArticulos.Size = new System.Drawing.Size(706, 218);
             this.dgvArticulos.TabIndex = 0;
             // 
-            // btnModificar
+            // btnDelete
             // 
-            this.btnModificar.Enabled = false;
-            this.btnModificar.Location = new System.Drawing.Point(184, 356);
-            this.btnModificar.Name = "btnModificar";
-            this.btnModificar.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.btnModificar.Size = new System.Drawing.Size(120, 50);
-            this.btnModificar.TabIndex = 2;
-            this.btnModificar.Text = "Modificar";
-            this.btnModificar.UseVisualStyleBackColor = true;
-            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
+            this.btnDelete.Enabled = false;
+            this.btnDelete.Location = new System.Drawing.Point(338, 356);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.btnDelete.Size = new System.Drawing.Size(120, 50);
+            this.btnDelete.TabIndex = 3;
+            this.btnDelete.Text = "Borrar";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // GestorEncargos
             // 
@@ -276,6 +290,7 @@
         private System.Windows.Forms.GroupBox gpbArticulos;
         private System.Windows.Forms.DataGridView dgvArticulos;
         private System.Windows.Forms.Button btnModificar;
+        private System.Windows.Forms.Button btnDelete;
     }
 }
 
