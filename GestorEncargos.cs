@@ -45,8 +45,8 @@ namespace Gestor_de_Encargos
         {
             dgvEncargos.DataSource = null;
             dgvEncargos.DataSource = _encargosRepository.GetAll()
-                                             .OrderByDescending(en => en.Fecha)
-                                             .ToList();
+                                                        .OrderByDescending(en => en.Fecha)
+                                                        .ToList();
         }
 
         private void OcultarColumnas()
@@ -106,6 +106,7 @@ namespace Gestor_de_Encargos
                 BtnAgregar.Enabled = true;
                 btnModificar.Enabled = true;
                 btnDelete.Enabled = true;
+                btnNotificar.Enabled = true;
 
                 BtnAgregar.Focus();
             }
@@ -127,6 +128,11 @@ namespace Gestor_de_Encargos
         {
             Encargo encargo = (Encargo)dgvEncargos.CurrentRow.DataBoundItem;
             dgvArticulos.DataSource = articulos.GetArticulosByEncargoId(encargo.Id);
+
+            if (encargo.Estado == EstadoEncargo.Notificado)
+                btnNotificar.Enabled = false;
+            else
+                btnNotificar.Enabled = true;
 
             OcultarColumnas();
         }
@@ -189,6 +195,32 @@ namespace Gestor_de_Encargos
                 MessageBox.Show(ex.ToString());
             }
 
+        }
+
+        private void btnNotificar_Click(object sender, EventArgs e)
+        {
+            _encargoNegocio = new EncargosNegocio(_encargosRepository);
+            var encargo = new Encargo();
+            bool isNotified = false;
+
+            if (ObtenerEncargoSeleccionado() != null)
+                encargo = ObtenerEncargoSeleccionado();
+            else
+                MessageBox.Show("Debe haber un encargo seleccionado para poder notificar");
+
+            _encargoNegocio.NotificarCliente(encargo);
+
+            DialogResult result = MessageBox.Show(
+                                        "¿El cliente fue notificado?",
+                                        "Notificar Cliente",
+                                        MessageBoxButtons.YesNo);
+
+            if (result == DialogResult.Yes)
+            {
+                isNotified = true;
+                _encargoNegocio.IsNotified(isNotified, encargo);
+                CargarDGV();
+            }
         }
     }
 }

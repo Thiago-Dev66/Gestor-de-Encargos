@@ -105,7 +105,7 @@ namespace Data.Repositories
                 try
                 {
                     data.SetQuery(@"
-                            SELECT E.Id, C.Nombre as Cliente, C.Celular, V.Numero AS Vendedor, 
+                            SELECT E.Id, C.Nombre as Cliente, C.Celular, V.Numero AS Vendedor, V.Nombre, 
                             date(E.Fecha) as Fecha, E.Estado, E.SucursalOrigen as Sucursal, E.Descripcion, 
                             E.ClienteID, E.VendedorID   
                             FROM Encargos AS E
@@ -130,6 +130,7 @@ namespace Data.Repositories
                         estado = Convert.ToInt32(data.Reader["Estado"]);
                         encargo.Estado = (EstadoEncargo)estado;
                         encargo.Vendedor.Numero = Convert.ToInt32(data.Reader["Vendedor"]);
+                        encargo.Vendedor.Nombre = (string)data.Reader["Nombre"];
                         encargo.SucursalOrigen = (string)data.Reader["Sucursal"];
 
                         if (!(data.Reader["Descripcion"] is DBNull))
@@ -256,7 +257,7 @@ namespace Data.Repositories
 
                     data.Commit();
                 }
-                    catch (Exception)
+                catch (Exception)
                 {
                     data.Rollback();
                     throw;
@@ -264,6 +265,33 @@ namespace Data.Repositories
                 finally
                 {
                     data.ConnectionClose();
+                }
+            }
+        }
+
+        public void UpdateState(Encargo encargo)
+        {
+            using (var data = new DataAccess())
+            {
+                try
+                {
+                    data.BeginTransaction();
+
+                    data.SetQuery(@"UPDATE Encargos 
+                                  SET Estado = 3 WHERE Encargos.Id = @Id");
+
+                    data.SetParameter("Id", encargo.Id);
+                    data.ExecuteNonQuery();
+                    data.Commit();
+                }
+                catch (Exception ex)
+                {
+                    data.Rollback();
+                    throw ex;
+                }
+                finally 
+                { 
+                    data.ConnectionClose(); 
                 }
             }
         }

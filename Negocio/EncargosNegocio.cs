@@ -6,16 +6,52 @@ using System.Threading.Tasks;
 using Dominio;
 using Data;
 using Data.Repositories;
+using Negocio.Servicios;
+using System.Windows.Forms;
 
 namespace Negocio
 {
     public class EncargosNegocio
     {
         private readonly EncargosRepository _encargosRepository;
+        private readonly INotificable _notificable;
+
+        public EncargosNegocio()
+        {
+        }
 
         public EncargosNegocio (EncargosRepository encargosRepository)
         {
             _encargosRepository = encargosRepository;
+            _notificable = new WhatsAppNotificador();
+        }
+
+        public void NotificarCliente(Encargo encargo)
+        {
+            try
+            {
+                if (encargo == null)
+                    throw new ArgumentNullException("Un encargo no puede ser null");
+
+                string mensaje = $"Hola, {encargo.Cliente.Nombre}! " +
+                                 $"Te habla {encargo.Vendedor.Nombre} de Palacio de la Música. " +
+                                 $"Tu pedido ya está listo para retirar!\nSaludos!";
+
+                _notificable.Notificar(encargo.Cliente.Celular, mensaje);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public void IsNotified(bool isNotified, Encargo encargo)
+        {
+            if (encargo == null)
+                throw new NullReferenceException("Un encargo no puede ser null");
+
+            if (isNotified == true)
+                _encargosRepository.UpdateState(encargo);
         }
 
         public void Delete(int id)

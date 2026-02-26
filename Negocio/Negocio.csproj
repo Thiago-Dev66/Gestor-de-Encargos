@@ -88,7 +88,9 @@
     <Compile Include="ArticulosNegocio.cs" />
     <Compile Include="ClienteNegocio.cs" />
     <Compile Include="EncargosNegocio.cs" />
+    <Compile Include="Servicios\INotificable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Servicios\WhatsAppNotificador.cs" />
     <Compile Include="VendedorNegocio.cs" />
   </ItemGroup>
   <ItemGroup>

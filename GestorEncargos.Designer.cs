@@ -42,10 +42,11 @@
             this.btnAgregarCliente = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.gpbEncargos = new System.Windows.Forms.GroupBox();
+            this.btnNotificar = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
             this.gpbArticulos = new System.Windows.Forms.GroupBox();
             this.dgvArticulos = new System.Windows.Forms.DataGridView();
-            this.btnDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEncargos)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.gpbPanelVendedores.SuspendLayout();
@@ -180,6 +181,7 @@
             // 
             // gpbEncargos
             // 
+            this.gpbEncargos.Controls.Add(this.btnNotificar);
             this.gpbEncargos.Controls.Add(this.btnDelete);
             this.gpbEncargos.Controls.Add(this.btnModificar);
             this.gpbEncargos.Controls.Add(this.BtnAgregar);
@@ -190,6 +192,30 @@
             this.gpbEncargos.TabIndex = 9;
             this.gpbEncargos.TabStop = false;
             this.gpbEncargos.Text = "Panel Encargos";
+            // 
+            // btnNotificar
+            // 
+            this.btnNotificar.Enabled = false;
+            this.btnNotificar.Location = new System.Drawing.Point(494, 356);
+            this.btnNotificar.Name = "btnNotificar";
+            this.btnNotificar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.btnNotificar.Size = new System.Drawing.Size(120, 50);
+            this.btnNotificar.TabIndex = 4;
+            this.btnNotificar.Text = "Notificar";
+            this.btnNotificar.UseVisualStyleBackColor = true;
+            this.btnNotificar.Click += new System.EventHandler(this.btnNotificar_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Enabled = false;
+            this.btnDelete.Location = new System.Drawing.Point(338, 356);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.btnDelete.Size = new System.Drawing.Size(120, 50);
+            this.btnDelete.TabIndex = 3;
+            this.btnDelete.Text = "Borrar";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnModificar
             // 
@@ -229,18 +255,6 @@
             this.dgvArticulos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvArticulos.Size = new System.Drawing.Size(706, 218);
             this.dgvArticulos.TabIndex = 0;
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Enabled = false;
-            this.btnDelete.Location = new System.Drawing.Point(338, 356);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.btnDelete.Size = new System.Drawing.Size(120, 50);
-            this.btnDelete.TabIndex = 3;
-            this.btnDelete.Text = "Borrar";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // GestorEncargos
             // 
@@ -291,6 +305,7 @@
         private System.Windows.Forms.DataGridView dgvArticulos;
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnNotificar;
     }
 }
 
