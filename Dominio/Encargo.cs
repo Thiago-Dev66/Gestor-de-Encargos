@@ -32,6 +32,7 @@ namespace Dominio
         Remitido = 1,
         Vendido = 2,
         Notificado = 3,
-        Cancelado = 4
+        Cancelado = 4,
+        Urgente = 5
     }
 }

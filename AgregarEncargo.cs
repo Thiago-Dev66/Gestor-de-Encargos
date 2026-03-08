@@ -202,10 +202,9 @@ namespace Gestor_de_Encargos
                 nudCantidad.Value = 1;
                 txtArticulo.Focus();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show(ex.ToString());
             }
                        
         }

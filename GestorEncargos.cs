@@ -26,29 +26,56 @@ namespace Gestor_de_Encargos
         {
             InitializeComponent();
         }
-
         private void GestorEncargos_Load(object sender, EventArgs e)
         {
-
-            BtnAgregar.Enabled = false;
-            btnModificar.Enabled = false;
-            btnDelete.Enabled = false;
-
             CargarDGV();
             OcultarColumnas();
+            EnableButtons();
 
-            txtNumeroVendedor.Focus();
-
+            BeginInvoke(new Action(() =>
+            {
+                txtNumeroVendedor.Focus();
+            }));
         }
+        private void EnableButtons(bool isEnabled = false)
+        {
+            if (isEnabled == false)
+            {
+                BtnAgregar.Enabled = false;
+                BtnAgregar.BackColor = Color.LightGray;
 
+                btnModificar.Enabled = false;
+                btnModificar.BackColor = Color.LightGray;
+
+                btnDelete.Enabled = false;
+                btnDelete.BackColor = Color.LightGray;
+
+                btnNotificar.Enabled = false;
+                btnNotificar.BackColor = Color.LightGray;
+            }
+            else if (isEnabled == true)
+            {
+                BtnAgregar.Enabled = true;
+                BtnAgregar.BackColor = SystemColors.Highlight;
+
+                btnModificar.Enabled = true;
+                btnModificar.BackColor = SystemColors.Highlight;
+
+                btnDelete.Enabled = true;
+                btnDelete.BackColor = SystemColors.Highlight;
+
+                btnNotificar.Enabled = true;
+                btnNotificar.BackColor = SystemColors.Highlight;
+            }
+        } 
         private void CargarDGV()
         {
             dgvEncargos.DataSource = null;
             dgvEncargos.DataSource = _encargosRepository.GetAll()
                                                         .OrderByDescending(en => en.Fecha)
                                                         .ToList();
+            
         }
-
         private void OcultarColumnas()
         {
             dgvEncargos.Columns["Id"].Visible = false;
@@ -103,15 +130,14 @@ namespace Gestor_de_Encargos
             {
                 _Vendedor = (Vendedor)obj;
 
-                BtnAgregar.Enabled = true;
-                btnModificar.Enabled = true;
-                btnDelete.Enabled = true;
-                btnNotificar.Enabled = true;
-
+                EnableButtons(true);
                 BtnAgregar.Focus();
             }
             else
+            {
                 MessageBox.Show("El número de vendedor no es correcto");
+                EnableButtons();
+            }
         }
         private void txtNumeroVendedor_KeyDown(object sender, KeyEventArgs e)
         {
@@ -126,15 +152,28 @@ namespace Gestor_de_Encargos
         }
         private void dgvEncargos_SelectionChanged(object sender, EventArgs e)
         {
-            Encargo encargo = (Encargo)dgvEncargos.CurrentRow.DataBoundItem;
-            dgvArticulos.DataSource = articulos.GetArticulosByEncargoId(encargo.Id);
+            try
+            {
+                Encargo encargo = (Encargo)dgvEncargos.CurrentRow.DataBoundItem;
+                dgvArticulos.DataSource = articulos.GetArticulosByEncargoId(encargo.Id);
 
-            if (encargo.Estado == EstadoEncargo.Notificado)
-                btnNotificar.Enabled = false;
-            else
-                btnNotificar.Enabled = true;
-
-            OcultarColumnas();
+                if (encargo.Estado == EstadoEncargo.Notificado)
+                {
+                    btnNotificar.Enabled = false;
+                    btnNotificar.BackColor = Color.LightGray;
+                }
+                else
+                {
+                    btnNotificar.Enabled = true;
+                    btnNotificar.BackColor = SystemColors.Highlight;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+           
+           // OcultarColumnas();
         }
 
         private Encargo ObtenerEncargoSeleccionado()
@@ -164,6 +203,7 @@ namespace Gestor_de_Encargos
             agregarEncargo.ShowDialog();
 
             CargarDGV();
+            OcultarColumnas();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -220,6 +260,69 @@ namespace Gestor_de_Encargos
                 isNotified = true;
                 _encargoNegocio.IsNotified(isNotified, encargo);
                 CargarDGV();
+            }
+        }
+
+        private void dgvEncargos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            try
+            {
+                DataGridView dgv = (DataGridView)sender;
+
+                if (dgv.Name != dgvEncargos.Name) 
+                    return;
+
+                if (dgvEncargos.Columns[e.ColumnIndex].Name == "Estado")
+                {
+
+                    EstadoEncargo estado = (EstadoEncargo)e.Value;
+
+                    switch (estado)
+                    {
+                        case EstadoEncargo.Pendiente:
+                            e.CellStyle.BackColor = Color.LightSalmon;
+                            e.CellStyle.SelectionBackColor = Color.LightSalmon;
+                            e.CellStyle.SelectionForeColor = Color.Black;
+                            break;
+
+                        case EstadoEncargo.Remitido:
+                            e.CellStyle.BackColor = Color.LightGreen;
+                            e.CellStyle.SelectionBackColor = Color.LightGreen;
+                            e.CellStyle.SelectionForeColor = Color.Black;
+                            break;
+
+                        case EstadoEncargo.Vendido:
+                            dgvEncargos.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightYellow;
+                            dgvEncargos.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = Color.Yellow;
+                            dgvEncargos.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.Black;
+                            break;
+
+                        case EstadoEncargo.Notificado:
+                            e.CellStyle.BackColor = Color.LightSkyBlue;
+                            e.CellStyle.SelectionBackColor = Color.LightSkyBlue;
+                            e.CellStyle.SelectionForeColor = Color.Black;
+                            break;
+
+                        case EstadoEncargo.Cancelado:
+                            e.CellStyle.BackColor = Color.LightGray;
+                            e.CellStyle.SelectionBackColor = Color.LightGray;
+                            e.CellStyle.SelectionForeColor = Color.Black;
+                            break;
+
+                        case EstadoEncargo.Urgente:
+                            e.CellStyle.BackColor = Color.Red;
+                            e.CellStyle.SelectionBackColor = Color.Red;
+                            e.CellStyle.ForeColor = Color.Black;
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
         }
     }
