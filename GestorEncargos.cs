@@ -78,6 +78,8 @@ namespace Gestor_de_Encargos
         }
         private void OcultarColumnas()
         {
+            if (dgvEncargos.Columns.Count == 0) return;
+
             dgvEncargos.Columns["Id"].Visible = false;
             dgvEncargos.Columns["Vendedor"].Visible = false;
             dgvEncargos.Columns["Cliente"].Visible = false;
@@ -98,7 +100,7 @@ namespace Gestor_de_Encargos
         {
             AgregarEncargo agregarEncargo = new AgregarEncargo(_Vendedor);
             DialogResult result = agregarEncargo.ShowDialog();
-
+            
             if (result == DialogResult.OK)
             {
                 CargarDGV();
@@ -154,7 +156,11 @@ namespace Gestor_de_Encargos
         {
             try
             {
-                Encargo encargo = (Encargo)dgvEncargos.CurrentRow.DataBoundItem;
+                if (!(dgvEncargos.CurrentRow?.DataBoundItem is Encargo encargo))
+                    return;
+                else
+                    encargo = (Encargo)dgvEncargos.CurrentRow.DataBoundItem;
+
                 dgvArticulos.DataSource = articulos.GetArticulosByEncargoId(encargo.Id);
 
                 if (encargo.Estado == EstadoEncargo.Notificado)
@@ -162,7 +168,7 @@ namespace Gestor_de_Encargos
                     btnNotificar.Enabled = false;
                     btnNotificar.BackColor = Color.LightGray;
                 }
-                else
+                else if (_Vendedor != null)
                 {
                     btnNotificar.Enabled = true;
                     btnNotificar.BackColor = SystemColors.Highlight;
@@ -172,8 +178,6 @@ namespace Gestor_de_Encargos
             {
                 MessageBox.Show(ex.ToString());
             }
-           
-           // OcultarColumnas();
         }
 
         private Encargo ObtenerEncargoSeleccionado()
@@ -196,9 +200,12 @@ namespace Gestor_de_Encargos
             if (ObtenerEncargoSeleccionado() != null)
                 encargo = ObtenerEncargoSeleccionado();
             else
+            {
                 MessageBox.Show("Debe haber un encargo seleccionado");
+                return;
+            }
 
-            articulosModificados = (BindingList<ArticuloEncargo>)dgvArticulos.DataSource;
+            articulosModificados = (BindingList<ArticuloEncargo>)dgvArticulos?.DataSource;
             agregarEncargo = new AgregarEncargo(_Vendedor, encargo, articulosModificados);
             agregarEncargo.ShowDialog();
 
@@ -216,7 +223,10 @@ namespace Gestor_de_Encargos
                 if (ObtenerEncargoSeleccionado() != null)
                     encargo = ObtenerEncargoSeleccionado();
                 else
+                {
                     MessageBox.Show("Debe haber un encargo seleccionado");
+                    return;
+                }
 
                 DialogResult result = MessageBox.Show(
                                         "¿Seguro que deseas borrar el encargo?\nNo se podrán recuperar los datos",
@@ -228,6 +238,7 @@ namespace Gestor_de_Encargos
                 {
                     _encargoNegocio.Delete(encargo.Id);
                     CargarDGV();
+                    OcultarColumnas();
                 }
             }
             catch (Exception ex)
@@ -246,7 +257,10 @@ namespace Gestor_de_Encargos
             if (ObtenerEncargoSeleccionado() != null)
                 encargo = ObtenerEncargoSeleccionado();
             else
+            {
                 MessageBox.Show("Debe haber un encargo seleccionado para poder notificar");
+                return;
+            }
 
             _encargoNegocio.NotificarCliente(encargo);
 
@@ -260,6 +274,7 @@ namespace Gestor_de_Encargos
                 isNotified = true;
                 _encargoNegocio.IsNotified(isNotified, encargo);
                 CargarDGV();
+                OcultarColumnas();
             }
         }
 

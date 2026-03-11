@@ -34,7 +34,7 @@ namespace Negocio
                     throw new ArgumentNullException("Un encargo no puede ser null");
 
                 string mensaje = $"Hola, {encargo.Cliente.Nombre}! " +
-                                 $"Te habla {encargo.Vendedor.Nombre} de Palacio de la Música. " +
+                                 $"Te habla {encargo.Vendedor.Nombre} de Palacio de la Música Las Piedras Shopping. " +
                                  $"Tu pedido ya está listo para retirar!\nSaludos!";
 
                 _notificable.Notificar(encargo.Cliente.Celular, mensaje);

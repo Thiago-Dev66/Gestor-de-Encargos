@@ -111,7 +111,7 @@
             this.tlpBuscarCliente.ColumnCount = 3;
             this.tlpBuscarCliente.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.17871F));
             this.tlpBuscarCliente.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68.82129F));
-            this.tlpBuscarCliente.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 441F));
+            this.tlpBuscarCliente.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 443F));
             this.tlpBuscarCliente.Controls.Add(this.panelLabel, 2, 0);
             this.tlpBuscarCliente.Controls.Add(this.lblBuscar, 0, 0);
             this.tlpBuscarCliente.Controls.Add(this.cboBuscarCliente, 1, 0);
@@ -130,10 +130,10 @@
             // 
             this.panelLabel.Controls.Add(this.tableLayoutPanel1);
             this.panelLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelLabel.Location = new System.Drawing.Point(527, 3);
+            this.panelLabel.Location = new System.Drawing.Point(525, 3);
             this.panelLabel.Name = "panelLabel";
             this.tlpBuscarCliente.SetRowSpan(this.panelLabel, 2);
-            this.panelLabel.Size = new System.Drawing.Size(436, 144);
+            this.panelLabel.Size = new System.Drawing.Size(438, 144);
             this.panelLabel.TabIndex = 2;
             // 
             // tableLayoutPanel1
@@ -150,7 +150,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(436, 144);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(438, 144);
             this.tableLayoutPanel1.TabIndex = 7;
             // 
             // lblNombre
@@ -158,7 +158,7 @@
             this.lblNombre.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblNombre.AutoSize = true;
             this.lblNombre.Location = new System.Drawing.Point(3, 12);
-            this.lblNombre.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.lblNombre.Margin = new System.Windows.Forms.Padding(3);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(0, 22);
             this.lblNombre.TabIndex = 4;
@@ -168,7 +168,7 @@
             this.lblContacto.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblContacto.AutoSize = true;
             this.lblContacto.Location = new System.Drawing.Point(3, 108);
-            this.lblContacto.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.lblContacto.Margin = new System.Windows.Forms.Padding(3);
             this.lblContacto.Name = "lblContacto";
             this.lblContacto.Size = new System.Drawing.Size(0, 22);
             this.lblContacto.TabIndex = 6;
@@ -178,7 +178,7 @@
             this.lblApellido.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblApellido.AutoSize = true;
             this.lblApellido.Location = new System.Drawing.Point(3, 59);
-            this.lblApellido.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.lblApellido.Margin = new System.Windows.Forms.Padding(3);
             this.lblApellido.Name = "lblApellido";
             this.lblApellido.Size = new System.Drawing.Size(0, 22);
             this.lblApellido.TabIndex = 5;
@@ -352,6 +352,7 @@
             // 
             this.cboEstado.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.cboEstado.BackColor = System.Drawing.SystemColors.Window;
+            this.cboEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboEstado.FormattingEnabled = true;
             this.cboEstado.Location = new System.Drawing.Point(166, 76);
@@ -585,7 +586,6 @@
             // 
             this.btnGuardar.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnGuardar.BackColor = System.Drawing.SystemColors.Highlight;
-            this.btnGuardar.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardar.ForeColor = System.Drawing.SystemColors.Window;
             this.btnGuardar.Location = new System.Drawing.Point(741, 10);

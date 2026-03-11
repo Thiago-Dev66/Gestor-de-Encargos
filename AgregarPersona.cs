@@ -18,7 +18,7 @@ namespace Gestor_de_Encargos
     {
         public object PersonaAgregada { get; private set; }
         public DialogResult Result { get; set; }
-        private TipoPersona _Tipo {  get; set; }
+        private TipoPersona _Tipo { get; set; }
 
 
         public AgregarPersona()
@@ -50,24 +50,26 @@ namespace Gestor_de_Encargos
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            Cliente cliente;
-            Vendedor vendedor;
-            ClienteNegocio clienteNegocio;
-            VendedorNegocio vendedorNegocio;
-
             try
             {
-                
-               if (_Tipo == TipoPersona.Cliente)
-                {
-                    cliente = new Cliente();
-                    clienteNegocio = new ClienteNegocio();
 
-                    ValidarCliente(txtNombre, "El cliente debe tener un nombre");
+                if (_Tipo == TipoPersona.Cliente)
+                {
+                    var cliente = new Cliente();
+                    var clienteNegocio = new ClienteNegocio();
+
+                    if (!(ValidarPersona(txtNombre, "El cliente debe tener un nombre"))) return;
+                    if (!(SoloLetras(txtNombre))) return;
+
                     cliente.Nombre = txtNombre.Text;
+
+                    if (!(SoloLetras(txtApellido))) return;
+
                     cliente.Apellido = txtApellido.Text;
 
-                    ValidarCliente(txtContacto, "El cliente debe tener un contacto");
+                    if (!(ValidarPersona(txtContacto, "El cliente debe tener un contacto")))
+                        return;
+
                     cliente.Celular = txtContacto.Text;
 
                     clienteNegocio.AddCliente(cliente);
@@ -84,10 +86,17 @@ namespace Gestor_de_Encargos
                 }
                 else
                 {
-                    vendedor = new Vendedor();
-                    vendedorNegocio = new VendedorNegocio();
+                    var vendedor = new Vendedor();
+                    var vendedorNegocio = new VendedorNegocio();
+
+                    if (!(ValidarPersona(txtNombre, "Un vendedor debe tener un nombre"))) return;
+                    if (!(SoloLetras(txtNombre))) return;
 
                     vendedor.Nombre = txtNombre.Text;
+
+                    if (!(ValidarPersona(txtApellido, "Un vendedor debe tener un apellido"))) return;
+                    if (!(SoloLetras(txtApellido))) return;
+
                     vendedor.Apellido = txtApellido.Text;
 
                     if (!(int.TryParse(txtContacto.Text, out int val)))
@@ -119,18 +128,17 @@ namespace Gestor_de_Encargos
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            DialogResult result = 
+            DialogResult result =
                 MessageBox.Show("¿Seguro que desea cancelar?\nSe perderan los datos",
                                 "Cancelar",
                                 MessageBoxButtons.YesNo,
                                 MessageBoxIcon.Exclamation);
 
             if (result == DialogResult.Yes)
-                Close();
+                this.Close();
         }
-        public void ValidarCliente(TextBox txtCampo, string mensaje)
+        public bool ValidarPersona(TextBox txtCampo, string mensaje)
         {
-
             if (string.IsNullOrEmpty(txtCampo.Text))
             {
                 MessageBox.Show(mensaje,
@@ -138,10 +146,32 @@ namespace Gestor_de_Encargos
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
                 txtCampo.Focus();
-                return;
+                return false;
             }
+            if (txtCampo.Text.Length < 3)
+            {
+                MessageBox.Show("El campo debe tener más de tres caracteres",
+                                "Campo Inválido",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                txtCampo.Focus();
+                return false;
+            }
+            return true;
         }
-
+        public bool SoloLetras(TextBox campo)
+        {
+            if (!(campo.Text.All(c => char.IsLetter(c) || char.IsWhiteSpace(c))))
+            {
+                MessageBox.Show("El campo no puede contener números ni espacios",
+                                "Campo Inválido",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                campo.Focus();
+                return false;
+            }
+            return true;
+        }
     }
 
     public enum TipoPersona

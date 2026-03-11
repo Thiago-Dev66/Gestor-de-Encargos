@@ -24,7 +24,7 @@ namespace Gestor_de_Encargos
         private Vendedor _Vendedor { get; set; }
         private Encargo _Encargo { get; set; }
 
-        public AgregarEncargo(Vendedor vendedor, Encargo encargo = null, 
+        public AgregarEncargo(Vendedor vendedor, Encargo encargo = null,
                                 BindingList<ArticuloEncargo> articulosModificados = null)
         {
             InitializeComponent();
@@ -68,13 +68,20 @@ namespace Gestor_de_Encargos
         }
         private void CargarModificarEncargo(Encargo encargo, BindingList<ArticuloEncargo> articulosModificados)
         {
-            cboBuscarCliente.SelectedValue = encargo.Cliente.Id;
-            CargarClienteEnLabels(encargo.Cliente);
-            dgwListaArticulos.DataSource = articulosModificados;
-            txtSucursalOrigen.Text = encargo.SucursalOrigen;
-            txtDetalles.Text = encargo.Descripcion;
-            dtpFecha.Value = encargo.Fecha;
-
+            try
+            {
+                cboBuscarCliente.SelectedValue = encargo.Cliente.Id;
+                CargarClienteEnLabels(encargo.Cliente);
+                dgwListaArticulos.DataSource = articulosModificados;
+                txtSucursalOrigen.Text = encargo.SucursalOrigen;
+                cboEstado.SelectedItem = encargo.Estado;
+                txtDetalles.Text = encargo.Descripcion;
+                dtpFecha.Value = encargo.Fecha;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
         private void CargarCbo()
         {
@@ -92,7 +99,6 @@ namespace Gestor_de_Encargos
                 Vendedor = new Vendedor()
             };
             var encargosNegocio = new EncargosNegocio(_encargosRepository);
-            var gestor = new GestorEncargos();
 
             try
             {
@@ -133,6 +139,7 @@ namespace Gestor_de_Encargos
                 encargo.ArticuloEncargo = articulos;
                 encargo.Vendedor = _Vendedor;
 
+
                 if (_Encargo == null)
                 {
                     encargosNegocio.Save(encargo);
@@ -143,12 +150,15 @@ namespace Gestor_de_Encargos
                 else
                 {
                     encargo.Id = _Encargo.Id;
-                    
+
                     encargosNegocio.Update(encargo);
                     MessageBox.Show("Se ha modificado el encargo con éxito!",
                                     "Encargo",
                                     MessageBoxButtons.OK);
                 }
+
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -206,7 +216,7 @@ namespace Gestor_de_Encargos
             {
                 MessageBox.Show(ex.ToString());
             }
-                       
+
         }
 
         private void btnEliminarArticulo_Click(object sender, EventArgs e)
@@ -224,20 +234,18 @@ namespace Gestor_de_Encargos
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             DialogResult result =
-                MessageBox.Show("¿Seguro que desea cancelar el encargo?\nSe perderan los datos", 
-                                "Cancelar", 
-                                MessageBoxButtons.YesNo, 
+                MessageBox.Show("¿Seguro que desea cancelar el encargo?\nSe perderan los datos",
+                                "Cancelar",
+                                MessageBoxButtons.YesNo,
                                 MessageBoxIcon.Warning);
 
-            if (result == DialogResult.Yes) 
+            if (result == DialogResult.Yes)
                 Close();
         }
 
-        private void CargarClienteEnLabels(Cliente agregado = null) 
+        private void CargarClienteEnLabels(Cliente agregado = null)
         {
-            seleccionado = cboBuscarCliente.SelectedItem as Cliente;
-
-            if(agregado != null)
+            if (agregado != null)
             {
                 lblNombre.Text = agregado.Nombre;
                 lblApellido.Text = agregado.Apellido;
@@ -245,6 +253,9 @@ namespace Gestor_de_Encargos
             }
             else
             {
+                seleccionado = cboBuscarCliente.SelectedItem as Cliente;
+                if (seleccionado == null) return;
+
                 lblNombre.Text = seleccionado.Nombre;
                 lblApellido.Text = seleccionado.Apellido;
                 lblContacto.Text = seleccionado.Celular;
