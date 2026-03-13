@@ -185,7 +185,10 @@ namespace Gestor_de_Encargos
             if (!(dgvEncargos.CurrentRow?.DataBoundItem is Encargo encargo))
                 return null;
             else
+            {
+                encargo.ArticuloEncargo = articulos.GetArticulosByEncargoId(encargo.Id);
                 return encargo;
+            }
         }
 
         private void btnModificar_Click(object sender, EventArgs e)

@@ -20,7 +20,7 @@ namespace Negocio
         {
         }
 
-        public EncargosNegocio (EncargosRepository encargosRepository)
+        public EncargosNegocio(EncargosRepository encargosRepository)
         {
             _encargosRepository = encargosRepository;
             _notificable = new WhatsAppNotificador();
@@ -33,16 +33,24 @@ namespace Negocio
                 if (encargo == null)
                     throw new ArgumentNullException("Un encargo no puede ser null");
 
-                string mensaje = $"Hola, {encargo.Cliente.Nombre}! " +
-                                 $"Te habla {encargo.Vendedor.Nombre} de Palacio de la Música Las Piedras Shopping. " +
-                                 $"Tu pedido ya está listo para retirar!\nSaludos!";
+                string articulos = string.Join(", ", encargo.ArticuloEncargo
+                                         .Select(a => a.Articulo.Nombre));
 
-                _notificable.Notificar(encargo.Cliente.Celular, mensaje);
+                StringBuilder mensaje = new StringBuilder();
 
+                mensaje.AppendLine($"Hola, {encargo.Cliente.Nombre}! ");
+                mensaje.AppendLine($"Te habla {encargo.Vendedor.Nombre} de Palacio de la Música Las Piedras Shopping. " +
+                                    "Tu pedido ya está listo para retirar: ");
+                mensaje.AppendLine($"• {articulos} ");
+                mensaje.AppendLine();
+                mensaje.AppendLine("Puedes pasar de lunes a domingos de 11h a 22h");
+                mensaje.AppendLine("Te esperamos!");
+
+               _notificable.Notificar(encargo.Cliente.Celular, mensaje.ToString());
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         public void IsNotified(bool isNotified, Encargo encargo)
@@ -62,7 +70,7 @@ namespace Negocio
             _encargosRepository.Delete(id);
         }
 
-        public void Save(Encargo encargo) 
+        public void Save(Encargo encargo)
         {
             try
             {
