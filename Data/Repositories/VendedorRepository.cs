@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace Data.Repositories
 {
@@ -13,55 +14,78 @@ namespace Data.Repositories
     {
         public void Add(Vendedor NewVendedor)
         {
-            DataAccess data = new DataAccess(); 
+            using (var data = new DataAccess())
+            {
+                bool existent;
 
-			try
-			{
+                try
+                {
+                    existent = VendedorExistente(NewVendedor, data);
 
-                data.SetQuery(@"
-                    INSERT INTO Vendedores (Numero, Nombre, Apellido)
-                    VALUES (@Numero, @Nombre, @Apellido)
-                ");
+                    if (existent)
+                        throw new Exception("El vendedor ya existe");
 
-                data.SetParameter("@Numero", NewVendedor.Numero);
-                data.SetParameter("@Nombre", NewVendedor.Nombre);
-                data.SetParameter("@Apellido", NewVendedor.Apellido);
+                    data.SetQuery(@"
+                        INSERT INTO Vendedores (Numero, Nombre, Apellido)
+                        VALUES (@Numero, @Nombre, @Apellido)
+                        ");
 
-                data.ExecuteNonQuery();
+                    data.SetParameter("@Numero", NewVendedor.Numero);
+                    data.SetParameter("@Nombre", NewVendedor.Nombre);
+                    data.SetParameter("@Apellido", NewVendedor.Apellido);
 
+                    data.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally
+                {
+                    data.ConnectionClose();
+                }
             }
-			catch (Exception)
-			{
-
-				throw;
-			}
-			finally
-			{ 
-			 
-				data.ConnectionClose();
-
-			}
         }
 
-        public List<Vendedor> GetAll()
+        public bool VendedorExistente(Vendedor vendedor, DataAccess data)
+        {
+            List<Vendedor> vendedores = GetAll(data);
+
+            try
+            {
+                foreach (var item in vendedores)
+                {
+                    if (item.Numero == vendedor.Numero)
+                        return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<Vendedor> GetAll(DataAccess data = null)
         {
             List<Vendedor> lista = new List<Vendedor>();
             Vendedor aux;
 
-            using (var data = new DataAccess())
+            data = data ?? new DataAccess();
+
+            using (data)
             {
                 data.SetQuery("SELECT Id, Numero, Nombre, Apellido from Vendedores");
                 data.ExecuteReader();
 
                 try
                 {
-
                     while (data.Reader.Read())
                     {
                         aux = new Vendedor();
 
-                        aux.Id = (int)data.Reader["Id"];
-                        aux.Numero = (int)data.Reader["Numero"];
+                        aux.Id = Convert.ToInt32(data.Reader["Id"]);
+                        aux.Numero = Convert.ToInt32(data.Reader["Numero"]);
                         aux.Nombre = (string)data.Reader["Nombre"];
                         aux.Apellido = (string)data.Reader["Apellido"];
 
@@ -74,7 +98,6 @@ namespace Data.Repositories
                 }
                 catch (Exception)
                 {
-
                     throw;
                 }
                 finally
@@ -82,7 +105,6 @@ namespace Data.Repositories
                     data.ConnectionClose();
                 }
             }
-
         }
 
         public void Update(Vendedor Modified)
@@ -149,7 +171,7 @@ namespace Data.Repositories
             }
         }
 
-        public Vendedor ValidarVendedor(int val)
+        public Vendedor Validar(int number)
         {
             Vendedor vendedor;
             int num;
@@ -165,7 +187,7 @@ namespace Data.Repositories
                     {
                         num = Convert.ToInt32(data.Reader["Numero"]);
 
-                        if (val == num)
+                        if (number == num)
                         {
                             vendedor = new Vendedor()
                             {

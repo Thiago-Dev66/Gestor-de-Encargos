@@ -52,7 +52,6 @@ namespace Gestor_de_Encargos
         {
             try
             {
-
                 if (_Tipo == TipoPersona.Cliente)
                 {
                     var cliente = new Cliente();
@@ -104,9 +103,14 @@ namespace Gestor_de_Encargos
                         MessageBox.Show("El campo 'Número' debe ser solo números");
                         return;
                     }
+                    if (val <= 0)
+                    {
+                        MessageBox.Show("El número de vendedor no puede ser menor o igual a cero");
+                        return;
+                    }
                     vendedor.Numero = val;
 
-                    vendedorNegocio.AddVendedor(vendedor);
+                    vendedorNegocio.Add(vendedor);
                     PersonaAgregada = vendedor;
 
                     MessageBox.Show("Vendedor agregado con éxito!",
@@ -120,10 +124,14 @@ namespace Gestor_de_Encargos
             }
             catch (Exception ex)
             {
+                if (ex.Message == "El vendedor ya existe")
+                {
+                    MessageBox.Show("Ya existe un vendedor con ese número");
+                    return;
+                }
 
                 MessageBox.Show(ex.ToString());
             }
-
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

@@ -10,7 +10,7 @@ namespace Data.Repositories
 {
     public class ClienteRepository
     {
-        public List<Cliente> GetAll() 
+        public List<Cliente> GetAll()
         {
             List<Cliente> clientes = new List<Cliente>();
 
@@ -19,7 +19,6 @@ namespace Data.Repositories
 
                 try
                 {
-
                     Data.SetQuery("SELECT Id, Nombre, Apellido, Celular FROM CLIENTES");
                     Data.ExecuteReader();
 
@@ -54,17 +53,14 @@ namespace Data.Repositories
 
         public void Add(Cliente NewClient)
         {
-
             using (var data = new DataAccess())
             {
-
                 try
                 {
-
                     data.SetQuery(@"
-                    INSERT INTO Clientes (Nombre, Apellido, Celular)
-                    VALUES (@Nombre, @Apellido, @Celular)
-                    ");
+                            INSERT INTO Clientes (Nombre, Apellido, Celular)
+                            VALUES (@Nombre, @Apellido, @Celular)
+                            ");
 
                     data.SetParameter("@Nombre", NewClient.Nombre);
                     data.SetParameter("@Apellido", NewClient.Apellido);
@@ -75,15 +71,11 @@ namespace Data.Repositories
                 }
                 catch (Exception)
                 {
-
                     throw;
-
                 }
                 finally
                 {
-
                     data.ConnectionClose();
-
                 }
             }
         }
@@ -122,7 +114,7 @@ namespace Data.Repositories
             {
 
                 data.ConnectionClose();
-            
+
             }
         }
 

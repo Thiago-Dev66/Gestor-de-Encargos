@@ -13,38 +13,27 @@ namespace Negocio
     public class VendedorNegocio
     {
 
-        public void AddVendedor(Vendedor vendedor)
+        public void Add(Vendedor vendedor)
         {
-            VendedorRepository repository = new VendedorRepository();
+            var repository = new VendedorRepository();
 
-            try
-            {
-                repository.Add(vendedor);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+            if (vendedor == null)
+                throw new Exception("Vendedor es null");
+
+            if (vendedor.Numero <= 0)
+                throw new Exception("El número de vendedor no puede ser menor o igual cero");
+
+            repository.Add(vendedor);
         }
 
-        public Vendedor ValidarVendedor(int val)
+        public Vendedor Validar(int number)
         {
-            VendedorRepository repository = new VendedorRepository();
-            Vendedor vendedor;
+            var repository = new VendedorRepository();
 
-            try
-            {
-                vendedor = (Vendedor)repository.ValidarVendedor(val);
+            if (number <= 0)
+                throw new Exception("El número de vendedor no puede ser menor o igual cero");
 
-                if (vendedor != null)
-                    return vendedor;
-                else
-                    return null;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return repository.Validar(number);
         }
     }
 }

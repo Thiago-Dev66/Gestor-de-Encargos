@@ -17,6 +17,9 @@ namespace Negocio
 
 			try
 			{
+				if (cliente == null)
+					throw new NullReferenceException("Cliente es null");
+
 				repository.Add(cliente);
 			}
 			catch (Exception)

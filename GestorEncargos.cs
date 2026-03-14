@@ -67,7 +67,7 @@ namespace Gestor_de_Encargos
                 btnNotificar.Enabled = true;
                 btnNotificar.BackColor = SystemColors.Highlight;
             }
-        } 
+        }
         private void CargarDGV()
         {
             dgvEncargos.DataSource = null;
@@ -87,6 +87,8 @@ namespace Gestor_de_Encargos
             dgvEncargos.Columns["ClienteCelular"].DisplayIndex = 1;
             dgvEncargos.Columns["SucursalOrigen"].DisplayIndex = 3;
 
+            if (dgvArticulos.Columns.Count == 0) return;
+
             dgvArticulos.Columns["ArticuloID"].Visible = false;
             dgvArticulos.Columns["Articulo"].Visible = false;
             dgvArticulos.Columns["EncargoID"].Visible = false;
@@ -100,7 +102,7 @@ namespace Gestor_de_Encargos
         {
             AgregarEncargo agregarEncargo = new AgregarEncargo(_Vendedor);
             DialogResult result = agregarEncargo.ShowDialog();
-            
+
             if (result == DialogResult.OK)
             {
                 CargarDGV();
@@ -120,17 +122,16 @@ namespace Gestor_de_Encargos
             agregarCliente.ShowDialog();
         }
 
-        public void ValidarVendedor(int numeroVendedor)
+        public void Validar(int numeroVendedor)
         {
-            VendedorNegocio negocio;
-            negocio = new VendedorNegocio();
-            object obj;
+            var negocio = new VendedorNegocio();
+            Vendedor vendedor;
 
-            obj = negocio.ValidarVendedor(numeroVendedor);
+            vendedor = negocio.Validar(numeroVendedor);
 
-            if (obj != null)
+            if (vendedor != null)
             {
-                _Vendedor = (Vendedor)obj;
+                _Vendedor = vendedor;
 
                 EnableButtons(true);
                 BtnAgregar.Focus();
@@ -146,10 +147,17 @@ namespace Gestor_de_Encargos
 
             if (e.KeyCode == Keys.Enter)
             {
-                if ((int.TryParse(txtNumeroVendedor.Text, out int val)))
-                    ValidarVendedor(val);
-                else
+                if (!int.TryParse(txtNumeroVendedor.Text, out int val))
+                {
                     MessageBox.Show("Debe ser un número");
+                    return;
+                }
+                if (val <= 0)
+                {
+                    MessageBox.Show("No puede ser menor o igual a cero");
+                    return;
+                }
+                Validar(val);
             }
         }
         private void dgvEncargos_SelectionChanged(object sender, EventArgs e)
@@ -287,7 +295,7 @@ namespace Gestor_de_Encargos
             {
                 DataGridView dgv = (DataGridView)sender;
 
-                if (dgv.Name != dgvEncargos.Name) 
+                if (dgv.Name != dgvEncargos.Name)
                     return;
 
                 if (dgvEncargos.Columns[e.ColumnIndex].Name == "Estado")
