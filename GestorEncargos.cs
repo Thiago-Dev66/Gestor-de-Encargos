@@ -74,7 +74,6 @@ namespace Gestor_de_Encargos
             dgvEncargos.DataSource = _encargosRepository.GetAll()
                                                         .OrderByDescending(en => en.Fecha)
                                                         .ToList();
-            
         }
         private void OcultarColumnas()
         {
@@ -94,6 +93,7 @@ namespace Gestor_de_Encargos
 
             dgvArticulos.Columns["ArticuloNombre"].DisplayIndex = 0;
             dgvArticulos.Columns["ArticuloCodigo"].DisplayIndex = 1;
+            dgvArticulos.Columns["Cantidad"].DisplayIndex = 2;
         }
 
         private void BtnAgregar_Click(object sender, EventArgs e)

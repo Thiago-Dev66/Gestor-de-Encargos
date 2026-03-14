@@ -233,14 +233,28 @@ namespace Gestor_de_Encargos
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            DialogResult result =
+            if (_Encargo == null)
+            {
+                DialogResult result =
                 MessageBox.Show("¿Seguro que desea cancelar el encargo?\nSe perderan los datos",
                                 "Cancelar",
                                 MessageBoxButtons.YesNo,
                                 MessageBoxIcon.Warning);
 
-            if (result == DialogResult.Yes)
-                Close();
+                if (result == DialogResult.Yes)
+                    Close();
+            }
+            else
+            {
+                DialogResult result =
+                MessageBox.Show("¿Seguro que desea cancelar la modificación?\nSe perderan los datos",
+                                "Cancelar",
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                    Close();
+            }
         }
 
         private void CargarClienteEnLabels(Cliente agregado = null)

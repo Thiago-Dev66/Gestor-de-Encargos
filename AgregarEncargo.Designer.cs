@@ -111,7 +111,7 @@
             this.tlpBuscarCliente.ColumnCount = 3;
             this.tlpBuscarCliente.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.17871F));
             this.tlpBuscarCliente.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68.82129F));
-            this.tlpBuscarCliente.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 443F));
+            this.tlpBuscarCliente.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 444F));
             this.tlpBuscarCliente.Controls.Add(this.panelLabel, 2, 0);
             this.tlpBuscarCliente.Controls.Add(this.lblBuscar, 0, 0);
             this.tlpBuscarCliente.Controls.Add(this.cboBuscarCliente, 1, 0);
@@ -130,10 +130,10 @@
             // 
             this.panelLabel.Controls.Add(this.tableLayoutPanel1);
             this.panelLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelLabel.Location = new System.Drawing.Point(525, 3);
+            this.panelLabel.Location = new System.Drawing.Point(524, 3);
             this.panelLabel.Name = "panelLabel";
             this.tlpBuscarCliente.SetRowSpan(this.panelLabel, 2);
-            this.panelLabel.Size = new System.Drawing.Size(438, 144);
+            this.panelLabel.Size = new System.Drawing.Size(439, 144);
             this.panelLabel.TabIndex = 2;
             // 
             // tableLayoutPanel1
@@ -150,7 +150,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(438, 144);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(439, 144);
             this.tableLayoutPanel1.TabIndex = 7;
             // 
             // lblNombre
@@ -192,7 +192,7 @@
             this.cboBuscarCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboBuscarCliente.FormattingEnabled = true;
             this.cboBuscarCliente.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.cboBuscarCliente.Location = new System.Drawing.Point(166, 31);
+            this.cboBuscarCliente.Location = new System.Drawing.Point(165, 31);
             this.cboBuscarCliente.Name = "cboBuscarCliente";
             this.cboBuscarCliente.Size = new System.Drawing.Size(238, 28);
             this.cboBuscarCliente.TabIndex = 0;
@@ -205,7 +205,7 @@
             this.btnAgregarNuevoCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregarNuevoCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarNuevoCliente.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnAgregarNuevoCliente.Location = new System.Drawing.Point(166, 100);
+            this.btnAgregarNuevoCliente.Location = new System.Drawing.Point(165, 100);
             this.btnAgregarNuevoCliente.Name = "btnAgregarNuevoCliente";
             this.btnAgregarNuevoCliente.Size = new System.Drawing.Size(240, 40);
             this.btnAgregarNuevoCliente.TabIndex = 1;
@@ -409,6 +409,8 @@
             // 
             // dgwListaArticulos
             // 
+            this.dgwListaArticulos.AllowUserToAddRows = false;
+            this.dgwListaArticulos.AllowUserToDeleteRows = false;
             this.dgwListaArticulos.AllowUserToResizeRows = false;
             this.dgwListaArticulos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgwListaArticulos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
