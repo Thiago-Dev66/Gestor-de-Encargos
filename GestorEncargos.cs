@@ -107,6 +107,8 @@ namespace Gestor_de_Encargos
             {
                 CargarDGV();
                 OcultarColumnas();
+                txtNumeroVendedor.Clear();
+                EnableButtons();
             }
         }
 
@@ -147,6 +149,8 @@ namespace Gestor_de_Encargos
 
             if (e.KeyCode == Keys.Enter)
             {
+                e.SuppressKeyPress = true;
+
                 if (!int.TryParse(txtNumeroVendedor.Text, out int val))
                 {
                     MessageBox.Show("Debe ser un número");
@@ -176,7 +180,7 @@ namespace Gestor_de_Encargos
                     btnNotificar.Enabled = false;
                     btnNotificar.BackColor = Color.LightGray;
                 }
-                else if (_Vendedor != null)
+                else if (_Vendedor != null && txtNumeroVendedor.Text != string.Empty)
                 {
                     btnNotificar.Enabled = true;
                     btnNotificar.BackColor = SystemColors.Highlight;
@@ -263,7 +267,7 @@ namespace Gestor_de_Encargos
         {
             _encargoNegocio = new EncargosNegocio(_encargosRepository);
             var encargo = new Encargo();
-            bool isNotified = false;
+            bool isNotified;
 
             if (ObtenerEncargoSeleccionado() != null)
                 encargo = ObtenerEncargoSeleccionado();
@@ -350,6 +354,19 @@ namespace Gestor_de_Encargos
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void txtNumeroVendedor_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtNumeroVendedor.Text))
+            {
+                errorProvider1.SetError(txtNumeroVendedor, "Debe ingresar un número de vendedor");
+                errorProvider1.SetIconAlignment(txtNumeroVendedor, ErrorIconAlignment.MiddleRight);
+                errorProvider1.SetIconPadding(txtNumeroVendedor, -20);
+                EnableButtons();
+            }
+            else
+                errorProvider1.SetError(txtNumeroVendedor, "");
         }
     }
 }

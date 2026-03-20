@@ -46,7 +46,6 @@ namespace Data.Repositories
                 }
             }
         }
-
         public bool VendedorExistente(Vendedor vendedor, DataAccess data)
         {
             List<Vendedor> vendedores = GetAll(data);
@@ -65,7 +64,6 @@ namespace Data.Repositories
                 throw;
             }
         }
-
         public List<Vendedor> GetAll(DataAccess data = null)
         {
             List<Vendedor> lista = new List<Vendedor>();
@@ -129,8 +127,7 @@ namespace Data.Repositories
                 data.SetParameter("@Apellido", Modified.Apellido);
 
                 data.ExecuteNonQuery();
-
-
+                
             }
             catch (Exception)
             {

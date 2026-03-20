@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -59,6 +60,7 @@
             this.tlpClienteVendedor = new System.Windows.Forms.TableLayoutPanel();
             this.tlpEncargos = new System.Windows.Forms.TableLayoutPanel();
             this.tlpArticulos = new System.Windows.Forms.TableLayoutPanel();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEncargos)).BeginInit();
             this.gpbPanelVendedores.SuspendLayout();
             this.tlpVendedorButtons.SuspendLayout();
@@ -76,6 +78,7 @@
             this.tlpClienteVendedor.SuspendLayout();
             this.tlpEncargos.SuspendLayout();
             this.tlpArticulos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvEncargos
@@ -130,7 +133,7 @@
             this.btnModificarVendedor.Name = "btnModificarVendedor";
             this.btnModificarVendedor.Size = new System.Drawing.Size(207, 54);
             this.btnModificarVendedor.TabIndex = 1;
-            this.btnModificarVendedor.Text = "Modificar ";
+            this.btnModificarVendedor.Text = "Ver Vendedores";
             this.btnModificarVendedor.UseVisualStyleBackColor = false;
             // 
             // gpbPanelVendedores
@@ -397,6 +400,7 @@
             this.txtNumeroVendedor.Name = "txtNumeroVendedor";
             this.txtNumeroVendedor.Size = new System.Drawing.Size(272, 26);
             this.txtNumeroVendedor.TabIndex = 0;
+            this.txtNumeroVendedor.TextChanged += new System.EventHandler(this.txtNumeroVendedor_TextChanged);
             this.txtNumeroVendedor.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNumeroVendedor_KeyDown);
             // 
             // lblNumeroVendedor
@@ -524,6 +528,10 @@
             this.tlpArticulos.Size = new System.Drawing.Size(1389, 390);
             this.tlpArticulos.TabIndex = 1;
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // GestorEncargos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
@@ -556,6 +564,7 @@
             this.tlpClienteVendedor.ResumeLayout(false);
             this.tlpEncargos.ResumeLayout(false);
             this.tlpArticulos.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -590,6 +599,7 @@
         private System.Windows.Forms.Button BtnAgregar;
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Button btnNotificar;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
 
