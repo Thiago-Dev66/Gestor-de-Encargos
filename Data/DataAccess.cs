@@ -11,7 +11,7 @@ namespace Data
 {
     public class DataAccess : IDisposable
     {
-        private readonly string _ConnectionString = "Data Source = .\\Gestor_Encargos.db";
+        private readonly string _ConnectionString = DataPathManager.GetConnectionString();
 
         private SqliteConnection _Connection;
         private SqliteCommand _Cmd;

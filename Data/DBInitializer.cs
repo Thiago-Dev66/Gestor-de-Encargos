@@ -13,16 +13,22 @@ namespace Data
 
         public static void Initialization()
         {
-
-            using (var Access = new DataAccess())
+            try
             {
-                CreateTableClientes(Access);
-                CreateTableVendedores(Access);
-                CreateTableEncargos(Access);
-                CreateTableArticulos(Access);
-                CreateTableArticulosEncargos(Access);
-            };
+                using (var Access = new DataAccess())
+                {
+                    CreateTableClientes(Access);
+                    CreateTableVendedores(Access);
+                    CreateTableEncargos(Access);
+                    CreateTableArticulos(Access);
+                    CreateTableArticulosEncargos(Access);
+                };
+            }
+            catch (Exception ex)
+            {
 
+                throw new Exception($"Error al inicializar base de datos {ex.Message}");
+            }
         }
 
         public static void CreateTableClientes(DataAccess Access)

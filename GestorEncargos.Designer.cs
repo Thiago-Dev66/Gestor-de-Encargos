@@ -32,6 +32,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GestorEncargos));
             this.dgvEncargos = new System.Windows.Forms.DataGridView();
             this.btnAgregarVendedor = new System.Windows.Forms.Button();
             this.btnModificarVendedor = new System.Windows.Forms.Button();
@@ -541,6 +542,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.tlpPrincipal);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1918, 1078);
             this.Name = "GestorEncargos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

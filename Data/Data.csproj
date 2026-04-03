@@ -109,6 +109,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataPathManager.cs" />
     <Compile Include="DataAccess.cs" />
     <Compile Include="DBInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

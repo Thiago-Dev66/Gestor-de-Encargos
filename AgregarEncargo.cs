@@ -77,6 +77,8 @@ namespace Gestor_de_Encargos
                 cboEstado.SelectedItem = encargo.Estado;
                 txtDetalles.Text = encargo.Descripcion;
                 dtpFecha.Value = encargo.Fecha;
+
+                lblVendedorACargo.Text = $"Vendedor a cargo: {encargo.Vendedor.Numero}";
             }
             catch (Exception ex)
             {
