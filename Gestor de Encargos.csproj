@@ -91,7 +91,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Gemini_Generated_Image_mp3thnmp3thnmp3t %281%29.ico</ApplicationIcon>
+    <ApplicationIcon>Gemini_Generated_Image_mp3thnmp3thnmp3t-_1_ %281%29.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Data.Sqlite, Version=10.0.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
@@ -215,6 +215,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Gemini_Generated_Image_mp3thnmp3thnmp3t %281%29.ico" />
+    <Content Include="Gemini_Generated_Image_mp3thnmp3thnmp3t-_1_ %281%29.ico" />
+    <Content Include="Gemini_Generated_Image_mp3thnmp3thnmp3t-_1_.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

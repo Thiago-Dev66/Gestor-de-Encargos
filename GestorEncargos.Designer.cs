@@ -35,13 +35,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GestorEncargos));
             this.dgvEncargos = new System.Windows.Forms.DataGridView();
             this.btnAgregarVendedor = new System.Windows.Forms.Button();
-            this.btnModificarVendedor = new System.Windows.Forms.Button();
+            this.btnVerVendedores = new System.Windows.Forms.Button();
             this.gpbPanelVendedores = new System.Windows.Forms.GroupBox();
             this.tlpVendedorButtons = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tlpClienteButtons = new System.Windows.Forms.TableLayoutPanel();
             this.btnAgregarCliente = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnVerClientes = new System.Windows.Forms.Button();
             this.gpbEncargos = new System.Windows.Forms.GroupBox();
             this.tloDentroPanelEncargos = new System.Windows.Forms.TableLayoutPanel();
             this.PanelBotones = new System.Windows.Forms.Panel();
@@ -84,9 +84,13 @@
             // 
             // dgvEncargos
             // 
+            this.dgvEncargos.AllowUserToAddRows = false;
+            this.dgvEncargos.AllowUserToDeleteRows = false;
+            this.dgvEncargos.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dgvEncargos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvEncargos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvEncargos.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             this.dgvEncargos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEncargos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvEncargos.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
@@ -94,7 +98,6 @@
             this.dgvEncargos.Margin = new System.Windows.Forms.Padding(5);
             this.dgvEncargos.MultiSelect = false;
             this.dgvEncargos.Name = "dgvEncargos";
-            this.dgvEncargos.ReadOnly = true;
             this.dgvEncargos.RowHeadersVisible = false;
             this.dgvEncargos.RowHeadersWidth = 62;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
@@ -123,19 +126,20 @@
             this.btnAgregarVendedor.UseVisualStyleBackColor = false;
             this.btnAgregarVendedor.Click += new System.EventHandler(this.btnAgregarVendedor_Click);
             // 
-            // btnModificarVendedor
+            // btnVerVendedores
             // 
-            this.btnModificarVendedor.BackColor = System.Drawing.SystemColors.Highlight;
-            this.btnModificarVendedor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnModificarVendedor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModificarVendedor.ForeColor = System.Drawing.Color.White;
-            this.btnModificarVendedor.Location = new System.Drawing.Point(67, 190);
-            this.btnModificarVendedor.Margin = new System.Windows.Forms.Padding(5);
-            this.btnModificarVendedor.Name = "btnModificarVendedor";
-            this.btnModificarVendedor.Size = new System.Drawing.Size(207, 54);
-            this.btnModificarVendedor.TabIndex = 1;
-            this.btnModificarVendedor.Text = "Ver Vendedores";
-            this.btnModificarVendedor.UseVisualStyleBackColor = false;
+            this.btnVerVendedores.BackColor = System.Drawing.SystemColors.Highlight;
+            this.btnVerVendedores.Enabled = false;
+            this.btnVerVendedores.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVerVendedores.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVerVendedores.ForeColor = System.Drawing.Color.White;
+            this.btnVerVendedores.Location = new System.Drawing.Point(67, 190);
+            this.btnVerVendedores.Margin = new System.Windows.Forms.Padding(5);
+            this.btnVerVendedores.Name = "btnVerVendedores";
+            this.btnVerVendedores.Size = new System.Drawing.Size(207, 54);
+            this.btnVerVendedores.TabIndex = 1;
+            this.btnVerVendedores.Text = "Ver Vendedores";
+            this.btnVerVendedores.UseVisualStyleBackColor = false;
             // 
             // gpbPanelVendedores
             // 
@@ -156,7 +160,7 @@
             this.tlpVendedorButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpVendedorButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tlpVendedorButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpVendedorButtons.Controls.Add(this.btnModificarVendedor, 1, 3);
+            this.tlpVendedorButtons.Controls.Add(this.btnVerVendedores, 1, 3);
             this.tlpVendedorButtons.Controls.Add(this.btnAgregarVendedor, 1, 1);
             this.tlpVendedorButtons.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpVendedorButtons.Location = new System.Drawing.Point(10, 29);
@@ -190,7 +194,7 @@
             this.tlpClienteButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tlpClienteButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpClienteButtons.Controls.Add(this.btnAgregarCliente, 1, 1);
-            this.tlpClienteButtons.Controls.Add(this.button4, 1, 3);
+            this.tlpClienteButtons.Controls.Add(this.btnVerClientes, 1, 3);
             this.tlpClienteButtons.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpClienteButtons.Location = new System.Drawing.Point(10, 29);
             this.tlpClienteButtons.Margin = new System.Windows.Forms.Padding(0);
@@ -220,20 +224,21 @@
             this.btnAgregarCliente.UseVisualStyleBackColor = false;
             this.btnAgregarCliente.Click += new System.EventHandler(this.btnAgregarCliente_Click_1);
             // 
-            // button4
+            // btnVerClientes
             // 
-            this.button4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button4.BackColor = System.Drawing.SystemColors.Highlight;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.White;
-            this.button4.Location = new System.Drawing.Point(67, 190);
-            this.button4.Margin = new System.Windows.Forms.Padding(5);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(207, 54);
-            this.button4.TabIndex = 1;
-            this.button4.Text = "Ver Clientes";
-            this.button4.UseVisualStyleBackColor = false;
+            this.btnVerClientes.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnVerClientes.BackColor = System.Drawing.SystemColors.Highlight;
+            this.btnVerClientes.Enabled = false;
+            this.btnVerClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVerClientes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVerClientes.ForeColor = System.Drawing.Color.White;
+            this.btnVerClientes.Location = new System.Drawing.Point(67, 190);
+            this.btnVerClientes.Margin = new System.Windows.Forms.Padding(5);
+            this.btnVerClientes.Name = "btnVerClientes";
+            this.btnVerClientes.Size = new System.Drawing.Size(207, 54);
+            this.btnVerClientes.TabIndex = 1;
+            this.btnVerClientes.Text = "Ver Clientes";
+            this.btnVerClientes.UseVisualStyleBackColor = false;
             // 
             // gpbEncargos
             // 
@@ -432,7 +437,9 @@
             // dgvArticulos
             // 
             this.dgvArticulos.AllowUserToAddRows = false;
+            this.dgvArticulos.AllowUserToDeleteRows = false;
             this.dgvArticulos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvArticulos.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             this.dgvArticulos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvArticulos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvArticulos.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
@@ -440,7 +447,6 @@
             this.dgvArticulos.Margin = new System.Windows.Forms.Padding(0);
             this.dgvArticulos.MultiSelect = false;
             this.dgvArticulos.Name = "dgvArticulos";
-            this.dgvArticulos.ReadOnly = true;
             this.dgvArticulos.RowHeadersVisible = false;
             this.dgvArticulos.RowHeadersWidth = 62;
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
@@ -575,7 +581,7 @@
 
         private System.Windows.Forms.DataGridView dgvEncargos;
         private System.Windows.Forms.Button btnAgregarVendedor;
-        private System.Windows.Forms.Button btnModificarVendedor;
+        private System.Windows.Forms.Button btnVerVendedores;
         private System.Windows.Forms.GroupBox gpbPanelVendedores;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox gpbEncargos;
@@ -587,7 +593,7 @@
         private System.Windows.Forms.TableLayoutPanel tlpEncargos;
         private System.Windows.Forms.TableLayoutPanel tlpVendedorButtons;
         private System.Windows.Forms.TableLayoutPanel tlpClienteButtons;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnVerClientes;
         private System.Windows.Forms.Button btnAgregarCliente;
         private System.Windows.Forms.TableLayoutPanel tloDentroPanelEncargos;
         private System.Windows.Forms.TableLayoutPanel tlpArticulos;

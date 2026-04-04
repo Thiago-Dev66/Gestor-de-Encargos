@@ -33,7 +33,7 @@ namespace Negocio
                 if (encargo == null)
                     throw new ArgumentNullException("Un encargo no puede ser null");
 
-                string articulos = string.Join(", ", encargo.ArticuloEncargo
+                string articulos = string.Join("\n• ", encargo.ArticuloEncargo
                                          .Select(a => a.Articulo.Nombre));
 
                 StringBuilder mensaje = new StringBuilder();
@@ -43,7 +43,7 @@ namespace Negocio
                                     "Tu pedido ya está listo para retirar: ");
                 mensaje.AppendLine($"• {articulos} ");
                 mensaje.AppendLine();
-                mensaje.AppendLine("Puedes pasar de lunes a domingos de 11h a 22h");
+                mensaje.AppendLine("Podés pasar de lunes a domingos de 11h a 22h");
                 mensaje.AppendLine("Te esperamos!");
 
                _notificable.Notificar(encargo.Cliente.Celular, mensaje.ToString());

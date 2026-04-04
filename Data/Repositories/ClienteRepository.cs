@@ -102,19 +102,14 @@ namespace Data.Repositories
                 data.SetParameter("@Id", Modified.Id);
 
                 data.ExecuteNonQuery();
-
-
             }
             catch (Exception)
             {
-
                 throw;
             }
             finally
             {
-
                 data.ConnectionClose();
-
             }
         }
 

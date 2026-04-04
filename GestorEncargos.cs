@@ -36,6 +36,9 @@ namespace Gestor_de_Encargos
             {
                 txtNumeroVendedor.Focus();
             }));
+
+            btnVerClientes.BackColor = Color.LightGray;
+            btnVerVendedores.BackColor = Color.LightGray;
         }
         private void EnableButtons(bool isEnabled = false)
         {
@@ -49,9 +52,6 @@ namespace Gestor_de_Encargos
 
                 btnDelete.Enabled = false;
                 btnDelete.BackColor = Color.LightGray;
-
-                btnNotificar.Enabled = false;
-                btnNotificar.BackColor = Color.LightGray;
             }
             else if (isEnabled == true)
             {
@@ -63,16 +63,13 @@ namespace Gestor_de_Encargos
 
                 btnDelete.Enabled = true;
                 btnDelete.BackColor = SystemColors.Highlight;
-
-                btnNotificar.Enabled = true;
-                btnNotificar.BackColor = SystemColors.Highlight;
             }
         }
         private void CargarDGV()
         {
             dgvEncargos.DataSource = null;
             dgvEncargos.DataSource = _encargosRepository.GetAll()
-                                                        .OrderByDescending(en => en.Fecha)
+                                                        .OrderByDescending(en => en.Id)
                                                         .ToList();
         }
         private void OcultarColumnas()
@@ -92,6 +89,7 @@ namespace Gestor_de_Encargos
             dgvArticulos.Columns["ArticuloID"].Visible = false;
             dgvArticulos.Columns["Articulo"].Visible = false;
             dgvArticulos.Columns["EncargoID"].Visible = false;
+            dgvArticulos.Columns["PrecioUnitario"].Visible = false; 
 
             dgvArticulos.Columns["ArticuloNombre"].DisplayIndex = 0;
             dgvArticulos.Columns["ArticuloCodigo"].DisplayIndex = 1;
@@ -141,6 +139,7 @@ namespace Gestor_de_Encargos
             else
             {
                 MessageBox.Show("El número de vendedor no es correcto");
+                txtNumeroVendedor.Clear();
                 EnableButtons();
             }
         }
@@ -154,11 +153,13 @@ namespace Gestor_de_Encargos
                 if (!int.TryParse(txtNumeroVendedor.Text, out int val))
                 {
                     MessageBox.Show("Debe ser un número");
+                    txtNumeroVendedor.Clear();
                     return;
                 }
                 if (val <= 0)
                 {
                     MessageBox.Show("No puede ser menor o igual a cero");
+                    txtNumeroVendedor.Clear();
                     return;
                 }
                 Validar(val);
@@ -180,7 +181,7 @@ namespace Gestor_de_Encargos
                     btnNotificar.Enabled = false;
                     btnNotificar.BackColor = Color.LightGray;
                 }
-                else if (_Vendedor != null && txtNumeroVendedor.Text != string.Empty)
+                else
                 {
                     btnNotificar.Enabled = true;
                     btnNotificar.BackColor = SystemColors.Highlight;
@@ -282,7 +283,8 @@ namespace Gestor_de_Encargos
             DialogResult result = MessageBox.Show(
                                         "¿El cliente fue notificado?",
                                         "Notificar Cliente",
-                                        MessageBoxButtons.YesNo);
+                                        MessageBoxButtons.YesNo, 
+                                        MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
@@ -322,7 +324,7 @@ namespace Gestor_de_Encargos
                             break;
 
                         case EstadoEncargo.Vendido:
-                            dgvEncargos.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightYellow;
+                            dgvEncargos.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(247, 245, 106);
                             dgvEncargos.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = Color.Yellow;
                             dgvEncargos.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.Black;
                             break;
@@ -366,7 +368,7 @@ namespace Gestor_de_Encargos
                 EnableButtons();
             }
             else
-                errorProvider1.SetError(txtNumeroVendedor, "");
+                errorProvider1.Clear();
         }
     }
 }
