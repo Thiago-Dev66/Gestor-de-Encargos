@@ -10,53 +10,78 @@ namespace Data.Repositories
 {
     public class ClienteRepository
     {
-        public List<Cliente> GetAll()
+        public List<Cliente> GetAll(DataAccess data = null)
         {
             List<Cliente> clientes = new List<Cliente>();
+            bool shouldDispose = data == null;
+            data = data ?? new DataAccess();
+            //nullish coalescing operator.
+            //Se utiliza para proporcionar un valor predeterminado
+            //cuando una variable es null o undefined
 
-            using (var Data = new DataAccess())
+            using (data)
             {
-
                 try
                 {
-                    Data.SetQuery("SELECT Id, Nombre, Apellido, Celular FROM CLIENTES");
-                    Data.ExecuteReader();
+                    data.SetQuery("SELECT Id, Nombre, Apellido, Celular FROM CLIENTES");
+                    data.ExecuteReader();
 
-                    while (Data.Reader.Read())
+                    while (data.Reader.Read())
                     {
-
                         Cliente Aux = new Cliente();
 
-                        Aux.Id = Convert.ToInt32(Data.Reader["Id"]);
-                        Aux.Nombre = (string)Data.Reader["Nombre"];
-                        Aux.Apellido = (string)Data.Reader["Apellido"];
-                        Aux.Celular = (string)Data.Reader["Celular"];
+                        Aux.Id = Convert.ToInt32(data.Reader["Id"]);
+                        Aux.Nombre = (string)data.Reader["Nombre"];
+                        Aux.Apellido = (string)data.Reader["Apellido"];
+                        Aux.Celular = (string)data.Reader["Celular"];
 
                         clientes.Add(Aux);
-
                     }
 
                     return clientes;
-
                 }
                 catch (Exception ex)
                 {
-
                     throw ex;
                 }
                 finally
                 {
-                    Data.ConnectionClose();
+                    if (shouldDispose)
+                        data.Dispose();
                 }
             }
         }
 
-        public void Add(Cliente NewClient)
+        public Cliente Existente(Cliente cliente, DataAccess data)
+        {
+            var clientes = new List<Cliente>();
+            Cliente cli;
+
+            try
+            {
+                using (data)
+                {
+                    clientes = GetAll();
+                    return cli = clientes.FirstOrDefault(c => c.Celular == cliente.Celular);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public Cliente Add(Cliente NewClient)
         {
             using (var data = new DataAccess())
             {
                 try
                 {
+                    Cliente cliente = Existente(NewClient, data);
+
+                    if (cliente != null)
+                        return cliente;
+
                     data.SetQuery(@"
                             INSERT INTO Clientes (Nombre, Apellido, Celular)
                             VALUES (@Nombre, @Apellido, @Celular)
@@ -68,6 +93,7 @@ namespace Data.Repositories
 
                     data.ExecuteNonQuery();
 
+                    return null;
                 }
                 catch (Exception)
                 {

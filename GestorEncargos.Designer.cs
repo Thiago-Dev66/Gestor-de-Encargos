@@ -314,7 +314,7 @@
             this.btnDelete.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btnDelete.Size = new System.Drawing.Size(130, 50);
             this.btnDelete.TabIndex = 2;
-            this.btnDelete.Text = "Borrar";
+            this.btnDelete.Text = "&Borrar";
             this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
@@ -331,7 +331,7 @@
             this.BtnAgregar.Name = "BtnAgregar";
             this.BtnAgregar.Size = new System.Drawing.Size(270, 50);
             this.BtnAgregar.TabIndex = 0;
-            this.BtnAgregar.Text = "Agregar";
+            this.BtnAgregar.Text = "&Agregar";
             this.BtnAgregar.UseVisualStyleBackColor = false;
             this.BtnAgregar.Click += new System.EventHandler(this.BtnAgregar_Click);
             // 
@@ -350,7 +350,7 @@
             this.btnModificar.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btnModificar.Size = new System.Drawing.Size(130, 50);
             this.btnModificar.TabIndex = 1;
-            this.btnModificar.Text = "Modificar";
+            this.btnModificar.Text = "&Modificar";
             this.btnModificar.UseVisualStyleBackColor = false;
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
@@ -368,7 +368,7 @@
             this.btnNotificar.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btnNotificar.Size = new System.Drawing.Size(130, 50);
             this.btnNotificar.TabIndex = 3;
-            this.btnNotificar.Text = "Notificar";
+            this.btnNotificar.Text = "&Notificar";
             this.btnNotificar.UseVisualStyleBackColor = false;
             this.btnNotificar.Click += new System.EventHandler(this.btnNotificar_Click);
             // 

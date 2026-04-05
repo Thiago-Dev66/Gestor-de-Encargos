@@ -17,7 +17,6 @@ namespace Gestor_de_Encargos
     public partial class AgregarPersona : Form
     {
         public object PersonaAgregada { get; private set; }
-        public DialogResult Result { get; set; }
         private TipoPersona _Tipo { get; set; }
 
 
@@ -56,6 +55,7 @@ namespace Gestor_de_Encargos
                 {
                     var cliente = new Cliente();
                     var clienteNegocio = new ClienteNegocio();
+                    Cliente existente;
 
                     if (!(ValidarPersona(txtNombre, "El cliente debe tener un nombre"))) return;
                     if (!(SoloLetras(txtNombre))) return;
@@ -71,16 +71,28 @@ namespace Gestor_de_Encargos
 
                     cliente.Celular = txtContacto.Text;
 
-                    clienteNegocio.AddCliente(cliente);
-                    PersonaAgregada = cliente;
+                    existente = clienteNegocio.Add(cliente);
 
+                    if (existente == null)
+                    {
+                        PersonaAgregada = cliente;
 
-                    MessageBox.Show("Se agregó con éxito!",
+                        MessageBox.Show("Se agregó con éxito!",
                                             "Cliente Nuevo",
                                             MessageBoxButtons.OK,
                                             MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        PersonaAgregada = existente;
 
-                    Result = DialogResult.OK;
+                        MessageBox.Show("El cliente ya existe!",
+                                            "Cliente Nuevo",
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Information);
+                    }
+
+                    this.DialogResult = DialogResult.OK;
                     Close();
                 }
                 else
@@ -118,7 +130,6 @@ namespace Gestor_de_Encargos
                                             MessageBoxButtons.OK,
                                             MessageBoxIcon.Information);
 
-                    Result = DialogResult.OK;
                     Close();
                 }
             }

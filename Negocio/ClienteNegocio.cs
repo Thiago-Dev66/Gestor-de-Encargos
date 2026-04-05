@@ -11,22 +11,26 @@ namespace Negocio
 {
     public class ClienteNegocio
     {
-        public void AddCliente(Cliente cliente)
+        public Cliente Add(Cliente cliente)
         {
-			ClienteRepository repository = new ClienteRepository();
+            var repository = new ClienteRepository();
 
-			try
-			{
-				if (cliente == null)
-					throw new NullReferenceException("Cliente es null");
+            try
+            {
+                if (cliente == null)
+                    throw new NullReferenceException("Cliente es null");
 
-				repository.Add(cliente);
-			}
-			catch (Exception)
-			{
+                cliente = repository.Add(cliente);
 
-				throw;
-			}
+                if (cliente != null)
+                    return cliente;
+
+                return null;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

@@ -53,6 +53,7 @@ namespace Gestor_de_Encargos
             dgwListaArticulos.Columns["Articulo"].Visible = false;
             dgwListaArticulos.Columns["ArticuloID"].Visible = false;
             dgwListaArticulos.Columns["EncargoID"].Visible = false;
+            dgwListaArticulos.Columns["PrecioUnitario"].Visible = false;
 
             dgwListaArticulos.Columns["ArticuloNombre"].DisplayIndex = 0;
             dgwListaArticulos.Columns["ArticuloCodigo"].DisplayIndex = 1;
@@ -85,13 +86,22 @@ namespace Gestor_de_Encargos
                 MessageBox.Show(ex.ToString());
             }
         }
-        private void CargarCbo()
+        private void CargarCbo(Cliente cliente = null)
         {
-            cboBuscarCliente.DataSource = repository.GetAll()
-                                                    .OrderByDescending(c => c.Id)
-                                                    .ToList();
+            var clientes = repository.GetAll()
+                                     .OrderByDescending(c => c.Id)
+                                     .ToList();
+
+            cboBuscarCliente.DataSource = null;
             cboBuscarCliente.ValueMember = "Id";
             cboBuscarCliente.DisplayMember = "NombreCompleto";
+            cboBuscarCliente.DataSource = clientes;
+
+            if (cliente != null)
+            {
+                cliente = clientes.FirstOrDefault(c => c.Celular == cliente.Celular);
+                cboBuscarCliente.SelectedValue = cliente.Id;
+            }
         }
         private void btnGuardar_Click(object sender, EventArgs e)
         {
@@ -282,13 +292,13 @@ namespace Gestor_de_Encargos
         {
             AgregarPersona agregarCliente = new AgregarPersona(TipoPersona.Cliente);
             agregarCliente.ShowDialog();
+            Cliente nuevo = (Cliente)agregarCliente.PersonaAgregada;
 
-            if (agregarCliente.Result == DialogResult.OK)
+            if (agregarCliente.DialogResult == DialogResult.OK)
             {
-                CargarCbo();
-                CargarClienteEnLabels((Cliente)agregarCliente.PersonaAgregada);
+                CargarCbo(nuevo);
+                CargarClienteEnLabels(nuevo);
             }
-
         }
 
         private void cboBuscarCliente_SelectionChangeCommitted(object sender, EventArgs e)
