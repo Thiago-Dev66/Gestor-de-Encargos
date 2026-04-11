@@ -12,6 +12,7 @@ using Negocio;
 using Data.Repositories;
 using System.Globalization;
 using System.Diagnostics.Eventing.Reader;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Gestor_de_Encargos
 {
@@ -22,6 +23,7 @@ namespace Gestor_de_Encargos
         private readonly EncargosRepository _encargosRepository = new EncargosRepository();
         private Cliente seleccionado;
         private Vendedor _Vendedor { get; set; }
+        private Vendedor _vendedorCargo { get; set; }
         private Encargo _Encargo { get; set; }
 
         public AgregarEncargo(Vendedor vendedor, Encargo encargo = null,
@@ -149,8 +151,21 @@ namespace Gestor_de_Encargos
                     return;
                 }
                 encargo.ArticuloEncargo = articulos;
-                encargo.Vendedor = _Vendedor;
 
+                if (_Encargo.Vendedor.Numero != _Vendedor.Numero)
+                {
+                    DialogResult result = MessageBox.Show("Estás modificando un encargo con un número\n" +
+                                                          "de vendedor diferente al del encargo actual.\n\n" +
+                                                          "¿Seguro que desea continuar?",
+                                                          "Modificar",
+                                                          MessageBoxButtons.YesNo,
+                                                          MessageBoxIcon.Warning);
+
+                    if (result == DialogResult.Yes)
+                        encargo.Vendedor = _Vendedor;
+                    else
+                        return;
+                }
 
                 if (_Encargo == null)
                 {
