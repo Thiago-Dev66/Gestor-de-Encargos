@@ -103,7 +103,7 @@
             this.gpbCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gpbCliente.Location = new System.Drawing.Point(3, 3);
             this.gpbCliente.Name = "gpbCliente";
-            this.gpbCliente.Size = new System.Drawing.Size(972, 141);
+            this.gpbCliente.Size = new System.Drawing.Size(972, 140);
             this.gpbCliente.TabIndex = 0;
             this.gpbCliente.TabStop = false;
             this.gpbCliente.Text = "Seleccionar Cliente";
@@ -113,7 +113,7 @@
             this.tlpBuscarCliente.ColumnCount = 3;
             this.tlpBuscarCliente.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.17871F));
             this.tlpBuscarCliente.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68.82129F));
-            this.tlpBuscarCliente.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 451F));
+            this.tlpBuscarCliente.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 453F));
             this.tlpBuscarCliente.Controls.Add(this.panelLabel, 2, 0);
             this.tlpBuscarCliente.Controls.Add(this.lblBuscar, 0, 0);
             this.tlpBuscarCliente.Controls.Add(this.cboBuscarCliente, 1, 0);
@@ -125,17 +125,17 @@
             this.tlpBuscarCliente.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60.28369F));
             this.tlpBuscarCliente.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 39.71631F));
             this.tlpBuscarCliente.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpBuscarCliente.Size = new System.Drawing.Size(966, 114);
+            this.tlpBuscarCliente.Size = new System.Drawing.Size(966, 113);
             this.tlpBuscarCliente.TabIndex = 7;
             // 
             // panelLabel
             // 
             this.panelLabel.Controls.Add(this.tableLayoutPanel1);
             this.panelLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelLabel.Location = new System.Drawing.Point(517, 3);
+            this.panelLabel.Location = new System.Drawing.Point(515, 3);
             this.panelLabel.Name = "panelLabel";
             this.tlpBuscarCliente.SetRowSpan(this.panelLabel, 2);
-            this.panelLabel.Size = new System.Drawing.Size(446, 108);
+            this.panelLabel.Size = new System.Drawing.Size(448, 107);
             this.panelLabel.TabIndex = 2;
             // 
             // tableLayoutPanel1
@@ -152,14 +152,14 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(446, 108);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(448, 107);
             this.tableLayoutPanel1.TabIndex = 7;
             // 
             // lblNombre
             // 
             this.lblNombre.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(3, 7);
+            this.lblNombre.Location = new System.Drawing.Point(3, 6);
             this.lblNombre.Margin = new System.Windows.Forms.Padding(3);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(0, 22);
@@ -169,7 +169,7 @@
             // 
             this.lblContacto.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblContacto.AutoSize = true;
-            this.lblContacto.Location = new System.Drawing.Point(3, 79);
+            this.lblContacto.Location = new System.Drawing.Point(3, 77);
             this.lblContacto.Margin = new System.Windows.Forms.Padding(3);
             this.lblContacto.Name = "lblContacto";
             this.lblContacto.Size = new System.Drawing.Size(0, 22);
@@ -179,7 +179,7 @@
             // 
             this.lblApellido.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblApellido.AutoSize = true;
-            this.lblApellido.Location = new System.Drawing.Point(3, 43);
+            this.lblApellido.Location = new System.Drawing.Point(3, 41);
             this.lblApellido.Margin = new System.Windows.Forms.Padding(3);
             this.lblApellido.Name = "lblApellido";
             this.lblApellido.Size = new System.Drawing.Size(0, 22);
@@ -188,13 +188,15 @@
             // cboBuscarCliente
             // 
             this.cboBuscarCliente.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.cboBuscarCliente.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboBuscarCliente.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboBuscarCliente.BackColor = System.Drawing.SystemColors.Window;
             this.cboBuscarCliente.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.cboBuscarCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboBuscarCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboBuscarCliente.FormattingEnabled = true;
             this.cboBuscarCliente.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.cboBuscarCliente.Location = new System.Drawing.Point(163, 20);
+            this.cboBuscarCliente.Location = new System.Drawing.Point(162, 20);
+            this.cboBuscarCliente.MaxDropDownItems = 10;
             this.cboBuscarCliente.Name = "cboBuscarCliente";
             this.cboBuscarCliente.Size = new System.Drawing.Size(238, 28);
             this.cboBuscarCliente.TabIndex = 0;
@@ -207,7 +209,7 @@
             this.btnAgregarNuevoCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregarNuevoCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarNuevoCliente.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnAgregarNuevoCliente.Location = new System.Drawing.Point(163, 73);
+            this.btnAgregarNuevoCliente.Location = new System.Drawing.Point(162, 72);
             this.btnAgregarNuevoCliente.Name = "btnAgregarNuevoCliente";
             this.btnAgregarNuevoCliente.Size = new System.Drawing.Size(240, 36);
             this.btnAgregarNuevoCliente.TabIndex = 1;
@@ -220,9 +222,9 @@
             this.grbEncargo.Controls.Add(this.tlpDatosEncargo);
             this.grbEncargo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbEncargo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grbEncargo.Location = new System.Drawing.Point(3, 371);
+            this.grbEncargo.Location = new System.Drawing.Point(3, 368);
             this.grbEncargo.Name = "grbEncargo";
-            this.grbEncargo.Size = new System.Drawing.Size(972, 243);
+            this.grbEncargo.Size = new System.Drawing.Size(972, 242);
             this.grbEncargo.TabIndex = 2;
             this.grbEncargo.TabStop = false;
             this.grbEncargo.Text = "Datos del Encargo";
@@ -252,7 +254,7 @@
             this.tlpDatosEncargo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 21.73913F));
             this.tlpDatosEncargo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 21.73913F));
             this.tlpDatosEncargo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 34.78261F));
-            this.tlpDatosEncargo.Size = new System.Drawing.Size(966, 216);
+            this.tlpDatosEncargo.Size = new System.Drawing.Size(966, 215);
             this.tlpDatosEncargo.TabIndex = 13;
             // 
             // label2
@@ -324,7 +326,7 @@
             this.txtDetalles.BackColor = System.Drawing.SystemColors.Window;
             this.tlpDatosEncargo.SetColumnSpan(this.txtDetalles, 4);
             this.txtDetalles.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDetalles.Location = new System.Drawing.Point(3, 145);
+            this.txtDetalles.Location = new System.Drawing.Point(3, 144);
             this.txtDetalles.Multiline = true;
             this.txtDetalles.Name = "txtDetalles";
             this.txtDetalles.Size = new System.Drawing.Size(958, 64);
@@ -427,7 +429,7 @@
             this.dgwListaArticulos.RowHeadersWidth = 62;
             this.dgwListaArticulos.RowTemplate.Height = 28;
             this.dgwListaArticulos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgwListaArticulos.Size = new System.Drawing.Size(546, 182);
+            this.dgwListaArticulos.Size = new System.Drawing.Size(546, 180);
             this.dgwListaArticulos.TabIndex = 4;
             // 
             // txtCodigo
@@ -456,9 +458,9 @@
             this.grbArticulos.Controls.Add(this.tloAgregarArticulos);
             this.grbArticulos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbArticulos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grbArticulos.Location = new System.Drawing.Point(3, 150);
+            this.grbArticulos.Location = new System.Drawing.Point(3, 149);
             this.grbArticulos.Name = "grbArticulos";
-            this.grbArticulos.Size = new System.Drawing.Size(972, 215);
+            this.grbArticulos.Size = new System.Drawing.Size(972, 213);
             this.grbArticulos.TabIndex = 1;
             this.grbArticulos.TabStop = false;
             this.grbArticulos.Text = "Agregar Articulo(s)";
@@ -475,7 +477,7 @@
             this.tloAgregarArticulos.Name = "tloAgregarArticulos";
             this.tloAgregarArticulos.RowCount = 1;
             this.tloAgregarArticulos.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tloAgregarArticulos.Size = new System.Drawing.Size(966, 188);
+            this.tloAgregarArticulos.Size = new System.Drawing.Size(966, 186);
             this.tloAgregarArticulos.TabIndex = 12;
             // 
             // tableLayoutPanel3
@@ -499,7 +501,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(408, 182);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(408, 180);
             this.tableLayoutPanel3.TabIndex = 5;
             // 
             // panel1
@@ -509,7 +511,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(167, 138);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(238, 41);
+            this.panel1.Size = new System.Drawing.Size(238, 39);
             this.panel1.TabIndex = 13;
             // 
             // btnEliminarArticulo
@@ -519,7 +521,7 @@
             this.btnEliminarArticulo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEliminarArticulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEliminarArticulo.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnEliminarArticulo.Location = new System.Drawing.Point(150, -4);
+            this.btnEliminarArticulo.Location = new System.Drawing.Point(150, -5);
             this.btnEliminarArticulo.Name = "btnEliminarArticulo";
             this.btnEliminarArticulo.Size = new System.Drawing.Size(86, 42);
             this.btnEliminarArticulo.TabIndex = 4;
@@ -534,7 +536,7 @@
             this.btnAgregarArticulo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregarArticulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarArticulo.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnAgregarArticulo.Location = new System.Drawing.Point(2, -4);
+            this.btnAgregarArticulo.Location = new System.Drawing.Point(2, -5);
             this.btnAgregarArticulo.Name = "btnAgregarArticulo";
             this.btnAgregarArticulo.Size = new System.Drawing.Size(86, 42);
             this.btnAgregarArticulo.TabIndex = 3;
@@ -571,12 +573,12 @@
             this.tableLayoutPanel2.Controls.Add(this.btnGuardar, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnCancelar, 2, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 620);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 616);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 76F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(972, 77);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 79F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(972, 81);
             this.tableLayoutPanel2.TabIndex = 6;
             // 
             // lblVendedorACargo
@@ -584,7 +586,7 @@
             this.lblVendedorACargo.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblVendedorACargo.AutoSize = true;
             this.lblVendedorACargo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVendedorACargo.Location = new System.Drawing.Point(3, 26);
+            this.lblVendedorACargo.Location = new System.Drawing.Point(3, 28);
             this.lblVendedorACargo.Name = "lblVendedorACargo";
             this.lblVendedorACargo.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.lblVendedorACargo.Size = new System.Drawing.Size(10, 25);
@@ -596,7 +598,7 @@
             this.btnGuardar.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardar.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnGuardar.Location = new System.Drawing.Point(723, 21);
+            this.btnGuardar.Location = new System.Drawing.Point(723, 23);
             this.btnGuardar.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(111, 42);
@@ -611,7 +613,7 @@
             this.btnCancelar.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnCancelar.Location = new System.Drawing.Point(849, 21);
+            this.btnCancelar.Location = new System.Drawing.Point(849, 23);
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(111, 42);

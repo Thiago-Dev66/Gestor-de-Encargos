@@ -294,11 +294,11 @@ namespace Gestor_de_Encargos
             agregarCliente.ShowDialog();
             Cliente nuevo = (Cliente)agregarCliente.PersonaAgregada;
 
-            if (agregarCliente.DialogResult == DialogResult.OK)
-            {
-                CargarCbo(nuevo);
-                CargarClienteEnLabels(nuevo);
-            }
+            if (nuevo == null)
+                return;
+
+            CargarClienteEnLabels(nuevo);
+            CargarCbo(nuevo);
         }
 
         private void cboBuscarCliente_SelectionChangeCommitted(object sender, EventArgs e)

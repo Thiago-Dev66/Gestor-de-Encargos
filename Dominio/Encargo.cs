@@ -9,6 +9,11 @@ namespace Dominio
 {
     public class Encargo
     {
+        public Encargo()
+        {
+            ArticuloEncargo = new BindingList<ArticuloEncargo>();
+        }
+
         public int Id { get; set; }
         public DateTime Fecha { get; set; }
         public string Descripcion { get; set; }

@@ -21,6 +21,7 @@ namespace Gestor_de_Encargos
         private EncargosRepository _encargosRepository = new EncargosRepository();
         private ArticuloRepository articulos = new ArticuloRepository();
         private EncargosNegocio _encargoNegocio;
+        private List<Encargo> _encargosOriginal;
 
         public GestorEncargos()
         {
@@ -67,10 +68,11 @@ namespace Gestor_de_Encargos
         }
         private void CargarDGV()
         {
+            _encargosOriginal = _encargosRepository.GetAll()
+                                                   .OrderByDescending(en => en.Id)
+                                                   .ToList();
             dgvEncargos.DataSource = null;
-            dgvEncargos.DataSource = _encargosRepository.GetAll()
-                                                        .OrderByDescending(en => en.Id)
-                                                        .ToList();
+            dgvEncargos.DataSource = _encargosOriginal;
         }
         private void OcultarColumnas()
         {
@@ -89,7 +91,7 @@ namespace Gestor_de_Encargos
             dgvArticulos.Columns["ArticuloID"].Visible = false;
             dgvArticulos.Columns["Articulo"].Visible = false;
             dgvArticulos.Columns["EncargoID"].Visible = false;
-            dgvArticulos.Columns["PrecioUnitario"].Visible = false; 
+            dgvArticulos.Columns["PrecioUnitario"].Visible = false;
 
             dgvArticulos.Columns["ArticuloNombre"].DisplayIndex = 0;
             dgvArticulos.Columns["ArticuloCodigo"].DisplayIndex = 1;
@@ -283,7 +285,7 @@ namespace Gestor_de_Encargos
             DialogResult result = MessageBox.Show(
                                         "¿El cliente fue notificado?",
                                         "Notificar Cliente",
-                                        MessageBoxButtons.YesNo, 
+                                        MessageBoxButtons.YesNo,
                                         MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
@@ -369,6 +371,47 @@ namespace Gestor_de_Encargos
             }
             else
                 errorProvider1.Clear();
+        }
+
+        private void txtFiltrar_TextChanged(object sender, EventArgs e)
+        {
+            string text = txtFiltrar.Text.ToUpper();
+            List<Encargo> listaFiltrada;
+
+            try
+            {
+                if (string.IsNullOrEmpty(text))
+                {
+                    dgvEncargos.DataSource = _encargosOriginal;
+                    OcultarColumnas();
+                    return;
+                }
+                
+                listaFiltrada = new List<Encargo>();
+
+                foreach (var encargo in _encargosOriginal)
+                {
+                    foreach (var articulo in encargo.ArticuloEncargo)
+                    {
+                        if (articulo.ArticuloNombre.ToUpper().Contains(text) ||
+                            articulo.ArticuloCodigo.Contains(text) ||
+                            encargo.Cliente.Nombre.ToUpper().Contains(text) ||
+                            encargo.Cliente.Celular.Contains(text)) 
+                        {
+                            listaFiltrada.Add(encargo);
+                            break;
+                        }
+                    }
+                }
+
+                dgvEncargos.DataSource = null;
+                dgvEncargos.DataSource = listaFiltrada;
+                OcultarColumnas();
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
         }
     }
 }

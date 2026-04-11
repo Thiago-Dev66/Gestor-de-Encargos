@@ -143,6 +143,34 @@ namespace Data.Repositories
                         encargos.Add(encargo);
                     }
 
+                    data.SetQuery(@"SELECT AE.ArticuloID, AE.EncargoID, AE.Cantidad, A.Nombre, A.Codigo FROM ArticulosEncargos AS AE
+                                    JOIN Encargos AS E ON AE.EncargoID = E.Id
+                                    JOIN Articulos AS A ON AE.ArticuloID = A.Id ");
+
+                    data.ExecuteReader();
+
+                    while (data.Reader.Read())
+                    {
+                        var articuloEncargo = new ArticuloEncargo()
+                        {
+                            Articulo = new Articulo()
+                        };
+
+                        articuloEncargo.EncargoID = Convert.ToInt32(data.Reader["EncargoID"]);
+                        articuloEncargo.Articulo.Nombre = (string)data.Reader["Nombre"];
+                        articuloEncargo.Articulo.Codigo = (string)data.Reader["Codigo"];
+                        articuloEncargo.Cantidad = Convert.ToInt32(data.Reader["Cantidad"]);
+
+                        foreach (var enc in encargos)
+                        {
+                            if (enc.Id == articuloEncargo.EncargoID)
+                            {
+                                enc.ArticuloEncargo.Add(articuloEncargo);
+                                break;
+                            }
+                        }
+                    }
+
                     return encargos;
                 }
                 catch (Exception)
@@ -290,9 +318,9 @@ namespace Data.Repositories
                     data.Rollback();
                     throw ex;
                 }
-                finally 
-                { 
-                    data.ConnectionClose(); 
+                finally
+                {
+                    data.ConnectionClose();
                 }
             }
         }

@@ -81,6 +81,8 @@ namespace Gestor_de_Encargos
                                             "Cliente Nuevo",
                                             MessageBoxButtons.OK,
                                             MessageBoxIcon.Information);
+
+                        Close();
                     }
                     else
                     {
@@ -89,11 +91,8 @@ namespace Gestor_de_Encargos
                         MessageBox.Show("El cliente ya existe!",
                                             "Cliente Nuevo",
                                             MessageBoxButtons.OK,
-                                            MessageBoxIcon.Information);
+                                            MessageBoxIcon.Exclamation);
                     }
-
-                    this.DialogResult = DialogResult.OK;
-                    Close();
                 }
                 else
                 {
