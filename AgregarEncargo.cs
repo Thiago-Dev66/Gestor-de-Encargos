@@ -152,7 +152,7 @@ namespace Gestor_de_Encargos
                 }
                 encargo.ArticuloEncargo = articulos;
 
-                if (_Encargo.Vendedor.Numero != _Vendedor.Numero)
+                if (_Encargo != null && _Encargo.Vendedor.Numero != _Vendedor.Numero)
                 {
                     DialogResult result = MessageBox.Show("Estás modificando un encargo con un número\n" +
                                                           "de vendedor diferente al del encargo actual.\n\n" +
@@ -166,6 +166,8 @@ namespace Gestor_de_Encargos
                     else
                         return;
                 }
+                else
+                    encargo.Vendedor = _Vendedor;
 
                 if (_Encargo == null)
                 {
