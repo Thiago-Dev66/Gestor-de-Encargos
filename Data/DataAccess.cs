@@ -42,6 +42,8 @@ namespace Data
 
                 if (Pragma.Connection.State == ConnectionState.Open)
                     Pragma.Connection.Close();
+
+                //Pragma.CommandText = "table_info(Clientes)";
             }
         }
         public void Dispose()

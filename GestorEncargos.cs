@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Data;
 using Data.Repositories;
 using Dominio;
+using Dominio.Interfaces;
 using Negocio;
 
 namespace Gestor_de_Encargos
@@ -38,7 +39,6 @@ namespace Gestor_de_Encargos
                 txtNumeroVendedor.Focus();
             }));
 
-            btnVerClientes.BackColor = Color.LightGray;
             btnVerVendedores.BackColor = Color.LightGray;
         }
         private void EnableButtons(bool isEnabled = false)
@@ -412,6 +412,13 @@ namespace Gestor_de_Encargos
             {
                 ex.ToString();
             }
+        }
+
+        private void btnVerClientes_Click(object sender, EventArgs e)
+        {
+            var form = new ClientesForm(new ClienteNegocio(new ClienteRepository()));
+            //form.MdiParent = this;
+            form.ShowDialog();
         }
     }
 }

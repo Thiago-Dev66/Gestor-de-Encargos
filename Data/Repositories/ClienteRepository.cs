@@ -5,25 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Dominio;
+using Dominio.Interfaces;
 
 namespace Data.Repositories
 {
-    public class ClienteRepository
+    public class ClienteRepository : IClienteRepository
     {
-        public List<Cliente> GetAll(DataAccess data = null)
+        public List<Cliente> GetAll()
         {
-            List<Cliente> clientes = new List<Cliente>();
-            bool shouldDispose = data == null;
-            data = data ?? new DataAccess();
-            //nullish coalescing operator.
-            //Se utiliza para proporcionar un valor predeterminado
-            //cuando una variable es null o undefined
+            var clientes = new List<Cliente>();
 
-            using (data)
+            using (var data = new DataAccess())
             {
                 try
                 {
-                    data.SetQuery("SELECT Id, Nombre, Apellido, Celular FROM CLIENTES");
+                    data.BeginTransaction();
+
+                    data.SetQuery("SELECT Id, Nombre, Apellido, Celular FROM CLIENTES WHERE Activo = 1");
                     data.ExecuteReader();
 
                     while (data.Reader.Read())
@@ -38,36 +36,33 @@ namespace Data.Repositories
                         clientes.Add(Aux);
                     }
 
+                    data.Commit();
                     return clientes;
                 }
-                catch (Exception ex)
+                catch (Exception exc)
                 {
-                    throw ex;
+                    data.Rollback();
+                    throw new Exception("Error al obtener Clientes", exc);
                 }
                 finally
                 {
-                    if (shouldDispose)
-                        data.Dispose();
+                    data.Dispose();
                 }
             }
         }
 
-        public Cliente Existente(Cliente cliente, DataAccess data)
+        private Cliente Existente(Cliente cliente, DataAccess data)
         {
             var clientes = new List<Cliente>();
-            Cliente cli;
 
             try
             {
-                using (data)
-                {
-                    clientes = GetAll();
-                    return cli = clientes.FirstOrDefault(c => c.Celular == cliente.Celular);
-                }
+                return cliente = GetAll()
+                    .FirstOrDefault(c => c.Celular == cliente.Celular);
             }
-            catch (Exception)
+            catch (Exception exc)
             {
-                throw;
+                throw new Exception("Cliente no encontrado", exc);
             }
         }
 
@@ -108,34 +103,35 @@ namespace Data.Repositories
 
         public void Update(Cliente Modified)
         {
-            DataAccess data = new DataAccess();
-
-            try
+            using (var data = new DataAccess())
             {
+                try
+                {
 
-                data.SetQuery(@"
-                UPDATE Clientes SET
-                    Nombre = @Nombre,
-                    Apellido = @Apellido,
-                    Celular = @Celular
-                WHERE Id = @Id
+                    data.SetQuery(@"
+                        UPDATE Clientes SET
+                            Nombre = @Nombre,
+                            Apellido = @Apellido,
+                            Celular = @Celular
+                        WHERE Id = @Id
 
-                ");
+                        ");
 
-                data.SetParameter("@Nombre", Modified.Nombre);
-                data.SetParameter("@Apellido", Modified.Apellido);
-                data.SetParameter("@Celular", Modified.Celular);
-                data.SetParameter("@Id", Modified.Id);
+                    data.SetParameter("@Nombre", Modified.Nombre);
+                    data.SetParameter("@Apellido", Modified.Apellido);
+                    data.SetParameter("@Celular", Modified.Celular);
+                    data.SetParameter("@Id", Modified.Id);
 
-                data.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                data.ConnectionClose();
+                    data.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally
+                {
+                    data.ConnectionClose();
+                }
             }
         }
 
@@ -145,25 +141,21 @@ namespace Data.Repositories
 
             try
             {
+                data.SetQuery(@"UPDATE Clientes 
+                                SET Activo = 0 
+                                WHERE Id = @Id");
 
-                data.SetQuery("DELETE FROM Clientes WHERE Id = @Id");
                 data.SetParameter("@Id", id);
-
                 data.ExecuteNonQuery();
-
             }
-            catch (Exception)
+            catch (Exception exc)
             {
-
-                throw;
+                throw new Exception(exc.ToString());
             }
             finally
             {
-
                 data.ConnectionClose();
-
             }
-
         }
     }
 }

@@ -309,7 +309,7 @@ namespace Gestor_de_Encargos
         {
             AgregarPersona agregarCliente = new AgregarPersona(TipoPersona.Cliente);
             agregarCliente.ShowDialog();
-            Cliente nuevo = (Cliente)agregarCliente.PersonaAgregada;
+            Cliente nuevo = (Cliente)agregarCliente.Persona;
 
             if (nuevo == null)
                 return;

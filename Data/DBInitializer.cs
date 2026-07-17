@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Security.Cryptography;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class DBInitializer
+    public static class DBInitializer
     {
 
         public static void Initialization()
@@ -17,16 +18,20 @@ namespace Data
             {
                 using (var Access = new DataAccess())
                 {
-                    CreateTableClientes(Access);
-                    CreateTableVendedores(Access);
-                    CreateTableEncargos(Access);
-                    CreateTableArticulos(Access);
-                    CreateTableArticulosEncargos(Access);
+                    if (File.Exists(DataPathManager.GetDatabasePath()))
+                        return; //DBMigrator.Migrate(Access);
+                    else
+                    {
+                        CreateTableClientes(Access);
+                        CreateTableVendedores(Access);
+                        CreateTableEncargos(Access);
+                        CreateTableArticulos(Access);
+                        CreateTableArticulosEncargos(Access);
+                    }
                 };
             }
             catch (Exception ex)
             {
-
                 throw new Exception($"Error al inicializar base de datos {ex.Message}");
             }
         }
@@ -41,8 +46,8 @@ namespace Data
                         Id INTEGER PRIMARY KEY AUTOINCREMENT,
                         Nombre TEXT NOT NULL,
                         Apellido TEXT,
-                        Celular TEXT NOT NULL
-
+                        Celular TEXT NOT NULL,
+                        Activo INTEGER NOT NULL DEFAULT 1
                     );"
                 );
                 Access.ExecuteNonQuery();
@@ -68,8 +73,8 @@ namespace Data
                         Id INTEGER PRIMARY KEY AUTOINCREMENT,
                         Numero INTEGER NOT NULL UNIQUE,
                         Nombre TEXT NOT NULL,
-                        Apellido TEXT NOT NULL
-
+                        Apellido TEXT NOT NULL,
+                        Activo INTEGER NOT NULL DEFAULT 1
                     );"
                 );
 

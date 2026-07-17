@@ -11,39 +11,64 @@ using System.Windows.Forms;
 using Dominio;
 using Negocio;
 using System.Reflection;
+using Data.Repositories;
 
 namespace Gestor_de_Encargos
 {
     public partial class AgregarPersona : Form
     {
-        public object PersonaAgregada { get; private set; }
+        public object Persona { get; private set; }
         private TipoPersona _Tipo { get; set; }
-
 
         public AgregarPersona()
         {
             InitializeComponent();
         }
 
-        public AgregarPersona(TipoPersona tipo)
+        public AgregarPersona(TipoPersona tipo, object persona = null)
         {
             InitializeComponent();
             _Tipo = tipo;
+            Persona = persona;
         }
 
         private void AgregarPersona_Load(object sender, EventArgs e)
         {
-            if (_Tipo == TipoPersona.Cliente)
+            if (Persona != null)
             {
-                Text = "Agregar Cliente";
+                if (_Tipo == TipoPersona.Cliente)
+                {
+                    Text = "Modificar Cliente";
+                    btnGuardar.Text = "Modificar";
+                    lblContacto.Text = "Contacto";
 
-                lblContacto.Text = "Contacto";
+                    txtNombre.Text = ((Cliente)Persona).Nombre;
+                    txtApellido.Text = ((Cliente)Persona).Apellido;
+                    txtContacto.Text = ((Cliente)Persona).Celular;
+                }
+                else
+                {
+                    Text = "Modificar Vendedor";
+                    btnGuardar.Text = "Modificar";
+                    lblContacto.Text = "Número";
+
+                    txtNombre.Text = ((Vendedor)Persona).Nombre;
+                    txtApellido.Text = ((Vendedor)Persona).Apellido;
+                    txtContacto.Text = ((Vendedor)Persona).Numero.ToString();
+                }
             }
             else
             {
-                Text = "Agregar Vendedor";
-
-                lblContacto.Text = "Número";
+                if (_Tipo == TipoPersona.Cliente)
+                {
+                    Text = "Agregar Cliente";
+                    lblContacto.Text = "Contacto";
+                }
+                else
+                {
+                    Text = "Agregar Vendedor";
+                    lblContacto.Text = "Número";
+                }
             }
         }
 
@@ -54,28 +79,35 @@ namespace Gestor_de_Encargos
                 if (_Tipo == TipoPersona.Cliente)
                 {
                     var cliente = new Cliente();
-                    var clienteNegocio = new ClienteNegocio();
+                    var clienteNegocio = new ClienteNegocio(new ClienteRepository());
                     Cliente existente;
 
                     if (!(ValidarPersona(txtNombre, "El cliente debe tener un nombre"))) return;
                     if (!(SoloLetras(txtNombre))) return;
+                    if (!(SoloLetras(txtApellido))) return;
+                    if (!ValidarPersona(txtContacto, "El cliente debe tener un contacto")) return;
 
                     cliente.Nombre = txtNombre.Text;
-
-                    if (!(SoloLetras(txtApellido))) return;
-
                     cliente.Apellido = txtApellido.Text;
-
-                    if (!(ValidarPersona(txtContacto, "El cliente debe tener un contacto")))
-                        return;
-
                     cliente.Celular = txtContacto.Text;
 
+                    if (Persona != null)
+                    {
+                        cliente.Id = ((Cliente)Persona).Id;
+                        clienteNegocio.Modificar(cliente);
+
+                        MessageBox.Show("Se modificó con éxito!",
+                                        "Cliente Modificado",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Information);
+                        Close();
+                        return;
+                    }
                     existente = clienteNegocio.Add(cliente);
 
                     if (existente == null)
                     {
-                        PersonaAgregada = cliente;
+                        Persona = cliente;
 
                         MessageBox.Show("Se agregó con éxito!",
                                             "Cliente Nuevo",
@@ -86,7 +118,7 @@ namespace Gestor_de_Encargos
                     }
                     else
                     {
-                        PersonaAgregada = existente;
+                        Persona = existente;
 
                         MessageBox.Show("El cliente ya existe!",
                                             "Cliente Nuevo",
@@ -101,14 +133,8 @@ namespace Gestor_de_Encargos
 
                     if (!(ValidarPersona(txtNombre, "Un vendedor debe tener un nombre"))) return;
                     if (!(SoloLetras(txtNombre))) return;
-
-                    vendedor.Nombre = txtNombre.Text;
-
                     if (!(ValidarPersona(txtApellido, "Un vendedor debe tener un apellido"))) return;
                     if (!(SoloLetras(txtApellido))) return;
-
-                    vendedor.Apellido = txtApellido.Text;
-
                     if (!(int.TryParse(txtContacto.Text, out int val)))
                     {
                         MessageBox.Show("El campo 'Número' debe ser solo números");
@@ -119,10 +145,13 @@ namespace Gestor_de_Encargos
                         MessageBox.Show("El número de vendedor no puede ser menor o igual a cero");
                         return;
                     }
+
+                    vendedor.Nombre = txtNombre.Text;
+                    vendedor.Apellido = txtApellido.Text;
                     vendedor.Numero = val;
 
                     vendedorNegocio.Add(vendedor);
-                    PersonaAgregada = vendedor;
+                    Persona = vendedor;
 
                     MessageBox.Show("Vendedor agregado con éxito!",
                                             "Cliente Nuevo",
