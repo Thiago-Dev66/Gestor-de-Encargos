@@ -147,7 +147,6 @@ namespace Data
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }

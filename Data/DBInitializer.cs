@@ -19,7 +19,10 @@ namespace Data
                 using (var Access = new DataAccess())
                 {
                     if (File.Exists(DataPathManager.GetDatabasePath()))
-                        return; //DBMigrator.Migrate(Access);
+                    {
+                        //DBMigrator.Migrate(Access);
+                        return; 
+                    }
                     else
                     {
                         CreateTableClientes(Access);

@@ -23,10 +23,12 @@ namespace Gestor_de_Encargos
         private ArticuloRepository articulos = new ArticuloRepository();
         private EncargosNegocio _encargoNegocio;
         private List<Encargo> _encargosOriginal;
+        private readonly VendedorNegocio _VendedorNegocio;
 
-        public GestorEncargos()
+        public GestorEncargos(VendedorNegocio negocio)
         {
             InitializeComponent();
+            _VendedorNegocio = negocio;
         }
         private void GestorEncargos_Load(object sender, EventArgs e)
         {
@@ -38,8 +40,6 @@ namespace Gestor_de_Encargos
             {
                 txtNumeroVendedor.Focus();
             }));
-
-            btnVerVendedores.BackColor = Color.LightGray;
         }
         private void EnableButtons(bool isEnabled = false)
         {
@@ -126,10 +126,9 @@ namespace Gestor_de_Encargos
 
         public void Validar(int numeroVendedor)
         {
-            var negocio = new VendedorNegocio();
             Vendedor vendedor;
 
-            vendedor = negocio.Validar(numeroVendedor);
+            vendedor = _VendedorNegocio.Validar(numeroVendedor);
 
             if (vendedor != null)
             {
@@ -418,6 +417,12 @@ namespace Gestor_de_Encargos
         {
             var form = new ClientesForm(new ClienteNegocio(new ClienteRepository()));
             //form.MdiParent = this;
+            form.ShowDialog();
+        }
+
+        private void btnVerVendedores_Click(object sender, EventArgs e)
+        {
+            var form = new VendedoresForm(_VendedorNegocio);
             form.ShowDialog();
         }
     }

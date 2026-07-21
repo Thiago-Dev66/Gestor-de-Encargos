@@ -1,4 +1,5 @@
 ﻿using Dominio;
+using Dominio.Interfaces;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Timers;
 
 namespace Data.Repositories
 {
-    public class VendedorRepository
+    public class VendedorRepository : IVendedorRepository
     {
         public void Add(Vendedor NewVendedor)
         {
@@ -20,7 +21,7 @@ namespace Data.Repositories
 
                 try
                 {
-                    existent = VendedorExistente(NewVendedor, data);
+                    existent = VendedorExistente(NewVendedor);
 
                     if (existent)
                         throw new Exception("El vendedor ya existe");
@@ -36,9 +37,9 @@ namespace Data.Repositories
 
                     data.ExecuteNonQuery();
                 }
-                catch (Exception)
+                catch (Exception exc)
                 {
-                    throw;
+                    throw new Exception(exc.ToString());
                 }
                 finally
                 {
@@ -46,9 +47,9 @@ namespace Data.Repositories
                 }
             }
         }
-        public bool VendedorExistente(Vendedor vendedor, DataAccess data)
+        private bool VendedorExistente(Vendedor vendedor)
         {
-            List<Vendedor> vendedores = GetAll(data);
+            List<Vendedor> vendedores = GetAll();
 
             try
             {
@@ -59,21 +60,23 @@ namespace Data.Repositories
                 }
                 return false;
             }
-            catch (Exception)
+            catch (Exception exc)
             {
-                throw;
+                throw new Exception(exc.ToString());
             }
         }
-        public List<Vendedor> GetAll(DataAccess data = null)
+        public List<Vendedor> GetAll()
         {
             List<Vendedor> lista = new List<Vendedor>();
             Vendedor aux;
 
-            data = data ?? new DataAccess();
+            var data = new DataAccess();
 
             using (data)
             {
-                data.SetQuery("SELECT Id, Numero, Nombre, Apellido from Vendedores");
+                data.SetQuery(@"SELECT Id, Numero, Nombre, Apellido 
+                                FROM Vendedores
+                                WHERE Activo = 1");
                 data.ExecuteReader();
 
                 try
@@ -88,15 +91,12 @@ namespace Data.Repositories
                         aux.Apellido = (string)data.Reader["Apellido"];
 
                         lista.Add(aux);
-
                     }
-
                     return lista;
-
                 }
-                catch (Exception)
+                catch (Exception exc)
                 {
-                    throw;
+                    throw new Exception(exc.ToString());
                 }
                 finally
                 {
@@ -111,7 +111,6 @@ namespace Data.Repositories
 
             try
             {
-
                 data.SetQuery(@"
                         UPDATE Vendedores SET
                             Numero = @Numero,
@@ -121,24 +120,20 @@ namespace Data.Repositories
                      
                 ");
 
-                data.SetParameter("@id", Modified.Id);
+                data.SetParameter("@Id", Modified.Id);
                 data.SetParameter("@Numero", Modified.Numero);
                 data.SetParameter("@Nombre", Modified.Nombre);
                 data.SetParameter("@Apellido", Modified.Apellido);
 
                 data.ExecuteNonQuery();
-                
             }
-            catch (Exception)
+            catch (Exception exc)
             {
-
-                throw;
+                throw new Exception(exc.ToString());
             }
             finally
             { 
-                
                 data.ConnectionClose(); 
-            
             }
         }
 
@@ -148,26 +143,22 @@ namespace Data.Repositories
 
             try
             {
+                data.SetQuery(@"UPDATE Vendedores 
+                                SET Activo = 0 
+                                WHERE Id = @Id");
 
-                data.SetQuery("DELETE FROM Vendedores WHERE Id = @Id");
-                data.SetParameter("@id", id);
-
+                data.SetParameter("@Id", id);
                 data.ExecuteNonQuery();
-
             }
-            catch (Exception)
+            catch (Exception exc)
             {
-
-                throw;
+                throw new Exception(exc.ToString());
             }
             finally
             {
-
                 data.ConnectionClose();
-
             }
         }
-
         public Vendedor Validar(int number)
         {
             Vendedor vendedor;
@@ -198,9 +189,9 @@ namespace Data.Repositories
                     }
                     return null;
                 }
-                catch (Exception)
+                catch (Exception exc)
                 {
-                    throw;
+                    throw new Exception(exc.ToString());
                 }
                 finally
                 {

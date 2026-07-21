@@ -161,6 +161,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VendedoresForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VendedoresForm.Designer.cs">
+      <DependentUpon>VendedoresForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AgregarPersona.resx">
       <DependentUpon>AgregarPersona.cs</DependentUpon>
     </EmbeddedResource>
@@ -182,6 +188,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="VendedoresForm.resx">
+      <DependentUpon>VendedoresForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

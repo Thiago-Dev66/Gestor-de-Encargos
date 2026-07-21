@@ -12,6 +12,7 @@ using Dominio;
 using Negocio;
 using System.Reflection;
 using Data.Repositories;
+using Dominio.Interfaces;
 
 namespace Gestor_de_Encargos
 {
@@ -19,17 +20,19 @@ namespace Gestor_de_Encargos
     {
         public object Persona { get; private set; }
         private TipoPersona _Tipo { get; set; }
+        private readonly VendedorNegocio _VendedorNegocio;
+        private readonly ClienteNegocio _ClienteNegocio;
 
-        public AgregarPersona()
-        {
-            InitializeComponent();
-        }
-
-        public AgregarPersona(TipoPersona tipo, object persona = null)
+        public AgregarPersona(TipoPersona tipo, VendedorNegocio vendedorNegocio = null, 
+                                ClienteNegocio clienteNegocio = null, object persona = null)
         {
             InitializeComponent();
             _Tipo = tipo;
             Persona = persona;
+            if (tipo == TipoPersona.Cliente)
+                _ClienteNegocio = clienteNegocio;
+            else
+                _VendedorNegocio = vendedorNegocio;
         }
 
         private void AgregarPersona_Load(object sender, EventArgs e)
@@ -129,7 +132,6 @@ namespace Gestor_de_Encargos
                 else
                 {
                     var vendedor = new Vendedor();
-                    var vendedorNegocio = new VendedorNegocio();
 
                     if (!(ValidarPersona(txtNombre, "Un vendedor debe tener un nombre"))) return;
                     if (!(SoloLetras(txtNombre))) return;
@@ -150,7 +152,20 @@ namespace Gestor_de_Encargos
                     vendedor.Apellido = txtApellido.Text;
                     vendedor.Numero = val;
 
-                    vendedorNegocio.Add(vendedor);
+                    if (Persona != null)
+                    {
+                        vendedor.Id = ((Vendedor)Persona).Id;
+                        _VendedorNegocio.Update(vendedor);
+
+                        MessageBox.Show("Se modificó con éxito!",
+                                        "Vendedor Modificado",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Information);
+                        Close();
+                        return;
+                    }
+
+                    _VendedorNegocio.Add(vendedor);
                     Persona = vendedor;
 
                     MessageBox.Show("Vendedor agregado con éxito!",
@@ -168,7 +183,6 @@ namespace Gestor_de_Encargos
                     MessageBox.Show("Ya existe un vendedor con ese número");
                     return;
                 }
-
                 MessageBox.Show(ex.ToString());
             }
         }

@@ -43,7 +43,7 @@ namespace Gestor_de_Encargos
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            var form = new AgregarPersona(TipoPersona.Cliente);
+            var form = new AgregarPersona(TipoPersona.Cliente, null, _negocio);
             form.ShowDialog();
             LoadData();
         }
@@ -57,7 +57,7 @@ namespace Gestor_de_Encargos
             {
                 cliente = dgvClientes.CurrentRow?.DataBoundItem as Cliente;
 
-                form = new AgregarPersona(TipoPersona.Cliente, cliente);
+                form = new AgregarPersona(TipoPersona.Cliente, null, _negocio, cliente);
                 form.ShowDialog();
                 LoadData();
             }

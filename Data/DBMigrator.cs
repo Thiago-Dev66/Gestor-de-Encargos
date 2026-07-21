@@ -11,7 +11,8 @@ namespace Data
     {
         public static void Migrate(DataAccess data)
         {
-            var migration = new _001_Migration();
+            var migration = new _002_Migration();
+
             migration.Up(data);
         }
     }
