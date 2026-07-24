@@ -21,11 +21,14 @@ namespace Gestor_de_Encargos
             DBInitializer.Initialization();
 
             IVendedorRepository repository = new VendedorRepository();
-            VendedorNegocio negocio = new VendedorNegocio(repository);
+            VendedorNegocio vendedorNegocio = new VendedorNegocio(repository);
+
+            IClienteRepository clienteRepository = new ClienteRepository();
+            ClienteNegocio clienteNegocio = new ClienteNegocio(clienteRepository);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GestorEncargos(negocio));
+            Application.Run(new GestorEncargos(vendedorNegocio, clienteNegocio));
         }
     }
 }

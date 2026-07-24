@@ -93,6 +93,7 @@
             // 
             // btnAgregar
             // 
+            this.btnAgregar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnAgregar.Location = new System.Drawing.Point(3, 3);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(130, 50);
@@ -103,6 +104,7 @@
             // 
             // btnModificar
             // 
+            this.btnModificar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnModificar.Location = new System.Drawing.Point(139, 3);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(130, 50);
@@ -113,6 +115,7 @@
             // 
             // btnEliminar
             // 
+            this.btnEliminar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnEliminar.Location = new System.Drawing.Point(275, 3);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(130, 50);
@@ -126,10 +129,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1030, 697);
+            this.ControlBox = false;
             this.Controls.Add(this.grbClientes);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ClientesForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Clientes";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.ClientesForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).EndInit();
             this.grbClientes.ResumeLayout(false);

@@ -126,9 +126,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1126, 632);
+            this.ControlBox = false;
             this.Controls.Add(this.grbVendedores);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MinimizeBox = false;
             this.Name = "VendedoresForm";
-            this.Text = "VendedoresForm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
+            this.Text = "Vendedores";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.VendedoresForm_Load);
             this.grbVendedores.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);

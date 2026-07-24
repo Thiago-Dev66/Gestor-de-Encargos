@@ -153,11 +153,23 @@
     <Compile Include="ClientesForm.Designer.cs">
       <DependentUpon>ClientesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="EncargosForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EncargosForm.Designer.cs">
+      <DependentUpon>EncargosForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GestorEncargos.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GestorEncargos.Designer.cs">
       <DependentUpon>GestorEncargos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OpcionesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OpcionesForm.Designer.cs">
+      <DependentUpon>OpcionesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -176,8 +188,14 @@
     <EmbeddedResource Include="ClientesForm.resx">
       <DependentUpon>ClientesForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EncargosForm.resx">
+      <DependentUpon>EncargosForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GestorEncargos.resx">
       <DependentUpon>GestorEncargos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpcionesForm.resx">
+      <DependentUpon>OpcionesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
