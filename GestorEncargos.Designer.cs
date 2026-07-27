@@ -135,6 +135,7 @@
             this.btnArticulos.TabIndex = 3;
             this.btnArticulos.Text = "Articulos";
             this.btnArticulos.UseVisualStyleBackColor = false;
+            this.btnArticulos.Click += new System.EventHandler(this.btnArticulos_Click);
             // 
             // tlpPrincipal
             // 

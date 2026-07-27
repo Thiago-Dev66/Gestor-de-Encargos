@@ -13,14 +13,17 @@ namespace Gestor_de_Encargos
     {
         private readonly VendedorNegocio _vendedorNegocio;
         private readonly ClienteNegocio _clienteNegocio;
+        private readonly ArticulosNegocio _articulosNegocio;
         private Form _openForm;
 
-        public GestorEncargos(VendedorNegocio vendedorNegocio,
-                              ClienteNegocio clienteNegocio)
+        public GestorEncargos(VendedorNegocio vendedorNegocio, ClienteNegocio clienteNegocio,
+                              ArticulosNegocio articulosNegocio)
         {
             InitializeComponent();
+
             _vendedorNegocio = vendedorNegocio;
             _clienteNegocio = clienteNegocio;
+            _articulosNegocio = articulosNegocio;
         }
 
         private void GestorEncargos_Load(object sender, EventArgs e)
@@ -79,6 +82,15 @@ namespace Gestor_de_Encargos
                 return;
 
             var form = new OpcionesForm();
+            OpenForm(form);
+        }
+
+        private void btnArticulos_Click(object sender, EventArgs e)
+        {
+            if (IsFormOpen(typeof(ArticulosForm)))
+                return;
+
+            var form = new ArticulosForm(_articulosNegocio);
             OpenForm(form);
         }
     }

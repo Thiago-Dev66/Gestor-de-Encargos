@@ -136,7 +136,7 @@ namespace Data
                         Codigo TEXT NOT NULL UNIQUE,
                         Nombre TEXT NOT NULL,
                         Precio REAL
-                    
+                        Activo INTEGER NOT NULL DEFAULT 1
                     );"
                 );
 

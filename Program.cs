@@ -26,9 +26,12 @@ namespace Gestor_de_Encargos
             IClienteRepository clienteRepository = new ClienteRepository();
             ClienteNegocio clienteNegocio = new ClienteNegocio(clienteRepository);
 
+            IArticuloRepository articuloRepository = new ArticuloRepository();
+            ArticulosNegocio articulosNegocio = new ArticulosNegocio(articuloRepository);
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GestorEncargos(vendedorNegocio, clienteNegocio));
+            Application.Run(new GestorEncargos(vendedorNegocio, clienteNegocio, articulosNegocio));
         }
     }
 }

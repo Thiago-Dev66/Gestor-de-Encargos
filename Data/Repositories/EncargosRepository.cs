@@ -53,7 +53,7 @@ namespace Data.Repositories
                         articulo.Codigo = item.ArticuloCodigo;
                         articulo.Nombre = item.ArticuloNombre;
 
-                        long IdArticulo = articuloRepository.GetOrCreate(articulo, data);
+                        long IdArticulo = articuloRepository.GetOrCreate(articulo);
 
                         if (IdArticulo == 0)
                         {
