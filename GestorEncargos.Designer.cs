@@ -73,21 +73,24 @@
             this.flowLayoutPanel1.Controls.Add(this.btnArticulos);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.errorProvider1.SetIconAlignment(this.flowLayoutPanel1, System.Windows.Forms.ErrorIconAlignment.MiddleLeft);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(18, 148);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(1, 150);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(296, 323);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(339, 323);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // btnEncargos
             // 
             this.btnEncargos.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnEncargos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEncargos.FlatAppearance.BorderSize = 0;
             this.btnEncargos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEncargos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEncargos.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnEncargos.Location = new System.Drawing.Point(3, 3);
             this.btnEncargos.Margin = new System.Windows.Forms.Padding(3, 3, 3, 15);
             this.btnEncargos.Name = "btnEncargos";
-            this.btnEncargos.Size = new System.Drawing.Size(293, 64);
+            this.btnEncargos.Size = new System.Drawing.Size(340, 64);
             this.btnEncargos.TabIndex = 0;
             this.btnEncargos.Text = "Encargos";
             this.btnEncargos.UseVisualStyleBackColor = false;
@@ -96,13 +99,15 @@
             // btnClientes
             // 
             this.btnClientes.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnClientes.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClientes.FlatAppearance.BorderSize = 0;
             this.btnClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClientes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClientes.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnClientes.Location = new System.Drawing.Point(3, 85);
             this.btnClientes.Margin = new System.Windows.Forms.Padding(3, 3, 3, 15);
             this.btnClientes.Name = "btnClientes";
-            this.btnClientes.Size = new System.Drawing.Size(293, 64);
+            this.btnClientes.Size = new System.Drawing.Size(336, 64);
             this.btnClientes.TabIndex = 1;
             this.btnClientes.Text = "Clientes";
             this.btnClientes.UseVisualStyleBackColor = false;
@@ -111,13 +116,15 @@
             // btnVendedores
             // 
             this.btnVendedores.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnVendedores.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnVendedores.FlatAppearance.BorderSize = 0;
             this.btnVendedores.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVendedores.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVendedores.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnVendedores.Location = new System.Drawing.Point(3, 167);
             this.btnVendedores.Margin = new System.Windows.Forms.Padding(3, 3, 3, 15);
             this.btnVendedores.Name = "btnVendedores";
-            this.btnVendedores.Size = new System.Drawing.Size(293, 64);
+            this.btnVendedores.Size = new System.Drawing.Size(336, 64);
             this.btnVendedores.TabIndex = 2;
             this.btnVendedores.Text = "Vendedores";
             this.btnVendedores.UseVisualStyleBackColor = false;
@@ -126,12 +133,14 @@
             // btnArticulos
             // 
             this.btnArticulos.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnArticulos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnArticulos.FlatAppearance.BorderSize = 0;
             this.btnArticulos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnArticulos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnArticulos.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnArticulos.Location = new System.Drawing.Point(3, 249);
             this.btnArticulos.Name = "btnArticulos";
-            this.btnArticulos.Size = new System.Drawing.Size(293, 64);
+            this.btnArticulos.Size = new System.Drawing.Size(336, 64);
             this.btnArticulos.TabIndex = 3;
             this.btnArticulos.Text = "Articulos";
             this.btnArticulos.UseVisualStyleBackColor = false;
@@ -139,7 +148,7 @@
             // 
             // tlpPrincipal
             // 
-            this.tlpPrincipal.BackColor = System.Drawing.SystemColors.Window;
+            this.tlpPrincipal.BackColor = System.Drawing.Color.DodgerBlue;
             this.tlpPrincipal.ColumnCount = 1;
             this.tlpPrincipal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpPrincipal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
@@ -149,32 +158,33 @@
             this.tlpPrincipal.Dock = System.Windows.Forms.DockStyle.Left;
             this.tlpPrincipal.Location = new System.Drawing.Point(0, 0);
             this.tlpPrincipal.Name = "tlpPrincipal";
-            this.tlpPrincipal.Padding = new System.Windows.Forms.Padding(15);
             this.tlpPrincipal.RowCount = 2;
             this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tlpPrincipal.Size = new System.Drawing.Size(332, 700);
+            this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 77F));
+            this.tlpPrincipal.Size = new System.Drawing.Size(341, 700);
             this.tlpPrincipal.TabIndex = 12;
             // 
             // panelOpciones
             // 
             this.panelOpciones.Controls.Add(this.btnOpciones);
             this.panelOpciones.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelOpciones.Location = new System.Drawing.Point(18, 616);
+            this.panelOpciones.Location = new System.Drawing.Point(3, 631);
             this.panelOpciones.Name = "panelOpciones";
-            this.panelOpciones.Size = new System.Drawing.Size(296, 66);
+            this.panelOpciones.Size = new System.Drawing.Size(335, 66);
             this.panelOpciones.TabIndex = 1;
             // 
             // btnOpciones
             // 
             this.btnOpciones.BackColor = System.Drawing.Color.DodgerBlue;
-            this.btnOpciones.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnOpciones.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnOpciones.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnOpciones.FlatAppearance.BorderSize = 0;
             this.btnOpciones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOpciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpciones.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnOpciones.Location = new System.Drawing.Point(0, 2);
+            this.btnOpciones.Location = new System.Drawing.Point(0, 0);
             this.btnOpciones.Name = "btnOpciones";
-            this.btnOpciones.Size = new System.Drawing.Size(296, 64);
+            this.btnOpciones.Size = new System.Drawing.Size(335, 64);
             this.btnOpciones.TabIndex = 4;
             this.btnOpciones.Text = "Opciones";
             this.btnOpciones.UseVisualStyleBackColor = false;
@@ -183,9 +193,9 @@
             // formsPanel
             // 
             this.formsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.formsPanel.Location = new System.Drawing.Point(332, 0);
+            this.formsPanel.Location = new System.Drawing.Point(341, 0);
             this.formsPanel.Name = "formsPanel";
-            this.formsPanel.Size = new System.Drawing.Size(952, 700);
+            this.formsPanel.Size = new System.Drawing.Size(943, 700);
             this.formsPanel.TabIndex = 14;
             // 
             // GestorEncargos

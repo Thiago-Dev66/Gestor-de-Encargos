@@ -93,6 +93,7 @@
   <ItemGroup>
     <Compile Include="Articulo.cs" />
     <Compile Include="Cliente.cs" />
+    <Compile Include="Configuracion.cs" />
     <Compile Include="Encargo.cs" />
     <Compile Include="ArticuloEncargo.cs" />
     <Compile Include="Interfaces\IArticuloRepository.cs" />

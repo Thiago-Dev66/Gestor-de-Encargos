@@ -14,7 +14,9 @@ namespace Negocio
     public class EncargosNegocio
     {
         private readonly EncargosRepository _encargosRepository;
+        private readonly ConfiguracionRepository _configuracionRepository;
         private readonly INotificable _notificable;
+        public StringBuilder mensaje;
 
         public EncargosNegocio()
         {
@@ -26,31 +28,18 @@ namespace Negocio
             _notificable = new WhatsAppNotificador();
         }
 
-        public void NotificarCliente(Encargo encargo)
+        public void NotificarCliente(string mensaje, string contacto)
         {
             try
             {
-                if (encargo == null)
-                    throw new ArgumentNullException("Un encargo no puede ser null");
+                if (string.IsNullOrEmpty(mensaje))
+                    throw new ArgumentNullException("El mensaje no puede ser null");
 
-                string articulos = string.Join("\n• ", encargo.ArticuloEncargo
-                                         .Select(a => a.Articulo.Nombre));
-
-                StringBuilder mensaje = new StringBuilder();
-
-                mensaje.AppendLine($"Hola, {encargo.Cliente.Nombre}! ");
-                mensaje.AppendLine($"Te habla {encargo.Vendedor.Nombre} de Palacio de la Música Las Piedras Shopping. " +
-                                    "Tu pedido ya está listo para retirar: ");
-                mensaje.AppendLine($"• {articulos} ");
-                mensaje.AppendLine();
-                mensaje.AppendLine("Podés pasar de lunes a domingos de 11h a 22h");
-                mensaje.AppendLine("Te esperamos!");
-
-               _notificable.Notificar(encargo.Cliente.Celular, mensaje.ToString());
+               _notificable.Notificar(contacto, mensaje);
             }
-            catch (Exception)
+            catch (Exception exc)
             {
-                throw;
+                throw new Exception("El mensaje no se pudo envíar", exc);
             }
         }
         public void IsNotified(bool isNotified, Encargo encargo)

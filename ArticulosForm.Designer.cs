@@ -30,15 +30,15 @@
         {
             this.gpbArticulos = new System.Windows.Forms.GroupBox();
             this.tlpPrincipal = new System.Windows.Forms.TableLayoutPanel();
+            this.dgvArticulos = new System.Windows.Forms.DataGridView();
             this.pnlButtons = new System.Windows.Forms.Panel();
             this.btnBorrar = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
-            this.dgvArticulos = new System.Windows.Forms.DataGridView();
             this.gpbArticulos.SuspendLayout();
             this.tlpPrincipal.SuspendLayout();
-            this.pnlButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
+            this.pnlButtons.SuspendLayout();
             this.SuspendLayout();
             // 
             // gpbArticulos
@@ -69,55 +69,6 @@
             this.tlpPrincipal.Size = new System.Drawing.Size(1089, 639);
             this.tlpPrincipal.TabIndex = 1;
             // 
-            // pnlButtons
-            // 
-            this.pnlButtons.Controls.Add(this.btnBorrar);
-            this.pnlButtons.Controls.Add(this.btnModificar);
-            this.pnlButtons.Controls.Add(this.btnAgregar);
-            this.pnlButtons.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlButtons.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pnlButtons.Location = new System.Drawing.Point(3, 550);
-            this.pnlButtons.Name = "pnlButtons";
-            this.pnlButtons.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.pnlButtons.Size = new System.Drawing.Size(1083, 86);
-            this.pnlButtons.TabIndex = 3;
-            // 
-            // btnBorrar
-            // 
-            this.btnBorrar.BackColor = System.Drawing.Color.DodgerBlue;
-            this.btnBorrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBorrar.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnBorrar.Location = new System.Drawing.Point(289, 14);
-            this.btnBorrar.Name = "btnBorrar";
-            this.btnBorrar.Size = new System.Drawing.Size(130, 50);
-            this.btnBorrar.TabIndex = 2;
-            this.btnBorrar.Text = "Borrar";
-            this.btnBorrar.UseVisualStyleBackColor = false;
-            // 
-            // btnModificar
-            // 
-            this.btnModificar.BackColor = System.Drawing.Color.DodgerBlue;
-            this.btnModificar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnModificar.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnModificar.Location = new System.Drawing.Point(153, 14);
-            this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(130, 50);
-            this.btnModificar.TabIndex = 1;
-            this.btnModificar.Text = "Modificar";
-            this.btnModificar.UseVisualStyleBackColor = false;
-            // 
-            // btnAgregar
-            // 
-            this.btnAgregar.BackColor = System.Drawing.Color.DodgerBlue;
-            this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAgregar.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnAgregar.Location = new System.Drawing.Point(17, 14);
-            this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(130, 50);
-            this.btnAgregar.TabIndex = 0;
-            this.btnAgregar.Text = "Agregar";
-            this.btnAgregar.UseVisualStyleBackColor = false;
-            // 
             // dgvArticulos
             // 
             this.dgvArticulos.BackgroundColor = System.Drawing.SystemColors.ControlLight;
@@ -137,6 +88,55 @@
             this.dgvArticulos.Size = new System.Drawing.Size(1049, 507);
             this.dgvArticulos.TabIndex = 4;
             // 
+            // pnlButtons
+            // 
+            this.pnlButtons.Controls.Add(this.btnBorrar);
+            this.pnlButtons.Controls.Add(this.btnModificar);
+            this.pnlButtons.Controls.Add(this.btnAgregar);
+            this.pnlButtons.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlButtons.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlButtons.Location = new System.Drawing.Point(3, 550);
+            this.pnlButtons.Name = "pnlButtons";
+            this.pnlButtons.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.pnlButtons.Size = new System.Drawing.Size(1083, 86);
+            this.pnlButtons.TabIndex = 3;
+            // 
+            // btnBorrar
+            // 
+            this.btnBorrar.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnBorrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBorrar.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnBorrar.Location = new System.Drawing.Point(429, 17);
+            this.btnBorrar.Name = "btnBorrar";
+            this.btnBorrar.Size = new System.Drawing.Size(130, 50);
+            this.btnBorrar.TabIndex = 2;
+            this.btnBorrar.Text = "Eliminar";
+            this.btnBorrar.UseVisualStyleBackColor = false;
+            // 
+            // btnModificar
+            // 
+            this.btnModificar.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnModificar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnModificar.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnModificar.Location = new System.Drawing.Point(293, 17);
+            this.btnModificar.Name = "btnModificar";
+            this.btnModificar.Size = new System.Drawing.Size(130, 50);
+            this.btnModificar.TabIndex = 1;
+            this.btnModificar.Text = "Modificar";
+            this.btnModificar.UseVisualStyleBackColor = false;
+            // 
+            // btnAgregar
+            // 
+            this.btnAgregar.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregar.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnAgregar.Location = new System.Drawing.Point(17, 17);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(270, 50);
+            this.btnAgregar.TabIndex = 0;
+            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.UseVisualStyleBackColor = false;
+            // 
             // ArticulosForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -150,8 +150,8 @@
             this.Load += new System.EventHandler(this.ArticulosForm_Load);
             this.gpbArticulos.ResumeLayout(false);
             this.tlpPrincipal.ResumeLayout(false);
-            this.pnlButtons.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).EndInit();
+            this.pnlButtons.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

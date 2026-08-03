@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dominio;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -32,11 +34,33 @@ namespace Data
                         CreateTableArticulosEncargos(Access);
                     }
                 };
+                CreateConfigFile();
             }
             catch (Exception ex)
             {
                 throw new Exception($"Error al inicializar base de datos {ex.Message}");
             }
+        }
+
+        public static void CreateConfigFile()
+        {
+            string path = DataPathManager.GetConfiguracionPath();
+
+            if (File.Exists(path))
+                return;
+
+            var config = new Configuracion()
+            {
+                MensajeEncargo = "Hola, {ClienteNombre}!\n" +
+                                 "Te habla {VendedorNombre} de Palacio de la Música Las Piedras Shopping.\n" +
+                                 "Tu pedido ya está listo para retirar:\n" +
+                                 "• {Articulos}\n" +
+                                 "Podés pasar de lunes a domingos de 11h a 22h\n" +
+                                 "Te esperamos!"
+            };
+
+            string json = JsonConvert.SerializeObject(config, Formatting.Indented);
+            File.WriteAllText(path, json);
         }
 
         public static void CreateTableClientes(DataAccess Access)

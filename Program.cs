@@ -20,6 +20,9 @@ namespace Gestor_de_Encargos
         {
             DBInitializer.Initialization();
 
+            string path = DataPathManager.GetConfiguracionPath();
+            var configNegocio = new ConfiguracionNegocio(new ConfiguracionRepository(path));
+
             IVendedorRepository repository = new VendedorRepository();
             VendedorNegocio vendedorNegocio = new VendedorNegocio(repository);
 
@@ -29,9 +32,11 @@ namespace Gestor_de_Encargos
             IArticuloRepository articuloRepository = new ArticuloRepository();
             ArticulosNegocio articulosNegocio = new ArticulosNegocio(articuloRepository);
 
+            
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GestorEncargos(vendedorNegocio, clienteNegocio, articulosNegocio));
+            Application.Run(new GestorEncargos(vendedorNegocio, clienteNegocio, articulosNegocio, configNegocio));
         }
     }
 }

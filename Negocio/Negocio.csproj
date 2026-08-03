@@ -94,6 +94,7 @@
   <ItemGroup>
     <Compile Include="ArticulosNegocio.cs" />
     <Compile Include="ClienteNegocio.cs" />
+    <Compile Include="ConfiguracionNegocio.cs" />
     <Compile Include="EncargosNegocio.cs" />
     <Compile Include="Servicios\INotificable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="VendedorNegocio.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

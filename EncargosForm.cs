@@ -21,11 +21,13 @@ namespace Gestor_de_Encargos
         private EncargosNegocio _encargoNegocio;
         private List<Encargo> _encargosOriginal;
         private readonly VendedorNegocio _VendedorNegocio;
+        private readonly ConfiguracionNegocio _configuracionNegocio;
 
-        public EncargosForm(VendedorNegocio negocio)
+        public EncargosForm(VendedorNegocio negocio, ConfiguracionNegocio configuracionNegocio)
         {
             InitializeComponent();
             _VendedorNegocio = negocio;
+            _configuracionNegocio = configuracionNegocio;
         }
         private void EncargosForm_Load(object sender, EventArgs e)
         {
@@ -54,13 +56,13 @@ namespace Gestor_de_Encargos
             else if (isEnabled == true)
             {
                 BtnAgregar.Enabled = true;
-                BtnAgregar.BackColor = SystemColors.Highlight;
+                BtnAgregar.BackColor = Color.DodgerBlue;
 
                 btnModificar.Enabled = true;
-                btnModificar.BackColor = SystemColors.Highlight;
+                btnModificar.BackColor = Color.DodgerBlue;
 
                 btnDelete.Enabled = true;
-                btnDelete.BackColor = SystemColors.Highlight;
+                btnDelete.BackColor = Color.DodgerBlue;
             }
         }
         private void CargarDGV()
@@ -182,7 +184,7 @@ namespace Gestor_de_Encargos
                 else
                 {
                     btnNotificar.Enabled = true;
-                    btnNotificar.BackColor = SystemColors.Highlight;
+                    btnNotificar.BackColor = Color.Green;
                 }
             }
             catch (Exception ex)
@@ -266,7 +268,7 @@ namespace Gestor_de_Encargos
         {
             _encargoNegocio = new EncargosNegocio(_encargosRepository);
             var encargo = new Encargo();
-            bool isNotified;
+            bool isNotified ;
 
             if (ObtenerEncargoSeleccionado() != null)
                 encargo = ObtenerEncargoSeleccionado();
@@ -276,7 +278,17 @@ namespace Gestor_de_Encargos
                 return;
             }
 
-            _encargoNegocio.NotificarCliente(encargo);
+            string mensaje = _configuracionNegocio.ObtenerConfiguracion().MensajeEncargo;
+
+            mensaje = mensaje.Replace("{ClienteNombre}", encargo.Cliente.Nombre);
+            mensaje = mensaje.Replace("{VendedorNombre}", encargo.Vendedor.Nombre);
+
+            string articulos = string.Join("\n• ", encargo.ArticuloEncargo
+                                     .Select(a => a.Articulo.Nombre));
+
+            mensaje = mensaje.Replace("{Articulos}", articulos);
+
+            _encargoNegocio.NotificarCliente(mensaje, encargo.Cliente.Celular);
 
             DialogResult result = MessageBox.Show(
                                         "¿El cliente fue notificado?",

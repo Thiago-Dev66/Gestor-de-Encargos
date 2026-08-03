@@ -13,22 +13,24 @@ namespace Gestor_de_Encargos
     {
         private readonly VendedorNegocio _vendedorNegocio;
         private readonly ClienteNegocio _clienteNegocio;
-        private readonly ArticulosNegocio _articulosNegocio;
+        private readonly ArticulosNegocio _articuloNegocio;
+        private readonly ConfiguracionNegocio _configuracionNegocio;
         private Form _openForm;
 
         public GestorEncargos(VendedorNegocio vendedorNegocio, ClienteNegocio clienteNegocio,
-                              ArticulosNegocio articulosNegocio)
+                              ArticulosNegocio articulosNegocio, ConfiguracionNegocio configuracionNegocio)
         {
             InitializeComponent();
 
             _vendedorNegocio = vendedorNegocio;
             _clienteNegocio = clienteNegocio;
-            _articulosNegocio = articulosNegocio;
+            _articuloNegocio = articulosNegocio;
+            _configuracionNegocio = configuracionNegocio;
         }
 
         private void GestorEncargos_Load(object sender, EventArgs e)
         {
-            var startForm = new EncargosForm(_vendedorNegocio);
+            var startForm = new EncargosForm(_vendedorNegocio, _configuracionNegocio);
             _openForm = startForm;
             OpenForm(startForm);
         }
@@ -55,7 +57,7 @@ namespace Gestor_de_Encargos
             if (IsFormOpen(typeof(EncargosForm)))
                 return;
 
-            var form = new EncargosForm(_vendedorNegocio);
+            var form = new EncargosForm(_vendedorNegocio, _configuracionNegocio);
             OpenForm(form);
         }
         private void btnClientes_Click(object sender, EventArgs e)
@@ -81,7 +83,7 @@ namespace Gestor_de_Encargos
             if (IsFormOpen(typeof(OpcionesForm)))
                 return;
 
-            var form = new OpcionesForm();
+            var form = new OpcionesForm(_configuracionNegocio);
             OpenForm(form);
         }
 
@@ -90,7 +92,7 @@ namespace Gestor_de_Encargos
             if (IsFormOpen(typeof(ArticulosForm)))
                 return;
 
-            var form = new ArticulosForm(_articulosNegocio);
+            var form = new ArticulosForm(_articuloNegocio);
             OpenForm(form);
         }
     }

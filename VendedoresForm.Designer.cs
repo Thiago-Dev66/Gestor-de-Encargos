@@ -44,9 +44,11 @@
             // grbVendedores
             // 
             this.grbVendedores.Controls.Add(this.tableLayoutPanel1);
-            this.grbVendedores.Location = new System.Drawing.Point(40, 13);
+            this.grbVendedores.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grbVendedores.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grbVendedores.Location = new System.Drawing.Point(20, 20);
             this.grbVendedores.Name = "grbVendedores";
-            this.grbVendedores.Size = new System.Drawing.Size(1004, 603);
+            this.grbVendedores.Size = new System.Drawing.Size(1095, 669);
             this.grbVendedores.TabIndex = 2;
             this.grbVendedores.TabStop = false;
             this.grbVendedores.Text = "Vendedores";
@@ -57,19 +59,24 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.dgvVendedores, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.flpButtons, 0, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(8, 25);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 26);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 83.39101F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.609F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(988, 581);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 86.49068F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.50932F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1089, 641);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // dgvVendedores
             // 
+            this.dgvVendedores.BackgroundColor = System.Drawing.SystemColors.ControlLight;
+            this.dgvVendedores.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvVendedores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvVendedores.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvVendedores.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvVendedores.Location = new System.Drawing.Point(3, 3);
+            this.dgvVendedores.Location = new System.Drawing.Point(20, 20);
+            this.dgvVendedores.Margin = new System.Windows.Forms.Padding(20);
             this.dgvVendedores.MultiSelect = false;
             this.dgvVendedores.Name = "dgvVendedores";
             this.dgvVendedores.ReadOnly = true;
@@ -77,7 +84,7 @@
             this.dgvVendedores.RowHeadersWidth = 62;
             this.dgvVendedores.RowTemplate.Height = 28;
             this.dgvVendedores.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvVendedores.Size = new System.Drawing.Size(982, 475);
+            this.dgvVendedores.Size = new System.Drawing.Size(1049, 514);
             this.dgvVendedores.TabIndex = 0;
             // 
             // flpButtons
@@ -86,51 +93,66 @@
             this.flpButtons.Controls.Add(this.btnAgregar);
             this.flpButtons.Controls.Add(this.btnModificar);
             this.flpButtons.Controls.Add(this.btnEliminar);
-            this.flpButtons.Location = new System.Drawing.Point(3, 487);
+            this.flpButtons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpButtons.Location = new System.Drawing.Point(3, 557);
             this.flpButtons.Name = "flpButtons";
-            this.flpButtons.Size = new System.Drawing.Size(414, 90);
+            this.flpButtons.Padding = new System.Windows.Forms.Padding(10);
+            this.flpButtons.Size = new System.Drawing.Size(1083, 81);
             this.flpButtons.TabIndex = 1;
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(3, 3);
+            this.btnAgregar.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnAgregar.Location = new System.Drawing.Point(13, 13);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(130, 50);
+            this.btnAgregar.Size = new System.Drawing.Size(270, 50);
             this.btnAgregar.TabIndex = 0;
             this.btnAgregar.Text = "Agregar";
-            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.UseVisualStyleBackColor = false;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(139, 3);
+            this.btnModificar.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnModificar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnModificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnModificar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnModificar.Location = new System.Drawing.Point(289, 13);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(130, 50);
             this.btnModificar.TabIndex = 2;
             this.btnModificar.Text = "Modificar";
-            this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.UseVisualStyleBackColor = false;
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(275, 3);
+            this.btnEliminar.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnEliminar.Location = new System.Drawing.Point(425, 13);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(130, 50);
             this.btnEliminar.TabIndex = 3;
             this.btnEliminar.Text = "Eliminar";
-            this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.UseVisualStyleBackColor = false;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // VendedoresForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1126, 632);
+            this.ClientSize = new System.Drawing.Size(1135, 709);
             this.ControlBox = false;
             this.Controls.Add(this.grbVendedores);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MinimizeBox = false;
             this.Name = "VendedoresForm";
+            this.Padding = new System.Windows.Forms.Padding(20);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "Vendedores";

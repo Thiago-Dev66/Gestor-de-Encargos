@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace Data
 {
@@ -22,12 +23,19 @@ namespace Data
             return Path.Combine(AppDataPath, "GestorEncargos.db");
         }
 
+        public static string GetConfiguracionPath()
+        {
+            if (!Directory.Exists(AppDataPath))
+                Directory.CreateDirectory(AppDataPath);
+
+            return Path.Combine(AppDataPath, "Configuracion.json");
+        }
+
         public static string GetConnectionString()
         {
             string dbPath = GetDatabasePath();
             return $"Data Source={dbPath}";
         }
-
         public static string AppDataFolder => AppDataPath;
     }
 }
