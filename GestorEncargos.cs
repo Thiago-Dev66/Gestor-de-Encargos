@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using Data.Repositories;
 using Dominio;
@@ -33,6 +34,7 @@ namespace Gestor_de_Encargos
             var startForm = new EncargosForm(_vendedorNegocio, _configuracionNegocio);
             _openForm = startForm;
             OpenForm(startForm);
+            ActiveButton(btnEncargos);
         }
         private bool IsFormOpen(Type type)
         {
@@ -52,6 +54,18 @@ namespace Gestor_de_Encargos
             form.Dock = DockStyle.Fill;
             form.Show();
         }
+        private void ActiveButton(Button button)
+        {
+            foreach (Control ctr in flpButtons.Controls)
+            {
+                if (ctr is Button)
+                {
+                    ((Button)ctr).BackColor = Color.FromArgb(64, 64, 64);
+                }
+            }
+            button.BackColor = Color.DodgerBlue;
+        }
+
         private void btnEncargos_Click(object sender, EventArgs e)
         {
             if (IsFormOpen(typeof(EncargosForm)))
@@ -59,13 +73,16 @@ namespace Gestor_de_Encargos
 
             var form = new EncargosForm(_vendedorNegocio, _configuracionNegocio);
             OpenForm(form);
+            ActiveButton(btnEncargos);
         }
+
         private void btnClientes_Click(object sender, EventArgs e)
         {
             if (IsFormOpen(typeof(ClientesForm)))
                 return;
-            
+
             var form = new ClientesForm(_clienteNegocio);
+            ActiveButton(btnClientes);
             OpenForm(form);
         }
 
@@ -75,15 +92,7 @@ namespace Gestor_de_Encargos
                 return;
 
             var form = new VendedoresForm(_vendedorNegocio);
-            OpenForm(form);
-        }
-
-        private void btnOpciones_Click(object sender, EventArgs e)
-        {
-            if (IsFormOpen(typeof(OpcionesForm)))
-                return;
-
-            var form = new OpcionesForm(_configuracionNegocio);
+            ActiveButton(btnVendedores);
             OpenForm(form);
         }
 
@@ -93,6 +102,17 @@ namespace Gestor_de_Encargos
                 return;
 
             var form = new ArticulosForm(_articuloNegocio);
+            ActiveButton(btnArticulos);
+            OpenForm(form);
+        }
+
+        private void btnOpciones_Click(object sender, EventArgs e)
+        {
+            if (IsFormOpen(typeof(OpcionesForm)))
+                return;
+
+            var form = new OpcionesForm(_configuracionNegocio);
+            ActiveButton(btnOpciones);
             OpenForm(form);
         }
     }
