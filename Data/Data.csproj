@@ -119,11 +119,15 @@
     <Compile Include="DBMigrator.cs" />
     <Compile Include="Migrations\001_Migration.cs" />
     <Compile Include="Migrations\002_Migration.cs" />
+    <Compile Include="Migrations\003_Migration.cs" />
+    <Compile Include="Migrations\004_Migration.cs" />
+    <Compile Include="Migrations\IMigration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ArticuloRepository.cs" />
     <Compile Include="Repositories\ClienteRepository.cs" />
     <Compile Include="Repositories\ConfiguracionRepository.cs" />
     <Compile Include="Repositories\EncargosRepository.cs" />
+    <Compile Include="Repositories\MigrationRepository.cs" />
     <Compile Include="Repositories\VendedorRepository.cs" />
   </ItemGroup>
   <ItemGroup>

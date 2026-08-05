@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace Data.Migrations
 {
-    public class _001_Migration
+    public class _001_Migration : IMigration
     {
+        public int Version => 1;
+        public string MigrationName => "Add Activo column to Clientes table";
+
         public void Up(DataAccess data) 
         {
             data.SetQuery(@"

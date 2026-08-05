@@ -32,8 +32,6 @@ namespace Gestor_de_Encargos
             IArticuloRepository articuloRepository = new ArticuloRepository();
             ArticulosNegocio articulosNegocio = new ArticulosNegocio(articuloRepository);
 
-            
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new GestorEncargos(vendedorNegocio, clienteNegocio, articulosNegocio, configNegocio));

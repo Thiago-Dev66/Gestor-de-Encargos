@@ -13,28 +13,28 @@ namespace Data
 {
     public static class DBInitializer
     {
-
         public static void Initialization()
         {
             try
             {
                 using (var Access = new DataAccess())
                 {
-                    if (File.Exists(DataPathManager.GetDatabasePath()))
+                    if (Directory.Exists(DataPathManager.AppDataFolder))
                     {
-                        //DBMigrator.Migrate(Access);
-                        return; 
+                        CreateTableMigrations(Access);
+                        DBMigrator.Migrate(Access);
                     }
-                    else
-                    {
-                        CreateTableClientes(Access);
-                        CreateTableVendedores(Access);
-                        CreateTableEncargos(Access);
-                        CreateTableArticulos(Access);
-                        CreateTableArticulosEncargos(Access);
-                    }
-                };
-                CreateConfigFile();
+
+                    CreateTableClientes(Access);
+                    CreateTableVendedores(Access);
+                    CreateTableEncargos(Access);
+                    CreateTableArticulos(Access);
+                    CreateTableArticulosEncargos(Access);
+                    CreateTableMigrations(Access);
+                }
+                ;
+                if (!File.Exists(DataPathManager.GetConfiguracionPath()))
+                    CreateConfigFile(DataPathManager.GetConfiguracionPath());
             }
             catch (Exception ex)
             {
@@ -42,21 +42,19 @@ namespace Data
             }
         }
 
-        public static void CreateConfigFile()
+        public static void CreateConfigFile(string path)
         {
-            string path = DataPathManager.GetConfiguracionPath();
+            var builder = new StringBuilder();
 
-            if (File.Exists(path))
-                return;
+            builder.AppendLine("Hola, {ClienteNombre}! Te habla {VendedorNombre}");
+            builder.AppendLine("Tu pedido ya está listo para retirar:");
+            builder.AppendLine("    • {Articulos}");
+            builder.AppendLine();
+            builder.Append("Te esperamos!");
 
             var config = new Configuracion()
             {
-                MensajeEncargo = "Hola, {ClienteNombre}!\n" +
-                                 "Te habla {VendedorNombre} de Palacio de la Música Las Piedras Shopping.\n" +
-                                 "Tu pedido ya está listo para retirar:\n" +
-                                 "• {Articulos}\n" +
-                                 "Podés pasar de lunes a domingos de 11h a 22h\n" +
-                                 "Te esperamos!"
+                MensajeEncargo = builder.ToString()
             };
 
             string json = JsonConvert.SerializeObject(config, Formatting.Indented);
@@ -81,14 +79,12 @@ namespace Data
             }
             catch (Exception)
             {
-
                 throw;
             }
-            finally 
+            finally
             {
                 Access.ConnectionClose();
             }
-
         }
 
         public static void CreateTableVendedores(DataAccess Access)
@@ -126,6 +122,7 @@ namespace Data
                         Estado INTEGER NOT NULL DEFAULT 0,
                         Descripcion TEXT,
                         SucursalOrigen TEXT NOT NULL,
+                        Activo INTEGER NOT NULL DEFAULT 1,
                         ClienteID INTEGER NOT NULL,
                         VendedorID INTEGER NOT NULL,
                     
@@ -206,6 +203,28 @@ namespace Data
                 throw;
             }
             finally { Access.ConnectionClose(); }
+        }
+        public static void CreateTableMigrations(DataAccess access)
+        {
+            try
+            {
+                access.SetQuery(@"
+                    CREATE TABLE IF NOT EXISTS Migrations (
+                        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        MigrationName TEXT NOT NULL UNIQUE,
+                        AppliedOn Text NOT NULL
+                    );"
+                );
+                access.ExecuteNonQuery();
+            }
+            catch (Exception exc)
+            {
+                throw new Exception("Error al crear la tabla 'Migrations'", exc);
+            }
+            finally
+            {
+                access.ConnectionClose();
+            }
         }
     }
 }
