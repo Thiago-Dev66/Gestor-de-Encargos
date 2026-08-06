@@ -32,7 +32,6 @@ namespace Negocio
             {
                 if (articulo == null)
                     throw new NullReferenceException();
-
                 if (string.IsNullOrEmpty(articulo.Codigo))
                     throw new Exception("Código inválido");
                 if (string.IsNullOrEmpty(articulo.Nombre))
@@ -51,7 +50,6 @@ namespace Negocio
             {
                 if (articuloEncargo == null)
                     throw new NullReferenceException();
-
                 if (string.IsNullOrEmpty(articuloEncargo.ArticuloCodigo))
                     throw new Exception("Código inválido");
                 if (string.IsNullOrEmpty(articuloEncargo.ArticuloNombre))

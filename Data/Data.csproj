@@ -121,6 +121,7 @@
     <Compile Include="Migrations\002_Migration.cs" />
     <Compile Include="Migrations\003_Migration.cs" />
     <Compile Include="Migrations\004_Migration.cs" />
+    <Compile Include="Migrations\005_Migration.cs" />
     <Compile Include="Migrations\IMigration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ArticuloRepository.cs" />

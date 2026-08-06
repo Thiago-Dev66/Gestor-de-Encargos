@@ -45,6 +45,24 @@ namespace Gestor_de_Encargos
                 if (_articulo == null)
                     _articulo = new Articulo();
 
+                if (string.IsNullOrEmpty(txtNombre.Text))
+                {
+                    MessageBox.Show("El nombre del artículo no puede estar vacío.",
+                                    "Error de Validación",
+                                     MessageBoxButtons.OK,
+                                     MessageBoxIcon.Error
+                                     );
+                    return;
+                }
+                if (string.IsNullOrEmpty(txtCodigo.Text))
+                {
+                    MessageBox.Show("El código del artículo no puede estar vacío.",
+                                    "Error de Validación",
+                                     MessageBoxButtons.OK,
+                                     MessageBoxIcon.Error
+                                     );
+                    return;
+                }
                 _articulo.Nombre = txtNombre.Text;
                 _articulo.Codigo = txtCodigo.Text;
 
@@ -52,7 +70,11 @@ namespace Gestor_de_Encargos
                     _articulo.Precio = val;
                 else
                 {
-                    MessageBox.Show("Precio inválido");
+                    MessageBox.Show("El precio ingresado no es válido. Por favor, ingrese un número válido.",
+                                    "Error de Validación",
+                                     MessageBoxButtons.OK,
+                                     MessageBoxIcon.Error
+                                     );
                     return;
                 }
 

@@ -33,7 +33,6 @@
             this.lblVendedorNombre = new System.Windows.Forms.Label();
             this.lblArticulos = new System.Windows.Forms.Label();
             this.lblClienteNombre = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnRestablecer = new System.Windows.Forms.Button();
             this.txtGuardar = new System.Windows.Forms.Button();
             this.lblMensaje = new System.Windows.Forms.Label();
@@ -41,6 +40,7 @@
             this.rdbWhatsapp = new System.Windows.Forms.RadioButton();
             this.lblEnviar = new System.Windows.Forms.Label();
             this.txtMensaje = new System.Windows.Forms.TextBox();
+            this.lblTags = new System.Windows.Forms.Label();
             this.grbOpciones.SuspendLayout();
             this.grpMensajeClientes.SuspendLayout();
             this.SuspendLayout();
@@ -66,7 +66,7 @@
             this.grpMensajeClientes.Controls.Add(this.lblVendedorNombre);
             this.grpMensajeClientes.Controls.Add(this.lblArticulos);
             this.grpMensajeClientes.Controls.Add(this.lblClienteNombre);
-            this.grpMensajeClientes.Controls.Add(this.label1);
+            this.grpMensajeClientes.Controls.Add(this.lblTags);
             this.grpMensajeClientes.Controls.Add(this.btnRestablecer);
             this.grpMensajeClientes.Controls.Add(this.txtGuardar);
             this.grpMensajeClientes.Controls.Add(this.lblMensaje);
@@ -115,17 +115,6 @@
             this.lblClienteNombre.TabIndex = 8;
             this.lblClienteNombre.Text = "{ClienteNombre}";
             this.lblClienteNombre.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblClienteNombre_MouseDown);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label1.Location = new System.Drawing.Point(739, 295);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(310, 200);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Tags disponibles:\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nArrastra las etiquetas y sueltalas donde \r\nquier" +
-    "as que los datos aparezcan";
             // 
             // btnRestablecer
             // 
@@ -211,6 +200,17 @@
             this.txtMensaje.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtMensaje_DragDrop);
             this.txtMensaje.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtMensaje_DragEnter);
             // 
+            // lblTags
+            // 
+            this.lblTags.AutoSize = true;
+            this.lblTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblTags.Location = new System.Drawing.Point(739, 295);
+            this.lblTags.Name = "lblTags";
+            this.lblTags.Size = new System.Drawing.Size(310, 200);
+            this.lblTags.TabIndex = 7;
+            this.lblTags.Text = "Tags disponibles:\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nArrastra las etiquetas y sueltalas donde \r\nquier" +
+    "as que los datos aparezcan";
+            // 
             // OpcionesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -238,9 +238,9 @@
         private System.Windows.Forms.Label lblMensaje;
         private System.Windows.Forms.Button btnRestablecer;
         private System.Windows.Forms.Button txtGuardar;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblClienteNombre;
         private System.Windows.Forms.Label lblVendedorNombre;
         private System.Windows.Forms.Label lblArticulos;
+        private System.Windows.Forms.Label lblTags;
     }
 }

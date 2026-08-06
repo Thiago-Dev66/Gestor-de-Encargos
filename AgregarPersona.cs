@@ -108,6 +108,8 @@ namespace Gestor_de_Encargos
                     }
                     existente = clienteNegocio.Add(cliente);
 
+                    //Arreglar bug al querer agregar un cliente cuyo numero de contacto ya existe. 
+
                     if (existente == null)
                     {
                         Persona = cliente;

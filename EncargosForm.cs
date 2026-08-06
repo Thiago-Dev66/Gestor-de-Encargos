@@ -283,7 +283,7 @@ namespace Gestor_de_Encargos
             mensaje = mensaje.Replace("{ClienteNombre}", encargo.Cliente.Nombre);
             mensaje = mensaje.Replace("{VendedorNombre}", encargo.Vendedor.Nombre);
 
-            string articulos = string.Join("\n• ", encargo.ArticuloEncargo
+            string articulos = string.Join("\n    • ", encargo.ArticuloEncargo
                                      .Select(a => a.Articulo.Nombre));
 
             mensaje = mensaje.Replace("{Articulos}", articulos);
@@ -370,15 +370,15 @@ namespace Gestor_de_Encargos
 
         private void txtNumeroVendedor_TextChanged(object sender, EventArgs e)
         {
-            //if (string.IsNullOrEmpty(txtNumeroVendedor.Text))
-            //{
-            //    errorProvider1.SetError(txtNumeroVendedor, "Debe ingresar un número de vendedor");
-            //    errorProvider1.SetIconAlignment(txtNumeroVendedor, ErrorIconAlignment.MiddleRight);
-            //    errorProvider1.SetIconPadding(txtNumeroVendedor, -20);
-            //    EnableButtons();
-            //}
-            //else
-            //    errorProvider1.Clear();
+            if (string.IsNullOrEmpty(txtNumeroVendedor.Text))
+            {
+                errorProvider.SetError(txtNumeroVendedor, "Debe ingresar un número de vendedor");
+                errorProvider.SetIconAlignment(txtNumeroVendedor, ErrorIconAlignment.MiddleRight);
+                errorProvider.SetIconPadding(txtNumeroVendedor, -20);
+                EnableButtons();
+            }
+            else
+                errorProvider.Clear();
         }
 
         private void txtFiltrar_TextChanged(object sender, EventArgs e)

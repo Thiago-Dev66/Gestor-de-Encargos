@@ -18,7 +18,6 @@ namespace Gestor_de_Encargos
         private void ArticulosForm_Load(object sender, EventArgs e)
         {
             LoadArticulos();
-            dgvArticulos.Columns["Id"].Visible = false;
         }
         private void LoadArticulos()
         {
@@ -26,6 +25,10 @@ namespace Gestor_de_Encargos
             dgvArticulos.DataSource = _negocio.GetAll()
                                               .OrderByDescending(x => x.Id)
                                               .ToList();
+            if (dgvArticulos.Columns.Count == 0)
+                return;
+
+            dgvArticulos.Columns["Id"].Visible = false;
         }
         private void btnAgregar_Click(object sender, EventArgs e)
         {
@@ -36,7 +39,13 @@ namespace Gestor_de_Encargos
         private void btnModificar_Click(object sender, EventArgs e)
         {
             if (!(dgvArticulos.CurrentRow?.DataBoundItem is Articulo))
+            {
+                MessageBox.Show("Seleccione un artículo para modificar.",
+                                "Advertencia",
+                                 MessageBoxButtons.OK,
+                                 MessageBoxIcon.Warning);
                 return;
+            }
 
             var articulo = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
             var frm = new AgregarArticuloForm(_negocio, articulo);
@@ -47,12 +56,42 @@ namespace Gestor_de_Encargos
         private void btnBorrar_Click(object sender, EventArgs e)
         {
             if (!(dgvArticulos.CurrentRow?.DataBoundItem is Articulo))
+            {
+                MessageBox.Show("Seleccione un artículo para eliminar.",
+                                "Advertencia",
+                                 MessageBoxButtons.OK,
+                                 MessageBoxIcon.Warning);
                 return;
+            }
 
             var articulo = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
 
-            _negocio.Delete(articulo.Id);
-            LoadArticulos();
+            DialogResult result = 
+                MessageBox.Show($"¿Está seguro de que desea eliminar el artículo '{articulo.Nombre}'?",
+                                  "Confirmar eliminación",
+                                   MessageBoxButtons.YesNo,
+                                   MessageBoxIcon.Warning);
+
+            if (result != DialogResult.Yes)
+                return;
+
+            try
+            {
+                _negocio.Delete(articulo.Id);
+
+                MessageBox.Show($"Artículo '{articulo.Nombre}' eliminado correctamente.",
+                                 "Éxito",
+                                  MessageBoxButtons.OK,
+                                  MessageBoxIcon.Information);
+                LoadArticulos();
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show($"Error al eliminar el artículo: {exc.Message}",
+                                 "Error",
+                                  MessageBoxButtons.OK,
+                                  MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -55,6 +56,7 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnNotificar = new System.Windows.Forms.Button();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tlpEncargos.SuspendLayout();
             this.tlpArticulos.SuspendLayout();
             this.gpbArticulos.SuspendLayout();
@@ -65,6 +67,7 @@
             this.panel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.pnlButtons.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // tlpEncargos
@@ -400,6 +403,10 @@
             this.btnNotificar.UseVisualStyleBackColor = false;
             this.btnNotificar.Click += new System.EventHandler(this.btnNotificar_Click);
             // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            // 
             // EncargosForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -423,6 +430,7 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.pnlButtons.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -447,5 +455,6 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Button btnNotificar;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

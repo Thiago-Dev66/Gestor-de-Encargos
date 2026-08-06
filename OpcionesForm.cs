@@ -76,11 +76,11 @@ namespace Gestor_de_Encargos
             txtMensaje.Focus();
         }
 
+        // 2. Iniciamos el arrastre pasando el texto del Label y el efecto deseado
         private void lblClienteNombre_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                // 2. Iniciamos el arrastre pasando el texto del Label y el efecto deseado
                 DoDragDrop(lblClienteNombre.Text, DragDropEffects.Copy);
             }
         }
@@ -89,7 +89,6 @@ namespace Gestor_de_Encargos
         {
             if (e.Button == MouseButtons.Left)
             {
-                // 2. Iniciamos el arrastre pasando el texto del Label y el efecto deseado
                 DoDragDrop(lblVendedorNombre.Text, DragDropEffects.Copy);
             }
         }
@@ -98,7 +97,6 @@ namespace Gestor_de_Encargos
         {
             if (e.Button == MouseButtons.Left)
             {
-                // 2. Iniciamos el arrastre pasando el texto del Label y el efecto deseado
                 DoDragDrop(lblArticulos.Text, DragDropEffects.Copy);
             }
         }

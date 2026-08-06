@@ -28,24 +28,56 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.gpbArticulos = new System.Windows.Forms.GroupBox();
+            this.tlpPrincipal = new System.Windows.Forms.TableLayoutPanel();
             this.dgvClientes = new System.Windows.Forms.DataGridView();
-            this.grbClientes = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.flpButtons = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnAgregar = new System.Windows.Forms.Button();
+            this.pnlButtons = new System.Windows.Forms.Panel();
+            this.btnBorrar = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
-            this.btnEliminar = new System.Windows.Forms.Button();
+            this.btnAgregar = new System.Windows.Forms.Button();
+            this.gpbArticulos.SuspendLayout();
+            this.tlpPrincipal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
-            this.grbClientes.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.flpButtons.SuspendLayout();
+            this.pnlButtons.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // gpbArticulos
+            // 
+            this.gpbArticulos.Controls.Add(this.tlpPrincipal);
+            this.gpbArticulos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gpbArticulos.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gpbArticulos.Location = new System.Drawing.Point(20, 20);
+            this.gpbArticulos.Margin = new System.Windows.Forms.Padding(20);
+            this.gpbArticulos.Name = "gpbArticulos";
+            this.gpbArticulos.Size = new System.Drawing.Size(1095, 669);
+            this.gpbArticulos.TabIndex = 1;
+            this.gpbArticulos.TabStop = false;
+            this.gpbArticulos.Text = "Clientes";
+            // 
+            // tlpPrincipal
+            // 
+            this.tlpPrincipal.ColumnCount = 1;
+            this.tlpPrincipal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlpPrincipal.Controls.Add(this.dgvClientes, 0, 0);
+            this.tlpPrincipal.Controls.Add(this.pnlButtons, 0, 1);
+            this.tlpPrincipal.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tlpPrincipal.Location = new System.Drawing.Point(3, 26);
+            this.tlpPrincipal.Name = "tlpPrincipal";
+            this.tlpPrincipal.RowCount = 2;
+            this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 85.6025F));
+            this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.3975F));
+            this.tlpPrincipal.Size = new System.Drawing.Size(1089, 639);
+            this.tlpPrincipal.TabIndex = 1;
             // 
             // dgvClientes
             // 
+            this.dgvClientes.BackgroundColor = System.Drawing.SystemColors.ControlLight;
+            this.dgvClientes.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvClientes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvClientes.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvClientes.Location = new System.Drawing.Point(3, 3);
+            this.dgvClientes.Location = new System.Drawing.Point(20, 20);
+            this.dgvClientes.Margin = new System.Windows.Forms.Padding(20);
             this.dgvClientes.MultiSelect = false;
             this.dgvClientes.Name = "dgvClientes";
             this.dgvClientes.ReadOnly = true;
@@ -53,106 +85,91 @@
             this.dgvClientes.RowHeadersWidth = 62;
             this.dgvClientes.RowTemplate.Height = 28;
             this.dgvClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvClientes.Size = new System.Drawing.Size(982, 475);
-            this.dgvClientes.TabIndex = 0;
+            this.dgvClientes.Size = new System.Drawing.Size(1049, 507);
+            this.dgvClientes.TabIndex = 4;
             // 
-            // grbClientes
+            // pnlButtons
             // 
-            this.grbClientes.Controls.Add(this.tableLayoutPanel1);
-            this.grbClientes.Location = new System.Drawing.Point(12, 12);
-            this.grbClientes.Name = "grbClientes";
-            this.grbClientes.Size = new System.Drawing.Size(1004, 603);
-            this.grbClientes.TabIndex = 1;
-            this.grbClientes.TabStop = false;
-            this.grbClientes.Text = "Clientes";
+            this.pnlButtons.Controls.Add(this.btnBorrar);
+            this.pnlButtons.Controls.Add(this.btnModificar);
+            this.pnlButtons.Controls.Add(this.btnAgregar);
+            this.pnlButtons.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlButtons.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlButtons.Location = new System.Drawing.Point(3, 550);
+            this.pnlButtons.Name = "pnlButtons";
+            this.pnlButtons.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.pnlButtons.Size = new System.Drawing.Size(1083, 86);
+            this.pnlButtons.TabIndex = 3;
             // 
-            // tableLayoutPanel1
+            // btnBorrar
             // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.dgvClientes, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.flpButtons, 0, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 22);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 83.39101F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.609F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(988, 581);
-            this.tableLayoutPanel1.TabIndex = 1;
-            // 
-            // flpButtons
-            // 
-            this.tableLayoutPanel1.SetColumnSpan(this.flpButtons, 3);
-            this.flpButtons.Controls.Add(this.btnAgregar);
-            this.flpButtons.Controls.Add(this.btnModificar);
-            this.flpButtons.Controls.Add(this.btnEliminar);
-            this.flpButtons.Location = new System.Drawing.Point(3, 487);
-            this.flpButtons.Name = "flpButtons";
-            this.flpButtons.Size = new System.Drawing.Size(414, 90);
-            this.flpButtons.TabIndex = 1;
-            // 
-            // btnAgregar
-            // 
-            this.btnAgregar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnAgregar.Location = new System.Drawing.Point(3, 3);
-            this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(130, 50);
-            this.btnAgregar.TabIndex = 0;
-            this.btnAgregar.Text = "Agregar";
-            this.btnAgregar.UseVisualStyleBackColor = true;
-            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
+            this.btnBorrar.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnBorrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBorrar.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnBorrar.Location = new System.Drawing.Point(429, 17);
+            this.btnBorrar.Name = "btnBorrar";
+            this.btnBorrar.Size = new System.Drawing.Size(130, 50);
+            this.btnBorrar.TabIndex = 2;
+            this.btnBorrar.Text = "Eliminar";
+            this.btnBorrar.UseVisualStyleBackColor = false;
+            this.btnBorrar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnModificar
             // 
-            this.btnModificar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnModificar.Location = new System.Drawing.Point(139, 3);
+            this.btnModificar.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnModificar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnModificar.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnModificar.Location = new System.Drawing.Point(293, 17);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(130, 50);
-            this.btnModificar.TabIndex = 2;
+            this.btnModificar.TabIndex = 1;
             this.btnModificar.Text = "Modificar";
-            this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.UseVisualStyleBackColor = false;
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
-            // btnEliminar
+            // btnAgregar
             // 
-            this.btnEliminar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnEliminar.Location = new System.Drawing.Point(275, 3);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(130, 50);
-            this.btnEliminar.TabIndex = 3;
-            this.btnEliminar.Text = "Eliminar";
-            this.btnEliminar.UseVisualStyleBackColor = true;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            this.btnAgregar.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregar.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnAgregar.Location = new System.Drawing.Point(17, 17);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(270, 50);
+            this.btnAgregar.TabIndex = 0;
+            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.UseVisualStyleBackColor = false;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // ClientesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1030, 697);
+            this.ClientSize = new System.Drawing.Size(1135, 709);
             this.ControlBox = false;
-            this.Controls.Add(this.grbClientes);
+            this.Controls.Add(this.gpbArticulos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ClientesForm";
+            this.Padding = new System.Windows.Forms.Padding(20);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Clientes";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.ClientesForm_Load);
+            this.gpbArticulos.ResumeLayout(false);
+            this.tlpPrincipal.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).EndInit();
-            this.grbClientes.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.flpButtons.ResumeLayout(false);
+            this.pnlButtons.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
+        private System.Windows.Forms.GroupBox gpbArticulos;
+        private System.Windows.Forms.TableLayoutPanel tlpPrincipal;
         private System.Windows.Forms.DataGridView dgvClientes;
-        private System.Windows.Forms.GroupBox grbClientes;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.FlowLayoutPanel flpButtons;
-        private System.Windows.Forms.Button btnAgregar;
+        private System.Windows.Forms.Panel pnlButtons;
+        private System.Windows.Forms.Button btnBorrar;
         private System.Windows.Forms.Button btnModificar;
-        private System.Windows.Forms.Button btnEliminar;
+        private System.Windows.Forms.Button btnAgregar;
     }
 }

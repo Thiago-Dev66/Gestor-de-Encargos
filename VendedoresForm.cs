@@ -29,7 +29,10 @@ namespace Gestor_de_Encargos
         private void LoadData()
         {
             dgvVendedores.DataSource = null;
-            dgvVendedores.DataSource = _negocio.GetAll();
+            dgvVendedores.DataSource = _negocio.GetAll()
+                                               .OrderByDescending(a => a.Id)
+                                               .ToList();
+            dgvVendedores.Columns["Id"].Visible = false;
         }
         private void btnAgregar_Click(object sender, EventArgs e)
         {

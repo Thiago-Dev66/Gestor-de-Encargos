@@ -1,13 +1,8 @@
 ﻿using Dominio;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Data
 {
@@ -71,10 +66,13 @@ namespace Data
                         Id INTEGER PRIMARY KEY AUTOINCREMENT,
                         Nombre TEXT NOT NULL,
                         Apellido TEXT,
-                        Celular TEXT NOT NULL,
+                        Celular TEXT NOT NULL ,
                         Activo INTEGER NOT NULL DEFAULT 1
                     );"
                 );
+                //Celular es único para cada cliente,
+                //no puede haber dos clientes con el mismo número de celular
+                //Agregar campo Email a la tabla Clientes, que sea único para cada cliente
                 Access.ExecuteNonQuery();
             }
             catch (Exception)

@@ -55,8 +55,8 @@ namespace Data.Repositories
                     data.SetQuery(@"
                         SELECT Id, Codigo, Nombre, Precio
                         FROM Articulos
+                        WHERE Activo = 1
                     ");
-                        //WHERE Activo = 1
 
                     data.ExecuteReader();
 

@@ -13,7 +13,8 @@ namespace Data
             new _001_Migration(),
             new _002_Migration(),
             new _003_Migration(),
-            new _004_Migration()
+            new _004_Migration(),
+            new _005_Migration(),
         };
 
         public static void Migrate(DataAccess data)
