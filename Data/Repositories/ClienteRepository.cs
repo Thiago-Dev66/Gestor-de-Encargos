@@ -21,18 +21,21 @@ namespace Data.Repositories
                 {
                     data.BeginTransaction();
 
-                    data.SetQuery("SELECT Id, Nombre, Apellido, Celular FROM CLIENTES WHERE Activo = 1");
+                    data.SetQuery(@"SELECT Id, Nombre, Apellido, Celular, Email 
+                                    FROM CLIENTES 
+                                    WHERE Activo = 1");
                     data.ExecuteReader();
 
                     while (data.Reader.Read())
                     {
-                        Cliente Aux = new Cliente();
-
-                        Aux.Id = Convert.ToInt32(data.Reader["Id"]);
-                        Aux.Nombre = (string)data.Reader["Nombre"];
-                        Aux.Apellido = (string)data.Reader["Apellido"];
-                        Aux.Celular = (string)data.Reader["Celular"];
-
+                        Cliente Aux = new Cliente()
+                        {
+                            Id = Convert.ToInt32(data.Reader["Id"]),
+                            Nombre = (string)data.Reader["Nombre"],
+                            Apellido = (string)data.Reader["Apellido"],
+                            Celular = (string)data.Reader["Celular"],
+                            Email = data.Reader["Email"] != DBNull.Value ? (string)data.Reader["Email"] : string.Empty
+                        };
                         clientes.Add(Aux);
                     }
 
@@ -78,13 +81,14 @@ namespace Data.Repositories
                         return cliente;
 
                     data.SetQuery(@"
-                            INSERT INTO Clientes (Nombre, Apellido, Celular)
-                            VALUES (@Nombre, @Apellido, @Celular)
+                            INSERT INTO Clientes (Nombre, Apellido, Celular, Email)
+                            VALUES (@Nombre, @Apellido, @Celular, @Email)
                             ");
 
                     data.SetParameter("@Nombre", NewClient.Nombre);
                     data.SetParameter("@Apellido", NewClient.Apellido);
                     data.SetParameter("@Celular", NewClient.Celular);
+                    data.SetParameter("@Email", NewClient.Email);
 
                     data.ExecuteNonQuery();
 
@@ -112,15 +116,17 @@ namespace Data.Repositories
                         UPDATE Clientes SET
                             Nombre = @Nombre,
                             Apellido = @Apellido,
-                            Celular = @Celular
+                            Celular = @Celular,
+                            Email = @Email
                         WHERE Id = @Id
 
                         ");
 
+                    data.SetParameter("@Id", Modified.Id);
                     data.SetParameter("@Nombre", Modified.Nombre);
                     data.SetParameter("@Apellido", Modified.Apellido);
                     data.SetParameter("@Celular", Modified.Celular);
-                    data.SetParameter("@Id", Modified.Id);
+                    data.SetParameter("@Email", Modified.Email);
 
                     data.ExecuteNonQuery();
                 }

@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Globalization;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dominio;
 using Negocio;
-using System.Reflection;
 using Data.Repositories;
-using Dominio.Interfaces;
 
 namespace Gestor_de_Encargos
 {
@@ -43,7 +34,7 @@ namespace Gestor_de_Encargos
                 {
                     Text = "Modificar Cliente";
                     btnGuardar.Text = "Modificar";
-                    lblContacto.Text = "Contacto";
+                    lblTelefono.Text = "Contacto";
 
                     txtNombre.Text = ((Cliente)Persona).Nombre;
                     txtApellido.Text = ((Cliente)Persona).Apellido;
@@ -53,7 +44,9 @@ namespace Gestor_de_Encargos
                 {
                     Text = "Modificar Vendedor";
                     btnGuardar.Text = "Modificar";
-                    lblContacto.Text = "Número";
+                    lblTelefono.Text = "Número";
+                    lblEmail.Visible = false;
+                    txtEmail.Visible = false;
 
                     txtNombre.Text = ((Vendedor)Persona).Nombre;
                     txtApellido.Text = ((Vendedor)Persona).Apellido;
@@ -65,12 +58,14 @@ namespace Gestor_de_Encargos
                 if (_Tipo == TipoPersona.Cliente)
                 {
                     Text = "Agregar Cliente";
-                    lblContacto.Text = "Contacto";
+                    lblTelefono.Text = "Contacto";
                 }
                 else
                 {
                     Text = "Agregar Vendedor";
-                    lblContacto.Text = "Número";
+                    lblTelefono.Text = "Número";
+                    lblEmail.Visible = false;
+                    txtEmail.Visible = false;
                 }
             }
         }
@@ -89,10 +84,12 @@ namespace Gestor_de_Encargos
                     if (!(SoloLetras(txtNombre))) return;
                     if (!(SoloLetras(txtApellido))) return;
                     if (!ValidarPersona(txtContacto, "El cliente debe tener un contacto")) return;
+                    Helper.IsValidEmail(txtEmail.Text);
 
                     cliente.Nombre = txtNombre.Text;
                     cliente.Apellido = txtApellido.Text;
                     cliente.Celular = txtContacto.Text;
+                    cliente.Email = txtEmail.Text;
 
                     if (Persona != null)
                     {

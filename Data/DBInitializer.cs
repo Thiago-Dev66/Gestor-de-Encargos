@@ -66,13 +66,12 @@ namespace Data
                         Id INTEGER PRIMARY KEY AUTOINCREMENT,
                         Nombre TEXT NOT NULL,
                         Apellido TEXT,
-                        Celular TEXT NOT NULL ,
+                        Celular TEXT NOT NULL UNIQUE,
+                        Email TEXT UNIQUE,
                         Activo INTEGER NOT NULL DEFAULT 1
                     );"
                 );
-                //Celular es único para cada cliente,
-                //no puede haber dos clientes con el mismo número de celular
-                //Agregar campo Email a la tabla Clientes, que sea único para cada cliente
+                
                 Access.ExecuteNonQuery();
             }
             catch (Exception)

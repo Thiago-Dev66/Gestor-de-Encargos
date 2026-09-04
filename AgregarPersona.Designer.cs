@@ -32,15 +32,17 @@
             this.lblNombre = new System.Windows.Forms.Label();
             this.lblApellido = new System.Windows.Forms.Label();
             this.txtApellido = new System.Windows.Forms.TextBox();
-            this.lblContacto = new System.Windows.Forms.Label();
+            this.lblTelefono = new System.Windows.Forms.Label();
             this.txtContacto = new System.Windows.Forms.TextBox();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.lblEmail = new System.Windows.Forms.Label();
+            this.txtEmail = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(159, 76);
+            this.txtNombre.Location = new System.Drawing.Point(159, 55);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(251, 26);
             this.txtNombre.TabIndex = 0;
@@ -48,7 +50,7 @@
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(69, 79);
+            this.lblNombre.Location = new System.Drawing.Point(69, 58);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(65, 20);
             this.lblNombre.TabIndex = 1;
@@ -57,7 +59,7 @@
             // lblApellido
             // 
             this.lblApellido.AutoSize = true;
-            this.lblApellido.Location = new System.Drawing.Point(69, 136);
+            this.lblApellido.Location = new System.Drawing.Point(69, 112);
             this.lblApellido.Name = "lblApellido";
             this.lblApellido.Size = new System.Drawing.Size(65, 20);
             this.lblApellido.TabIndex = 3;
@@ -65,23 +67,23 @@
             // 
             // txtApellido
             // 
-            this.txtApellido.Location = new System.Drawing.Point(159, 136);
+            this.txtApellido.Location = new System.Drawing.Point(159, 112);
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(251, 26);
             this.txtApellido.TabIndex = 2;
             // 
-            // lblContacto
+            // lblTelefono
             // 
-            this.lblContacto.AutoSize = true;
-            this.lblContacto.Location = new System.Drawing.Point(69, 204);
-            this.lblContacto.Name = "lblContacto";
-            this.lblContacto.Size = new System.Drawing.Size(74, 20);
-            this.lblContacto.TabIndex = 5;
-            this.lblContacto.Text = "Contacto";
+            this.lblTelefono.AutoSize = true;
+            this.lblTelefono.Location = new System.Drawing.Point(69, 179);
+            this.lblTelefono.Name = "lblTelefono";
+            this.lblTelefono.Size = new System.Drawing.Size(71, 20);
+            this.lblTelefono.TabIndex = 5;
+            this.lblTelefono.Text = "Telefono";
             // 
             // txtContacto
             // 
-            this.txtContacto.Location = new System.Drawing.Point(159, 198);
+            this.txtContacto.Location = new System.Drawing.Point(159, 173);
             this.txtContacto.Name = "txtContacto";
             this.txtContacto.Size = new System.Drawing.Size(251, 26);
             this.txtContacto.TabIndex = 4;
@@ -91,7 +93,7 @@
             this.btnGuardar.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnGuardar.Location = new System.Drawing.Point(73, 272);
+            this.btnGuardar.Location = new System.Drawing.Point(73, 303);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(130, 50);
             this.btnGuardar.TabIndex = 6;
@@ -105,7 +107,7 @@
             this.btnCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnCancelar.Location = new System.Drawing.Point(280, 272);
+            this.btnCancelar.Location = new System.Drawing.Point(280, 303);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(130, 50);
             this.btnCancelar.TabIndex = 7;
@@ -113,14 +115,32 @@
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
+            // lblEmail
+            // 
+            this.lblEmail.AutoSize = true;
+            this.lblEmail.Location = new System.Drawing.Point(69, 239);
+            this.lblEmail.Name = "lblEmail";
+            this.lblEmail.Size = new System.Drawing.Size(48, 20);
+            this.lblEmail.TabIndex = 9;
+            this.lblEmail.Text = "Email";
+            // 
+            // txtEmail
+            // 
+            this.txtEmail.Location = new System.Drawing.Point(159, 233);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(251, 26);
+            this.txtEmail.TabIndex = 8;
+            // 
             // AgregarPersona
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(496, 389);
+            this.Controls.Add(this.lblEmail);
+            this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnGuardar);
-            this.Controls.Add(this.lblContacto);
+            this.Controls.Add(this.lblTelefono);
             this.Controls.Add(this.txtContacto);
             this.Controls.Add(this.lblApellido);
             this.Controls.Add(this.txtApellido);
@@ -144,9 +164,11 @@
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Label lblApellido;
         private System.Windows.Forms.TextBox txtApellido;
-        private System.Windows.Forms.Label lblContacto;
+        private System.Windows.Forms.Label lblTelefono;
         private System.Windows.Forms.TextBox txtContacto;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Label lblEmail;
+        private System.Windows.Forms.TextBox txtEmail;
     }
 }

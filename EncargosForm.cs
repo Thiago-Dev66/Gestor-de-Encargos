@@ -1,14 +1,13 @@
 ﻿using Data.Repositories;
 using Dominio;
 using Negocio;
+using Negocio.Servicios;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Gestor_de_Encargos
@@ -288,7 +287,10 @@ namespace Gestor_de_Encargos
 
             mensaje = mensaje.Replace("{Articulos}", articulos);
 
+            
             _encargoNegocio.NotificarCliente(mensaje, encargo.Cliente.Celular);
+
+            //logica para enviar email aqui.
 
             DialogResult result = MessageBox.Show(
                                         "¿El cliente fue notificado?",

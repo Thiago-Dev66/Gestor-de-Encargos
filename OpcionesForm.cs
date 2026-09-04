@@ -1,9 +1,8 @@
 ﻿using Dominio;
 using Negocio;
-using Newtonsoft.Json;
+using Negocio.Servicios;
 using System;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Gestor_de_Encargos
@@ -21,6 +20,12 @@ namespace Gestor_de_Encargos
         private void OpcionesForm_Load(object sender, EventArgs e)
         {
             Configuracion config = _negocio.ObtenerConfiguracion();
+
+            if (config.NotificationType == 0)
+                rdbWhatsapp.Checked = true;
+            else
+                rdbEmail.Checked = true;
+
             txtMensaje.Text = config.MensajeEncargo;
         }
 
@@ -28,10 +33,11 @@ namespace Gestor_de_Encargos
         {
             var configuracion = new Configuracion
             {
-                MensajeEncargo = txtMensaje.Text
+                MensajeEncargo = txtMensaje.Text,
+                NotificationType = rdbWhatsapp.Checked ? 0 : 1
             };
 
-            _negocio.GuardarConfiguracion(configuracion);
+            _negocio.Guardar(configuracion);
 
             MessageBox.Show("Configuración guardada correctamente.");
         }

@@ -18,7 +18,7 @@ namespace Negocio
             return _repository.Obtener();
         }
 
-        public void GuardarConfiguracion(Configuracion configuracion)
+        public void Guardar(Configuracion configuracion)
         {
             if (string.IsNullOrWhiteSpace(configuracion.MensajeEncargo))
                 throw new Exception("El mensaje no puede estar vacío.");

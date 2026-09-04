@@ -33,6 +33,7 @@
             this.lblVendedorNombre = new System.Windows.Forms.Label();
             this.lblArticulos = new System.Windows.Forms.Label();
             this.lblClienteNombre = new System.Windows.Forms.Label();
+            this.lblTags = new System.Windows.Forms.Label();
             this.btnRestablecer = new System.Windows.Forms.Button();
             this.txtGuardar = new System.Windows.Forms.Button();
             this.lblMensaje = new System.Windows.Forms.Label();
@@ -40,7 +41,6 @@
             this.rdbWhatsapp = new System.Windows.Forms.RadioButton();
             this.lblEnviar = new System.Windows.Forms.Label();
             this.txtMensaje = new System.Windows.Forms.TextBox();
-            this.lblTags = new System.Windows.Forms.Label();
             this.grbOpciones.SuspendLayout();
             this.grpMensajeClientes.SuspendLayout();
             this.SuspendLayout();
@@ -56,7 +56,7 @@
             this.grbOpciones.Margin = new System.Windows.Forms.Padding(30);
             this.grbOpciones.Name = "grbOpciones";
             this.grbOpciones.Padding = new System.Windows.Forms.Padding(20);
-            this.grbOpciones.Size = new System.Drawing.Size(1160, 656);
+            this.grbOpciones.Size = new System.Drawing.Size(1160, 658);
             this.grbOpciones.TabIndex = 1;
             this.grbOpciones.TabStop = false;
             this.grbOpciones.Text = "Opciones";
@@ -78,7 +78,7 @@
             this.grpMensajeClientes.Location = new System.Drawing.Point(20, 41);
             this.grpMensajeClientes.Margin = new System.Windows.Forms.Padding(15);
             this.grpMensajeClientes.Name = "grpMensajeClientes";
-            this.grpMensajeClientes.Size = new System.Drawing.Size(1120, 595);
+            this.grpMensajeClientes.Size = new System.Drawing.Size(1120, 597);
             this.grpMensajeClientes.TabIndex = 0;
             this.grpMensajeClientes.TabStop = false;
             this.grpMensajeClientes.Text = "Mensaje a Clientes";
@@ -87,7 +87,7 @@
             // 
             this.lblVendedorNombre.AutoSize = true;
             this.lblVendedorNombre.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblVendedorNombre.Location = new System.Drawing.Point(739, 338);
+            this.lblVendedorNombre.Location = new System.Drawing.Point(739, 334);
             this.lblVendedorNombre.Name = "lblVendedorNombre";
             this.lblVendedorNombre.Size = new System.Drawing.Size(179, 22);
             this.lblVendedorNombre.TabIndex = 10;
@@ -98,7 +98,7 @@
             // 
             this.lblArticulos.AutoSize = true;
             this.lblArticulos.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblArticulos.Location = new System.Drawing.Point(739, 419);
+            this.lblArticulos.Location = new System.Drawing.Point(739, 415);
             this.lblArticulos.Name = "lblArticulos";
             this.lblArticulos.Size = new System.Drawing.Size(102, 22);
             this.lblArticulos.TabIndex = 9;
@@ -109,12 +109,23 @@
             // 
             this.lblClienteNombre.AutoSize = true;
             this.lblClienteNombre.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblClienteNombre.Location = new System.Drawing.Point(739, 377);
+            this.lblClienteNombre.Location = new System.Drawing.Point(739, 373);
             this.lblClienteNombre.Name = "lblClienteNombre";
             this.lblClienteNombre.Size = new System.Drawing.Size(156, 22);
             this.lblClienteNombre.TabIndex = 8;
             this.lblClienteNombre.Text = "{ClienteNombre}";
             this.lblClienteNombre.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblClienteNombre_MouseDown);
+            // 
+            // lblTags
+            // 
+            this.lblTags.AutoSize = true;
+            this.lblTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblTags.Location = new System.Drawing.Point(739, 291);
+            this.lblTags.Name = "lblTags";
+            this.lblTags.Size = new System.Drawing.Size(310, 200);
+            this.lblTags.TabIndex = 7;
+            this.lblTags.Text = "Tags disponibles:\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nArrastra las etiquetas y sueltalas donde \r\nquier" +
+    "as que los datos aparezcan";
             // 
             // btnRestablecer
             // 
@@ -122,7 +133,7 @@
             this.btnRestablecer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRestablecer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRestablecer.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnRestablecer.Location = new System.Drawing.Point(586, 512);
+            this.btnRestablecer.Location = new System.Drawing.Point(984, 541);
             this.btnRestablecer.Name = "btnRestablecer";
             this.btnRestablecer.Size = new System.Drawing.Size(130, 50);
             this.btnRestablecer.TabIndex = 6;
@@ -136,7 +147,7 @@
             this.txtGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.txtGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGuardar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.txtGuardar.Location = new System.Drawing.Point(450, 512);
+            this.txtGuardar.Location = new System.Drawing.Point(848, 541);
             this.txtGuardar.Name = "txtGuardar";
             this.txtGuardar.Size = new System.Drawing.Size(130, 50);
             this.txtGuardar.TabIndex = 5;
@@ -148,7 +159,7 @@
             // 
             this.lblMensaje.AutoSize = true;
             this.lblMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMensaje.Location = new System.Drawing.Point(52, 244);
+            this.lblMensaje.Location = new System.Drawing.Point(52, 246);
             this.lblMensaje.Name = "lblMensaje";
             this.lblMensaje.Size = new System.Drawing.Size(82, 22);
             this.lblMensaje.TabIndex = 4;
@@ -192,7 +203,7 @@
             // 
             this.txtMensaje.AllowDrop = true;
             this.txtMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMensaje.Location = new System.Drawing.Point(56, 290);
+            this.txtMensaje.Location = new System.Drawing.Point(56, 286);
             this.txtMensaje.Multiline = true;
             this.txtMensaje.Name = "txtMensaje";
             this.txtMensaje.Size = new System.Drawing.Size(660, 216);
@@ -200,22 +211,11 @@
             this.txtMensaje.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtMensaje_DragDrop);
             this.txtMensaje.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtMensaje_DragEnter);
             // 
-            // lblTags
-            // 
-            this.lblTags.AutoSize = true;
-            this.lblTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblTags.Location = new System.Drawing.Point(739, 295);
-            this.lblTags.Name = "lblTags";
-            this.lblTags.Size = new System.Drawing.Size(310, 200);
-            this.lblTags.TabIndex = 7;
-            this.lblTags.Text = "Tags disponibles:\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nArrastra las etiquetas y sueltalas donde \r\nquier" +
-    "as que los datos aparezcan";
-            // 
             // OpcionesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1238, 734);
+            this.ClientSize = new System.Drawing.Size(1238, 736);
             this.Controls.Add(this.grbOpciones);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "OpcionesForm";

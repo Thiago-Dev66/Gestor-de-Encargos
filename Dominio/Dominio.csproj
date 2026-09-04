@@ -96,6 +96,7 @@
     <Compile Include="Configuracion.cs" />
     <Compile Include="Encargo.cs" />
     <Compile Include="ArticuloEncargo.cs" />
+    <Compile Include="Helper.cs" />
     <Compile Include="Interfaces\IArticuloRepository.cs" />
     <Compile Include="Interfaces\IClienteRepository.cs" />
     <Compile Include="Interfaces\IVendedorRepository.cs" />

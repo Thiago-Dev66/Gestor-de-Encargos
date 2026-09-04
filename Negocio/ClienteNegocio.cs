@@ -36,7 +36,9 @@ namespace Negocio
             try
             {
                 if (cliente == null)
-                    throw new NullReferenceException("Cliente es null");
+                    throw new NullReferenceException("El cliente no puede ser nulo");
+                if (string.IsNullOrEmpty(cliente.Celular))
+                    throw new NullReferenceException("Celular no puede estar vacío");
 
                 cliente = _repository.Add(cliente);
 
