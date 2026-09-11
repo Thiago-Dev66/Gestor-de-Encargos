@@ -2,6 +2,7 @@
 using Dominio;
 using Negocio;
 using Negocio.Servicios;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -80,8 +81,16 @@ namespace Gestor_de_Encargos
             dgvEncargos.Columns["Vendedor"].Visible = false;
             dgvEncargos.Columns["Cliente"].Visible = false;
 
+            Configuracion configuracion = _configuracionNegocio.ObtenerConfiguracion();
+
+            if (configuracion.NotificationType == 0) 
+                dgvEncargos.Columns["ClienteCelular"].DisplayIndex = 1;
+            else
+            {
+                dgvEncargos.Columns["ClienteEmail"].DisplayIndex = 1;
+                dgvEncargos.Columns["ClienteCelular"].Visible = false;
+            }
             dgvEncargos.Columns["ClienteNombre"].DisplayIndex = 0;
-            dgvEncargos.Columns["ClienteCelular"].DisplayIndex = 1;
             dgvEncargos.Columns["SucursalOrigen"].DisplayIndex = 3;
 
             if (dgvArticulos.Columns.Count == 0) return;
@@ -267,7 +276,8 @@ namespace Gestor_de_Encargos
         {
             _encargoNegocio = new EncargosNegocio(_encargosRepository);
             var encargo = new Encargo();
-            bool isNotified ;
+            string mensaje;
+            bool isNotified;
 
             if (ObtenerEncargoSeleccionado() != null)
                 encargo = ObtenerEncargoSeleccionado();
@@ -277,20 +287,30 @@ namespace Gestor_de_Encargos
                 return;
             }
 
-            string mensaje = _configuracionNegocio.ObtenerConfiguracion().MensajeEncargo;
+            mensaje = SetMessage(encargo);
+            Configuracion configuracion = _configuracionNegocio.ObtenerConfiguracion();
 
-            mensaje = mensaje.Replace("{ClienteNombre}", encargo.Cliente.Nombre);
-            mensaje = mensaje.Replace("{VendedorNombre}", encargo.Vendedor.Nombre);
-
-            string articulos = string.Join("\n    • ", encargo.ArticuloEncargo
-                                     .Select(a => a.Articulo.Nombre));
-
-            mensaje = mensaje.Replace("{Articulos}", articulos);
-
-            
-            _encargoNegocio.NotificarCliente(mensaje, encargo.Cliente.Celular);
-
-            //logica para enviar email aqui.
+            if (configuracion.NotificationType == 0)
+            {
+                _encargoNegocio.NotificarCliente(mensaje, encargo.Cliente.Celular);
+            }
+            else
+            {
+                try
+                {
+                    EmailService.SendEmail(encargo.Cliente.Email, "Notificación de encargo", mensaje);
+                    MessageBox.Show("Email enviado con éxito!");
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show(
+                        $"Error al enviar el correo electrónico: {exc.ToString()}", 
+                        "Error", 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Error
+                        );
+                }
+            }
 
             DialogResult result = MessageBox.Show(
                                         "¿El cliente fue notificado?",
@@ -305,6 +325,19 @@ namespace Gestor_de_Encargos
                 CargarDGV();
                 OcultarColumnas();
             }
+        }
+
+        private string SetMessage(Encargo encargo)
+        {
+            string mensaje = _configuracionNegocio.ObtenerConfiguracion().MensajeEncargo;
+
+            mensaje = mensaje.Replace("{ClienteNombre}", encargo.Cliente.Nombre);
+            mensaje = mensaje.Replace("{VendedorNombre}", encargo.Vendedor.Nombre);
+
+            string articulos = string.Join("\n    • ", encargo.ArticuloEncargo
+                                     .Select(a => a.Articulo.Nombre));
+
+            return mensaje = mensaje.Replace("{Articulos}", articulos);
         }
 
         private void dgvEncargos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

@@ -105,7 +105,7 @@ namespace Data.Repositories
                 try
                 {
                     data.SetQuery(@"
-                            SELECT E.Id, C.Nombre as Cliente, C.Apellido, C.Celular, V.Numero AS Vendedor, V.Nombre, 
+                            SELECT E.Id, C.Nombre as Cliente, C.Apellido, C.Celular, C.Email, V.Numero AS Vendedor, V.Nombre, 
                             date(E.Fecha) as Fecha, E.Estado, E.SucursalOrigen as Sucursal, E.Descripcion, 
                             E.ClienteID, E.VendedorID   
                             FROM Encargos AS E
@@ -127,6 +127,8 @@ namespace Data.Repositories
                         encargo.Cliente.Nombre = (string)data.Reader["Cliente"];
                         encargo.Cliente.Apellido = (string)data.Reader["Apellido"];
                         encargo.Cliente.Celular = (string)data.Reader["Celular"];
+                        if (!(data.Reader["Email"] is DBNull))
+                            encargo.Cliente.Email = (string)data.Reader["Email"];
                         encargo.Fecha = DateTime.Parse(data.Reader["Fecha"].ToString());
                         estado = Convert.ToInt32(data.Reader["Estado"]);
                         encargo.Estado = (EstadoEncargo)estado;

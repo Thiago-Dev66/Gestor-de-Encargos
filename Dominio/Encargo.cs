@@ -30,6 +30,8 @@ namespace Dominio
         public string ClienteCelular => Cliente?.Celular;
         [DisplayName("Vendedor")]
         public int VendedorNumero => Vendedor.Numero;
+        [DisplayName("Email")]
+        public string ClienteEmail => Cliente.Email;
     }
     public enum EstadoEncargo
     {

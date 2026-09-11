@@ -84,7 +84,7 @@
             this.grpMensajeClientes.Text = "Mensaje a Clientes";
             // 
             // lblVendedorNombre
-            // 
+            //
             this.lblVendedorNombre.AutoSize = true;
             this.lblVendedorNombre.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblVendedorNombre.Location = new System.Drawing.Point(739, 334);

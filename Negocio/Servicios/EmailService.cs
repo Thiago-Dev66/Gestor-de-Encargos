@@ -1,36 +1,53 @@
 ﻿using System;
+using System.Configuration;
 using System.Net;
 using System.Net.Mail;
-using Negocio;
-using Negocio.Servicios;
 
 namespace Services
 {
     public static class EmailService
     {
-        private static MailMessage email;
-        private static SmtpClient server = new SmtpClient("sandbox.smtp.mailtrap.io", 25)
+        private static SmtpClient server = new SmtpClient("smtp.gmail.com", 587)
         {
-            Credentials = new NetworkCredential("2df9f0d1ada4cc", "7c5fa306dbd313"),
+            Credentials = new NetworkCredential(
+                ConfigurationManager.AppSettings["EmailAddress"],
+                ConfigurationManager.AppSettings["EmailPassword"]),
+
             EnableSsl = true
         };
 
         public static void SendEmail(string to, string subject, string body)
         {
-            email = new MailMessage();
-            email.To.Add(to);
-            email.Subject = subject;
-            email.Body = body;
-            email.From = new MailAddress("noreply@theCDpot.com");
+            using (var email = new MailMessage())
+            {
+                email.To.Add(to);
+                email.Subject = subject;
+                email.Body = body;
+                email.From = new MailAddress(ConfigurationManager.AppSettings["EmailAddress"]);
 
-            try
-            {
-                server.Send(email);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error con el servicio SMTP", ex);
+                try
+                {
+                    server.Send(email);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error con el servicio SMTP", ex);
+                }
             }
         }
+        //public static Configuration Config()
+        //{
+        //    var configMap = new ExeConfigurationFileMap
+        //    {
+        //        ExeConfigFilename = "SecretApp.config"
+        //    };
+
+        //    Configuration config =
+        //        ConfigurationManager.OpenMappedExeConfiguration(
+        //            configMap,
+        //            ConfigurationUserLevel.None);
+
+        //    return config;
+        //}
     }
 }

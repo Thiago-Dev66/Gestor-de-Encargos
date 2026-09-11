@@ -44,6 +44,7 @@ packages/
 ~$*
 *~
 CodeCoverage/
+SecretApp.config
 
 # MSBuild Binary and Structured Log
 *.binlog
